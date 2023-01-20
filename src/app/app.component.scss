@@ -1,0 +1,27 @@
+*, body, html {
+    margin: 0;
+    padding: 0;
+}
+
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+.header {
+    min-height: 50px;
+}
+
+
+.main-content {
+    flex-grow: 1;
+}
+
+
+.search {
+    padding-top: 2em;
+}

@@ -1,0 +1,67 @@
+<div class="div">
+    <form [formGroup]="new" class="form-container">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>New Disk</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="full-width">
+                   
+                    <input title="title" matinput="" placeholder="Title" required = "true">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                    <input author="author" matinput="" placeholder="Author">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                      <input label="label" matinput="" placeholder="Publishing house">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                      <input state="state" matinput="" placeholder="State">
+                    </mat-form-field>
+                  </div>
+                <div class="col-md-6">
+                <mat-form-field class="full-width">
+                  <input format="format" matinput="" placeholder="Format">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="full-width">
+                  <input barcode="barcode" matinput="" placeholder="Barcode">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="full-width">
+                  <input duplicate="duplicate" matinput="" placeholder="Duplicate">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="full-width">
+                  <input year="year" matinput="" placeholder="Year">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="full-width">
+                  <input genre="genre" matinput="" placeholder="Genre">
+                </mat-form-field>
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="full-width">
+                  <input band="band" matinput="" placeholder="Band">
+                </mat-form-field>
+              </div>
+            </div>
+            </mat-card-content>
+            <mat-card-actions>
+            <button (click)="onSubmit()" mat-raised-button color="primary">Create</button>
+          </mat-card-actions>
+        </mat-card>
+      </form>
+    </div>

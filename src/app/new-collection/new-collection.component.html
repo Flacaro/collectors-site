@@ -1,0 +1,37 @@
+<div class="div">
+    <form [formGroup]="newCollection" class="form-container">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>New Collection</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field class="full-width">
+                    <input name="name" matinput="" placeholder="Name">
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field class="full-width">
+                      <input type="type" matinput="" placeholder="Type">
+                    </mat-form-field>
+                  </div>
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <mat-select placeholder="Public" [formControl]="toppings" [(value)]="selectedToppings" multiple>
+                          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <p>
+                        {{selectedToppings | json}}
+                      </p>
+                </div>
+
+            </div>
+            </mat-card-content>
+            <mat-card-actions>
+            <button (click)="onSubmit()" mat-raised-button color="primary">Create</button>
+          </mat-card-actions>
+        </mat-card>
+      </form>
+    </div>

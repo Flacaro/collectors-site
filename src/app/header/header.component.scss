@@ -1,0 +1,30 @@
+
+a:hover, a:active {
+    color: lightgray;
+  }
+  
+  
+  .mat-toolbar {
+    background-color: #3f51b5;
+  }
+
+  .container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;  
+  }
+
+  .div {
+    color: white;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .c {
+    align-content: space-between;
+ 
+  }
