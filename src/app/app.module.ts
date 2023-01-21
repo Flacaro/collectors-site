@@ -32,6 +32,9 @@ import { MatDividerModule } from "@angular/material/divider";
 import { ListComponent } from "./list/list.component";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AuthComponent } from "./auth/auth.component";
+import { BaseComponent } from './base/base.component';
+import { MatListModule } from '@angular/material/list';
 
 const materialModules = [
   MatFormFieldModule,
@@ -47,6 +50,7 @@ const materialModules = [
   MatMenuModule,
   MatSidenavModule,
   MatDividerModule,
+  MatListModule
 ];
 
 @NgModule({
@@ -64,6 +68,8 @@ const materialModules = [
     NewCollectionComponent,
     NewTrackComponent,
     ListComponent,
+    AuthComponent,
+    BaseComponent
   ],
   imports: [
     BrowserModule,
@@ -73,12 +79,23 @@ const materialModules = [
     HttpClientModule,
     ...materialModules,
     RouterModule.forRoot([
-      { path: "", component: HomeComponent },
-      { path: "login", component: LoginComponent },
-      { path: "registration", component: RegistrationComponent },
-      { path: "disks", component: NewDiskComponent },
-      { path: "collections", component: NewCollectionComponent },
-      { path: "tracks", component: NewTrackComponent },
+     
+      { path: "auth", component: AuthComponent,
+        children: [
+          { path: "", redirectTo: "login", pathMatch: "full"},
+          { path: "login", component: LoginComponent },
+          { path: "registration", component: RegistrationComponent }
+        ]
+          },
+      { path: "", component: BaseComponent,
+        children: [
+          { path: "", component: HomeComponent },
+          { path: "disks", component: NewDiskComponent },
+          { path: "collections", component: NewCollectionComponent },
+          { path: "tracks", component: NewTrackComponent }
+
+        ]
+      },
     ]),
     BrowserAnimationsModule,
   ],

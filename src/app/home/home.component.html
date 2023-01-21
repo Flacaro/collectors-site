@@ -1,9 +1,11 @@
-<div class="container">
-<app-card> </app-card>
+<div class="search">
+  <app-search-bar></app-search-bar>
 </div>
-
-<a mat-icon-button [routerLink] = "['collections']" style="display: flex;">Add collection</a>
-<a mat-icon-button [routerLink] = "['disks']">Add disk</a>
-<a mat-icon-button [routerLink] = "['tracks']" style="display: flex;">Add track</a>
-
-
+<div class="menu">
+<app-menu></app-menu>
+</div>
+<app-card> </app-card>
+<a mat-button [routerLink]="['collections']" style="display: flex">
+  Add collection</a>
+<a mat-button [routerLink]="['disks']">Add disk</a>
+<a mat-button [routerLink]="['tracks']" style="display: flex">Add track</a>

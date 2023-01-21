@@ -4,8 +4,8 @@ import { FormControl } from "@angular/forms";
 @Component({
   selector: "app-search-bar",
   template: `
-    <mat-form-field appearance="outline">
-      <mat-label>Fill form field</mat-label>
+    <mat-form-field class= "search-bar"appearance="outline">
+      <mat-label>Search</mat-label>
       <input matInput type="search" placeholder="Cerca qualcosa..." [formControl]="searchControl" />
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
@@ -16,7 +16,7 @@ import { FormControl } from "@angular/forms";
         display: flex;
         justify-content: center;
       }
-      mat-form-field {
+      .search-bar {
         min-width: 30%;
       }
     `,

@@ -3,18 +3,18 @@
   <mat-toolbar>
 
 
-      <a mat-icon-button [routerLink]="['']">
-        <mat-icon>home</mat-icon>
-      </a>
+      <a mat-button [routerLink]="['']">
+         <div>Collector's Site</div>
+        </a>
 
-      <div>Collector's Site</div>
+     
 
       <div class="container">
-
-        <a mat-button [routerLink]="['login']">
+    
+        <a mat-button [routerLink]="['auth/login']">
           <div>login</div>
         </a>
-        <a mat-button [routerLink]="['registration']">
+        <a mat-button [routerLink]="['auth/registration']">
           <div>sign up</div>
         </a>
 
