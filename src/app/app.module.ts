@@ -4,14 +4,12 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { LoginComponent } from "./login/login.component";
-import { RegistrationComponent } from "./registration/registration.component";
-import { CardComponent } from "./card/card.component";
-import { FooterComponent } from "./footer/footer.component";
-import { HeaderComponent } from "./header/header.component";
-import { MenuComponent } from "./menu/menu.component";
-import { SearchBarComponent } from "./search-bar/search-bar.component";
-import { HomeComponent } from "./home/home.component";
+import { LoginComponent } from "./components/login/login.component";
+import { RegistrationComponent } from "./components/registration/registration.component";
+import { FooterComponent } from "./components/footer/footer.component";
+import { HeaderComponent } from "./components/header/header.component";
+import { SearchBarComponent } from "./components/search-bar/search-bar.component";
+import { HomeComponent } from "./components/home/home.component";
 import { RouterModule } from "@angular/router";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -24,17 +22,19 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
-import { NewDiskComponent } from "./new-disk/new-disk.component";
-import { NewCollectionComponent } from "./new-collection/new-collection.component";
-import { NewTrackComponent } from "./new-track/new-track.component";
+import { NewDiskComponent } from "./components/new-disk/new-disk.component";
+import { NewCollectionComponent } from "./components/new-collection/new-collection.component";
+import { NewTrackComponent } from "./components/new-track/new-track.component";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatDividerModule } from "@angular/material/divider";
-import { ListComponent } from "./list/list.component";
+import { ListComponent } from "./components/list/list.component";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { AuthComponent } from "./auth/auth.component";
-import { BaseComponent } from './base/base.component';
+import { AuthComponent } from "./components/auth/auth.component";
+import { BaseComponent } from './components/base/base.component';
 import { MatListModule } from '@angular/material/list';
+import { AvatarPhotoComponent } from './components/avatar-photo/avatar-photo.component';
+import {LayoutModule} from '@angular/cdk/layout';
 
 const materialModules = [
   MatFormFieldModule,
@@ -50,7 +50,8 @@ const materialModules = [
   MatMenuModule,
   MatSidenavModule,
   MatDividerModule,
-  MatListModule
+  MatListModule,
+
 ];
 
 @NgModule({
@@ -58,10 +59,8 @@ const materialModules = [
     AppComponent,
     LoginComponent,
     RegistrationComponent,
-    CardComponent,
     FooterComponent,
     HeaderComponent,
-    MenuComponent,
     SearchBarComponent,
     HomeComponent,
     NewDiskComponent,
@@ -69,11 +68,13 @@ const materialModules = [
     NewTrackComponent,
     ListComponent,
     AuthComponent,
-    BaseComponent
+    BaseComponent,
+    AvatarPhotoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    LayoutModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

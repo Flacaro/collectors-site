@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Registration } from '../registration';
+import { Registration } from 'src/app/models/registration';
 
 @Component({
   selector: 'app-registration',

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Login } from '../login';
+import { Login } from 'src/app/models/login';
 
 @Component({
   selector: 'app-login',

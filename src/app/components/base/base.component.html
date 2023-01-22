@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="header">
+    <app-header
+      [isMobile]="isMobile"
+      (toggleSideNav)="sideNavConfig.opened = !sideNavConfig.opened"
+    ></app-header>
+  </div>
+
+  <mat-sidenav-container>
+
+    <mat-sidenav [mode]="sideNavConfig.mode" [opened]="sideNavConfig.opened">
+      <div class="d-flex flex-column">
+        <a class="link p-2" routerLinkActive="active-link" *ngFor="let route of (isUserLogged ? protectedRoutes : publicRoutes )" [routerLink]="route.link">
+          {{ route.name }}
+        </a>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="main-content">
+        <router-outlet> </router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

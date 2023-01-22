@@ -1,0 +1,28 @@
+.d-flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+
+.d-grid {
+  display: grid;
+}
+
+@for $i from 1 through 12 {
+  .grid-template-columns-#{$i} {
+    grid-template-columns: repeat(#{$i}, 1fr);
+  }
+}
+
+@for $i from 1 through 10 {
+  .gap-#{$i} {
+    gap: #{$i}em;
+  }
+}

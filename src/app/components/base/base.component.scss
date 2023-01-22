@@ -1,0 +1,54 @@
+:host {
+    display: block;;
+    min-height: 100%!important;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.header {
+    min-height: 2em;
+}
+
+
+.main-content {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-content * {
+    background-color: red;;
+    min-height: 100%!important;
+}
+
+mat-sidenav-container {
+    flex-grow: 1;
+    min-height: calc(100vh - 64px);
+}
+
+mat-sidenav {
+    padding-top: 1em;
+    padding-inline: 3em;  
+    background: #f5f5f5;
+    flex-grow: 1;
+}    
+
+mat-sidenav-content {
+    overflow: hidden;
+    padding-inline: 2em;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.active-link {
+    color: orange;
+}
