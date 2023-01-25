@@ -6,6 +6,18 @@
   justify-content: space-between;
 }
 
+.justify-content-end {
+  justify-content: flex-end;
+}
+
+.justify-content-start {
+  justify-content: flex-start;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
 .flex-column {
   flex-direction: column;
 }
@@ -13,6 +25,12 @@
 
 .d-grid {
   display: grid;
+}
+
+.d-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @for $i from 1 through 12 {

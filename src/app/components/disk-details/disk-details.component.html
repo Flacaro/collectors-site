@@ -1,0 +1,57 @@
+<div class="content d-flex mt-10">
+    <img
+      mat-card-md-image
+      class="image mt-10 ml-4 mb-10"
+      src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+      alt="Image of a Disk"
+    />
+    <div>
+      <div class="ml-10 mt-10">
+        <div class="d-flex">
+          <h1>The fame</h1>
+          <a mat-button [routerLink]=""> <mat-icon>edit</mat-icon></a>
+        </div>
+      <div>
+        <p>title: The Fame</p>
+        <p> artist: Lady Gaga</p>
+        <p>year: 2008</p>
+        <p>...</p>
+      </div>
+        
+     </div>
+    </div>
+  </div>
+  <div class="d-flex">
+    <a mat-button [routerLink]="" class="mt-5"> Collectors that share the list</a> 
+  </div>
+  <section>
+     <div class="mt-5 ml-2">
+    <div class="d-flex">
+    <h2>Add a track</h2>
+     <a mat-button routerLink="['collections/add']"><mat-icon>add</mat-icon></a></div>
+    <h2> Tracks of disk :</h2>
+  
+  </div>
+    <div class="d-flex justify-content-between justify-content-end">
+      <a mat-button routerLink="['collections']">See all</a>
+     
+    </div>
+  
+    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
+      <mat-card class="card" *ngFor="let track of [1, 2, 3, 4]">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title class="pb-2">The fame</mat-card-title>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <img
+            mat-card-md-image class="mb-2"
+            src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+            alt="Image of a collection"
+          />
+          <a mat-button [routerLink]="['tracks/1']"></a>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>

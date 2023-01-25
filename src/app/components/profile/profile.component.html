@@ -1,0 +1,32 @@
+<div>
+
+  <div>{{ loggedCollectorService.getCurrentCollectorValue() | json}}</div>
+
+
+  <div class="content d-flex mt-10">
+    <img
+      mat-card-md-image
+      class="image mt-10 ml-4 mb-10"
+      src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+      alt="Image of a collection"
+    />
+    <div>
+
+
+      <div class="ml-10 mt-10 d-flex">
+        <h1>Giovanni</h1>
+        <a mat-button class="ml-5" [routerLink]="">
+          <mat-icon> edit</mat-icon></a
+        >
+      </div>
+      <div class="ml-10 mt-5">
+        <p>nickname: Giov</p>
+        <p>email: giovanni@gmail.com</p>
+        <p>...</p>
+      </div>
+    </div>
+  </div>
+</div>
+<section>
+  <a mat-button [routerLink]="" class="mt-5"> Collections of user</a>
+</section>

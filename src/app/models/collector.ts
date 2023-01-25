@@ -6,9 +6,8 @@ export interface Collector {
     name: string;
     surname: string;
     email: string;
-    password: string;
-    birthdate: Date;
+    birthdate?: Date;
     username: string;
-    favouritesCollection: Collection[];
-    favouritesDisk: Disk[];
+    favouritesCollection?: Collection[];
+    favouritesDisk?: Disk[];
 }

@@ -1,4 +1,5 @@
 export const CONSTANTS = {
-    API_URL: "https://jsonplaceholder.typicode.com/",
-    IN_MEMORY_API_URL: "api/collectorSite"
+    API_URL: "http://localhost:8080",
+    JWT_TOKEN_KEY: "jwtToken",
+    LOGGED_COLLECTOR_KEY: "loggedCollector",
 }

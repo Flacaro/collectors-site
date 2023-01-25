@@ -1,19 +1,26 @@
 <div class="c">
   <mat-toolbar>
     <button (click)="toggleSideNav.emit()" class="mr-3" mat-icon-button *ngIf="isMobile">
-      <mat-icon>menu</mat-icon>
+      <mat-icon class="color">menu</mat-icon>
     </button>
     <a class="logo pl-1" [routerLink]="['']">
       <div>Collector's Site</div>
     </a>
 
-    <div class="container">
-      <a mat-button [routerLink]="['auth/login']">
-        <div>login</div>
-      </a>
-      <a mat-button [routerLink]="['auth/registration']">
+    <div class="container logo pl-1">
+      <ng-container *ngIf="isCollectorLogged() | async as collector">
+        <ng-container *ngIf="collector.isLogged; else logout">
+          <a mat-button [routerLink]="['/auth/login']">login</a>
+        </ng-container>
+      </ng-container>
+    
+      <a mat-button [routerLink]="['/auth/registration']">
         <div>sign up</div>
       </a>
     </div>
   </mat-toolbar>
 </div>
+
+<ng-template #logout>
+  <a mat-button (click)="logoutCollector()">logout</a>    
+</ng-template>

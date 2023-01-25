@@ -35,7 +35,7 @@ export class BaseComponent implements OnInit {
       link: "/tracks",
       name: "All tracks",
     },
-  ];
+  ];    
 
   protectedRoutes: AppRoute[] = [
     {

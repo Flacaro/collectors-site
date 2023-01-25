@@ -1,32 +1,35 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Component, Input, OnInit } from "@angular/core";
+import { Collection } from "src/app/models/collection";
+import { HomeService } from "src/app/services/home.service";
+import { LoggedCollectorService } from "src/app/services/logged-collector.service";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
+  headers!: string[];
 
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private homeService: HomeService) {}
 
-  // private API_URL = CONSTANTS.IN_MEMORY_API_URL;
+  // private API_URL = CONSTANTS.API_URL;
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  // @Input() collection!: Collection;
+  collection: Collection | undefined;
 
-  // getCollection(): void {
-  //   this.homeService.getCollection().subscribe((data: Collection) => {
+  // showCollections(): void {
+  //   this.homeService.getCollections().subscribe((data: Collection) => {
   //     this.collection = data;
-  //   }
-
-    // );
-
-  
+  //   });
 }
+// @Input() collection!: Collection;
 
+// getCollection(): void {
+//   this.homeService.getCollection().subscribe((data: Collection) => {
+//     this.collection = data;
+//   }
 
+// );

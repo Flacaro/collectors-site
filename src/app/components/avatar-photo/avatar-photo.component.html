@@ -1,1 +1,5 @@
-<p>avatar-photo works!</p>
+<div class="circle d-center" [ngStyle]="{'background-color': circleColor}">
+    <img *ngIf="!showInitials" src ="{{photoUrl}}">
+    <div *ngIf="showInitials" class="initials">{{initials}}</div> 
+
+</div>

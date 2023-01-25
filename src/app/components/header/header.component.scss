@@ -5,7 +5,7 @@ a:hover, a:active {
   
   
   mat-toolbar {
-    background-color: #8a98e7;
+    background-color: #1c255a;
   }
 
   .container {
@@ -21,8 +21,12 @@ a:hover, a:active {
   }
 
   .logo {
-    color: black;
-    font-size: 1.8rem;
-    font-weight: 700;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 500;
     text-decoration: none;
+  }
+
+  .color {
+    color: white;
   }

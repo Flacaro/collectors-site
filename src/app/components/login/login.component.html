@@ -1,26 +1,42 @@
 <div class="div">
-<form [formGroup]="loginForm" class="form-container">
+  <form [formGroup]="loginForm" class="form-container">
     <mat-card>
-      <mat-card-header>
+      <mat-card-header class="d-center mb-3">
         <mat-card-title>Welcome back</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <div class="row">
-          <div class="col-md-6">
+        <div>
+          <div>
             <mat-form-field class="full-width">
-              <input email="email" matInput placeholder="Email">
+              <input matInput formControlName="email" placeholder="Email" />
             </mat-form-field>
           </div>
-          <div class="col-md-6">
+          <div>
             <mat-form-field class="full-width">
-              <input password="password" matInput placeholder="Password">
+              <input type="password" formControlName="password" matInput placeholder="Password" />
             </mat-form-field>
           </div>
         </div>
-        </mat-card-content>
-        <mat-card-actions>
-        <button (click)="onSubmit()" mat-raised-button color="primary">Login</button>
+
+        <!-- display form error -->
+        <ng-container *ngIf="loginForm.errors">
+          <div *ngIf="hasInvalidCredentialsError()">
+            <p>Credenziali errate</p>
+          </div>
+          <div *ngIf="hasUnknownError()">
+            <p>Qualcosa e' andato storto</p>
+          </div>
+        </ng-container>
+
+      </mat-card-content>
+      <mat-card-actions class="button d-center">
+        <button [disabled]="loginForm.invalid" (click)="onSubmit()" mat-raised-button color="primary">
+          Login
+        </button>
       </mat-card-actions>
+      <a class="d-center mb-2 mt-2" [routerLink]="['registration']">
+        <div>go to sign up</div>
+      </a>
     </mat-card>
   </form>
 </div>
