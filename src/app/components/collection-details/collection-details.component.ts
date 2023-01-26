@@ -1,6 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { filter, Observable } from 'rxjs';
+import { Collection } from 'src/app/models/collection';
+import { CollectionService } from 'src/app/services/collection.service';
 
 
 @Component({
@@ -10,8 +13,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class CollectionDetailsComponent implements OnInit{
 
+  @ViewChild('dialogContent', {read: TemplateRef}) dialogTemplate!: TemplateRef<any>;
 
-  constructor() {
+  constructor(
+    private dialog: MatDialog,
+    private collectionService: CollectionService,
+    ) {
 
 
 }
@@ -20,6 +27,14 @@ export class CollectionDetailsComponent implements OnInit{
 ngOnInit(): void {
   
 }
+openDialog() {
+  this.dialog.open(this.dialogTemplate, {
+    width: '500px',
+  })
+}
+
+collections = this.collectionService.getCollections();
+
 
 
 }

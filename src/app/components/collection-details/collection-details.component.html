@@ -22,9 +22,13 @@
 <div class="mt-5 ml-2">
   <div class="d-flex">
   <h2>Add a disk</h2>
-   <a mat-button [routerLink]="['disks']"><mat-icon>add</mat-icon></a></div>
+   <a mat-button (click)="openDialog()"><mat-icon>add</mat-icon></a>
+  </div>
+  <ng-template #dialogContent>
+    <app-dialog></app-dialog>
+  </ng-template>
   <h2> Disks of collection :</h2>
-
+  
 </div>
 
 <section>
