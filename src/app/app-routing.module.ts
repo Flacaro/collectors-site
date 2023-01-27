@@ -9,7 +9,7 @@ import { RegistrationComponent } from "./components/registration/registration.co
 import { DiskDetailsComponent } from "./components/disk-details/disk-details.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { IsAlreadyLoggedGuard } from "./services/is-already-logged.guard";
-import { AuthGuard } from "./services/auth.guard";
+import { AuthGuard } from "./security/auth.guard";
 
 const routes: Routes = [
   {
@@ -34,6 +34,7 @@ const routes: Routes = [
       { path: "collections/:id", component: CollectionDetailsComponent },
       { path: "collections/:id/disks/:id", component: DiskDetailsComponent },
       { path: "profile", component: ProfileComponent, canActivate: [AuthGuard] },
+      { path : "public/collections", component: HomeComponent }
     ],
   },
 ];

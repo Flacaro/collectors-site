@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoggedCollectorService } from 'src/app/services/logged-collector.service';
+import { LoggedCollectorService } from 'src/app/security/logged-collector.service';
 
 @Component({
   selector: 'app-profile',

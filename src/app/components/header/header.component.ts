@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { map, Observable } from "rxjs";
-import { AuthService } from "src/app/services/auth.service";
-import { LoggedCollectorService } from "src/app/services/logged-collector.service";
+import { AuthService } from "src/app/security/auth.service";
+import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 
 @Component({
   selector: "app-header",

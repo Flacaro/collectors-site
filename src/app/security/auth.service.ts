@@ -9,10 +9,13 @@ import { Collector } from "../models/collector";
   providedIn: "root",
 })
 export class AuthService {
-  constructor(private http: HttpClient, private loggedCollectorService: LoggedCollectorService) {}
+  constructor(
+    private http: HttpClient,
+    private loggedCollectorService: LoggedCollectorService
+  ) {}
 
   private API_LOGIN_URL = CONSTANTS.API_URL + "/auth/login";
-  private API_REGISTRATION_URL = CONSTANTS.API_URL + "/auth/registration";
+  private API_REGISTRATION_URL = CONSTANTS.API_URL + "/auth/register";
 
   login(data: {
     email: string;
@@ -33,11 +36,7 @@ export class AuthService {
     birthday: string;
     email: string;
     password: string;
-  }
-    ): Observable<Collector> {
+  }): Observable<Collector> {
     return this.http.post<Collector>(this.API_REGISTRATION_URL, data);
   }
 }
-  
-
-

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { CONSTANTS } from '../constants';
 import { Collection } from '../models/collection';
 
@@ -14,11 +14,14 @@ export class CollectionService {
   ) { }
 
   
-  private API_URL_COLLECTIONS = CONSTANTS.API_URL + "public/collections";
+  private API_URL_COLLECTIONS = CONSTANTS.API_URL + "/public/collections";
   
 
   getCollections(): Observable<Collection[]> {
-    return this.http.get<Collection[]>(this.API_URL_COLLECTIONS);
+    // debugger;
+    return this.http.get<Collection[]>(this.API_URL_COLLECTIONS).pipe(
+      tap((data) => console.log('Collections: ', JSON.stringify(data)))
+    );
   }
 
   getCollection(id: number): Observable<Collection> {

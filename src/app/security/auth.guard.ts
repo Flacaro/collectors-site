@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { map, Observable, tap } from 'rxjs';
 import { LoggedCollectorService } from './logged-collector.service';
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenStorageService } from './token-storage.service';
+import { TokenStorageService } from '../services/token-storage.service';
 
 
 const TOKEN_HEADER_KEY = 'Autorization'; //per il backend

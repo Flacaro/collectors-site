@@ -13,63 +13,63 @@ $map: (
 
 @each $key, $value in $map {
     .m-#{$key} {
-        margin: #{$value}em;
+        margin: #{$value}em!important;
     }
 
     .mt-#{$key} {
-        margin-top: #{$value}em;
+        margin-top: #{$value}em!important;
     }
 
     .mr-#{$key} {
-        margin-right: #{$value}em;
+        margin-right: #{$value}em!important;
     }
 
     .mb-#{$key} {
-        margin-bottom: #{$value}em;
+        margin-bottom: #{$value}em!important;
     }
 
     .ml-#{$key} {
-        margin-left: #{$value}em;
+        margin-left: #{$value}em!important;
     }
 
     .mx-#{$key} {
-        margin-left: #{$value}em;
-        margin-right: #{$value}em;
+        margin-left: #{$value}em!important;
+        margin-right: #{$value}em!important;
     }
 
     .my-#{$key} {
-        margin-top: #{$value}em;
-        margin-bottom: #{$value}em;
+        margin-top: #{$value}em!important;
+        margin-bottom: #{$value}em!important;
     }
 
 
     .p-#{$key} {
-        padding: #{$value}em;
+        padding: #{$value}em!important;
     }
 
     .pt-#{$key} {
-        padding-top: #{$value}em;
+        padding-top: #{$value}em!important;
     }
 
     .pr-#{$key} {
-        padding-right: #{$value}em;
+        padding-right: #{$value}em!important;
     }
 
     .pb-#{$key} {
-        padding-bottom: #{$value}em;
+        padding-bottom: #{$value}em!important;
     }
 
     .pl-#{$key} {
-        padding-left: #{$value}em;
+        padding-left: #{$value}em!important;
     }
 
     .px-#{$key} {
-        padding-left: #{$value}em;
-        padding-right: #{$value}em;
+        padding-left: #{$value}em!important;
+        padding-right: #{$value}em!important;
     }
 
     .py-#{$key} {
-        padding-top: #{$value}em;
-        padding-bottom: #{$value}em;
+        padding-top: #{$value}em!important;
+        padding-bottom: #{$value}em!important;
     }
 }

@@ -1,15 +1,15 @@
-
-.top-padding{
-    padding-top: 3px;
+.full-width {
+    width: 100%;
 }
 
-.form-container{
-    margin: 100px;
+.h-100 {
+    min-height: 90%;
 }
 
-.div {
-    display: flex;
-    justify-content: start;
-    align-items: center;
+.place-items-center {
+    place-items: center;
+}
 
+.login-card {
+    width: min(90%, 500px);
 }

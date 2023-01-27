@@ -1,11 +1,18 @@
 import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from "@angular/core";
 import { CONSTANTS } from "./constants";
-import { LoggedCollectorService } from "./services/logged-collector.service";
+import { LoggedCollectorService } from "./security/logged-collector.service";
 
 @Component({
   selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+  template: `
+  <router-outlet></router-outlet>
+  `,
+  styles: [`
+    :host {
+      display: block;
+      height: 100%;
+    }
+  `]
 })
 export class AppComponent implements OnInit {
   constructor(private loggedCollectorService: LoggedCollectorService) {

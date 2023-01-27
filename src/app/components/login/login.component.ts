@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { catchError, EMPTY, map, Subscriber, switchMap, tap } from "rxjs";
 import { CONSTANTS } from "src/app/constants";
-import { AuthService } from "src/app/services/auth.service";
-import { LoggedCollectorService } from "src/app/services/logged-collector.service";
+import { AuthService } from "src/app/security/auth.service";
+import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 import { ProfileService } from "src/app/services/profile.service";
 
 @Component({
