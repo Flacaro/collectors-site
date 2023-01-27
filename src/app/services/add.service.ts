@@ -31,6 +31,8 @@ addDisk(data: {
 }): Observable<Disk> {
   return this.http.post<Disk>(this.API_URL_ADD_DISK, data);
 }
+
+
 }
 
  

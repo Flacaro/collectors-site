@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { filter, Observable } from 'rxjs';
+import { filter, Observable, of } from 'rxjs';
 import { Collection } from 'src/app/models/collection';
 import { CollectionService } from 'src/app/services/collection.service';
 
@@ -33,7 +33,6 @@ openDialog() {
   })
 }
 
-collections = this.collectionService.getCollections();
 
 
 

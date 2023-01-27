@@ -6,7 +6,6 @@
     <router-outlet> </router-outlet>
   </div>
 </div>
-
 <section>
   <div class="d-flex justify-content-between">
     <h2>Public collections</h2>
@@ -14,10 +13,12 @@
   </div>
 
   <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-    <mat-card class="card" *ngFor="let collection of [1, 2, 3, 4]">
+    <mat-card class="card" *ngFor="let collection of [1 ,2 ,3 ]">
       <mat-card-header>
         <mat-card-title-group>
-          <mat-card-title class="pb-2">Pop</mat-card-title>
+          <mat-card-title class="pb-2">
+            </mat-card-title>
+    {{collections}}
         </mat-card-title-group>
       </mat-card-header>
       <mat-card-content>
@@ -27,8 +28,11 @@
           alt="Image of a collection"
         />
         <p>number of disks: 50</p>
-        <a mat-button [routerLink]="['collections/1']">Go to collection details</a>
+        <a mat-button [routerLink]="['collections/:id']">Go to collection details</a>
+        
       </mat-card-content>
     </mat-card>
+  
   </div>
 </section>
+

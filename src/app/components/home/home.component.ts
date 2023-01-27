@@ -1,6 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Input, OnInit } from "@angular/core";
+import { Observable } from "rxjs/internal/Observable";
 import { Collection } from "src/app/models/collection";
+import { CollectionService } from "src/app/services/collection.service";
 import { HomeService } from "src/app/services/home.service";
 import { LoggedCollectorService } from "src/app/services/logged-collector.service";
 
@@ -12,24 +14,40 @@ import { LoggedCollectorService } from "src/app/services/logged-collector.servic
 export class HomeComponent implements OnInit {
   headers!: string[];
 
-  constructor(private homeService: HomeService) {}
+  constructor(
+    private homeService: HomeService,
+    private collectionService: CollectionService) {}
+  
+collection!: Collection;
+collections!: Collection[];
 
-  // private API_URL = CONSTANTS.API_URL;
 
-  ngOnInit(): void {}
 
-  collection: Collection | undefined;
+  ngOnInit(): void {
 
-  // showCollections(): void {
-  //   this.homeService.getCollections().subscribe((data: Collection) => {
-  //     this.collection = data;
-  //   });
+  }
+
+  getCollectionId(id: number): void{
+    this.collectionService.getCollection(id).subscribe((data) => {
+      this.collection = data;
+      console.log(this.collection);
+    }
+    );
+  }
+
+  getCollections(): void{
+    this.collectionService.getCollections().subscribe((data) => {
+      this.collections = data;
+      console.log(this.collections);
+    }
+    );
+  }
+
+
+
 }
-// @Input() collection!: Collection;
 
-// getCollection(): void {
-//   this.homeService.getCollection().subscribe((data: Collection) => {
-//     this.collection = data;
-//   }
 
-// );
+  
+
+
