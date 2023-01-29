@@ -31,9 +31,11 @@ const routes: Routes = [
     children: [
       { path: "", component: HomeComponent },
       // { path: "disks", component: NewDiskComponent, canActivate: [AuthGuard] },
-      { path: "collections/:id", component: CollectionDetailsComponent },
-      { path: "collections/:id/disks/:id", component: DiskDetailsComponent },
-      { path: "profile", component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: "public/collections/:collectionId", component: CollectionDetailsComponent },
+      { path: "public/collections/:collectionId/disks", component: CollectionDetailsComponent },
+      { path: "public/collections/:collectionId/disks/:diskId", component: DiskDetailsComponent },
+      { path: "private/collectors/profile", component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: "private/collectors/profile/:id", component: ProfileComponent, canActivate: [AuthGuard] },
       { path : "public/collections", component: HomeComponent }
     ],
   },

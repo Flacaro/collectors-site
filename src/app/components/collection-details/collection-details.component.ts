@@ -14,7 +14,9 @@ import {
 import { ActivatedRoute } from "@angular/router";
 import { filter, Observable, of } from "rxjs";
 import { Collection } from "src/app/models/collection";
+import { Disk } from "src/app/models/disk";
 import { CollectionService } from "src/app/services/collection.service";
+import { DiskServiceService } from "src/app/services/disk-service.service";
 import { DialogComponent } from "../dialog/dialog.component";
 
 @Component({
@@ -25,20 +27,31 @@ import { DialogComponent } from "../dialog/dialog.component";
 export class CollectionDetailsComponent implements OnInit {
 
   collection$!: Observable<Collection>;
+  disks: Disk[] = [];
 
 
   constructor(
     private dialog: MatDialog,
     private collectionService: CollectionService,
+    private diskService: DiskServiceService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    const collectionId = this.route.snapshot.params["id"];
+
+    const collectionId = this.route.snapshot.params["collectionId"];
 
     this.collection$ = this.collectionService.getCollection(collectionId);
+    
+    this.diskService.getDisksOfCollection(collectionId).subscribe(
+      (data) => {
+        this.disks = data;
+      }
+    );
+
   }
 
+   
 
   openDialog() {
     this.dialog.open(DialogComponent, {

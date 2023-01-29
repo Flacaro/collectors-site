@@ -8,9 +8,19 @@ import { LoggedCollectorService } from 'src/app/security/logged-collector.servic
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(public loggedCollectorService: LoggedCollectorService) { }
+  constructor(
+    public loggedCollectorService: LoggedCollectorService) { }
 
   ngOnInit(): void {
   }
+
+  //prendo il valore del collezionista loggato
+  get loggedCollector() {
+    return this.loggedCollectorService.getCurrentCollectorValue();
+  }
+
+
+ 
+
 
 }

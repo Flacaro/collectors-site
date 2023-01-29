@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-// import { MatDialog } from '@angular/material/dialog';
-// import { DialogComponent } from '../dialog/dialog.component';
+import { ActivatedRoute } from '@angular/router';
+import { Disk } from 'src/app/models/disk';
+import { CollectionService } from 'src/app/services/collection.service';
+import { DiskServiceService } from 'src/app/services/disk-service.service';
+
 
 @Component({
   selector: 'app-disk-details',
@@ -9,19 +12,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiskDetailsComponent implements OnInit {
 
+  disk: Disk | undefined;
+
   constructor (
-    // public dialog: MatDialog
+    private diskService: DiskServiceService,
+    private collectionService: CollectionService,
+    private route: ActivatedRoute
+ 
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
 
-  // openDialog() {
-  //   const dialogRef = this.dialog.open(DialogComponent);
+    const collectionId = this.route.snapshot.params["collectionId"];
+  
+    const diskId = this.route.snapshot.params["diskId"];
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log(`Dialog result: ${result}`);
-  //   });
-  // }
+    this.diskService.getDiskById(collectionId, diskId).subscribe(
+      (data) => {
+        this.disk = data;
+      }
+    );
+  }
+
 
 }
 

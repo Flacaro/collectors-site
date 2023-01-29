@@ -12,7 +12,7 @@
     <div class="ml-10 mt-5">
       <p>type: {{ collection.type }}</p>
     </div>
-    <div>
+    <div class="ml-10">
       <mat-icon *ngIf="!collection.visible"> lock </mat-icon>
       <mat-icon *ngIf="collection.visible"> visibility </mat-icon>
     </div>
@@ -28,7 +28,7 @@
       Add disk <mat-icon>add</mat-icon>
     </button>
   </div>
-  <h2>Disks of collection :</h2>
+  <h2 class="mt-6">Disks of collection :</h2>
 </div>
 
 <section>
@@ -37,10 +37,10 @@
   </div>
 
   <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-    <mat-card class="card">
+    <mat-card class="card" *ngFor="let disk of disks">
       <mat-card-header>
         <mat-card-title-group>
-          <mat-card-title class="pb-2"> CIAO</mat-card-title>
+          <mat-card-title class="pb-2">{{disk.title}}</mat-card-title>
         </mat-card-title-group>
       </mat-card-header>
       <mat-card-content>

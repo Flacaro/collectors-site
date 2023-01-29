@@ -1,8 +1,3 @@
-<div>
-
-  <div>{{ loggedCollectorService.getCurrentCollectorValue() | json}}</div>
-
-
   <div class="content d-flex mt-10">
     <img
       mat-card-md-image
@@ -14,8 +9,8 @@
 
 
       <div class="ml-10 mt-10 d-flex">
-        <h1>Giovanni</h1>
-        <a mat-button class="ml-5" [routerLink]="">
+        <h1>{{loggedCollector?.name}}</h1>
+        <a mat-button class="ml-5" [routerLink]="[loggedCollector?.id]">
           <mat-icon> edit</mat-icon></a
         >
       </div>
@@ -26,7 +21,6 @@
       </div>
     </div>
   </div>
-</div>
 <section>
   <a mat-button [routerLink]="" class="mt-5"> Collections of user</a>
 </section>
