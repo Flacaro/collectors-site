@@ -8,15 +8,20 @@
     <div>
       <div class="ml-10 mt-10">
         <div class="d-flex">
-         {{disk}}
-          <h1>The fame</h1>
+          <h1>{{disk?.title}}</h1>
           <a mat-button [routerLink]=""> <mat-icon>edit</mat-icon></a>
         </div>
-      <div>
-        <p>title: </p>
-        <p> artist: Lady Gaga</p>
-        <p>year: 2008</p>
-        <p>...</p>
+      <div class="d-grid grid-template-columns-5 gap-1">
+        <p> artist: {{disk?.artist}}</p>
+        <p>year: {{disk?.year}}</p>
+        <p>author: {{disk?.author}}</p>
+        <p>band: {{disk?.band}}</p>
+        <p>format: {{disk?.format}}</p>
+        <p>genre: {{disk?.genre}}</p>
+        <p>publishing house: {{disk?.label}}</p>
+        <p>state: {{disk?.state}}</p>
+        <p>number of copies: {{disk?.duplicate}}</p>
+        <p>barcode: {{disk?.barcode}}</p>
       </div>
         
      </div>

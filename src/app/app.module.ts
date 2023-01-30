@@ -31,7 +31,7 @@ import { AvatarPhotoComponent } from "./components/avatar-photo/avatar-photo.com
 import { LayoutModule } from "@angular/cdk/layout";
 import { CollectionDetailsComponent } from "./components/collection-details/collection-details.component";
 import { DiskDetailsComponent } from "./components/disk-details/disk-details.component";
-import { DialogComponent } from "./components/dialog/dialog.component";
+import { DialogComponent } from "./components/diskAddDialog/dialog.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { JwtTokenInterceptor } from "./security/jwt-token.interceptor";

@@ -21,6 +21,7 @@ export class DiskDetailsComponent implements OnInit {
  
   ) {}
 
+
   ngOnInit(): void {
 
     const collectionId = this.route.snapshot.params["collectionId"];

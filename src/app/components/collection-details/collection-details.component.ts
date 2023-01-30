@@ -17,7 +17,7 @@ import { Collection } from "src/app/models/collection";
 import { Disk } from "src/app/models/disk";
 import { CollectionService } from "src/app/services/collection.service";
 import { DiskServiceService } from "src/app/services/disk-service.service";
-import { DialogComponent } from "../dialog/dialog.component";
+import { DialogComponent } from "../diskAddDialog/dialog.component";
 
 @Component({
   selector: "app-collection-details",
@@ -28,6 +28,7 @@ export class CollectionDetailsComponent implements OnInit {
 
   collection$!: Observable<Collection>;
   disks: Disk[] = [];
+  collection!: Collection;
 
 
   constructor(
@@ -41,7 +42,11 @@ export class CollectionDetailsComponent implements OnInit {
 
     const collectionId = this.route.snapshot.params["collectionId"];
 
-    this.collection$ = this.collectionService.getCollection(collectionId);
+    this.collectionService.getCollection(collectionId).subscribe(
+      (data) => {
+        this.collection = data;
+      }
+    );
     
     this.diskService.getDisksOfCollection(collectionId).subscribe(
       (data) => {

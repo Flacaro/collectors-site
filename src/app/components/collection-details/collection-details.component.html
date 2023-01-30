@@ -1,4 +1,5 @@
-<div class="content d-flex mt-10" *ngIf="collection$ | async as collection">
+<!-- <div class="content d-flex mt-10" *ngIf="collection$ | async as collection"> -->
+  <div class="content d-flex mt-10">
   <img
     mat-card-md-image
     class="image mt-10 ml-4 mb-10"
@@ -33,7 +34,7 @@
 
 <section>
   <div class="d-flex justify-content-between justify-content-end">
-    <button mat-stroked-button [routerLink]="['collections']">See all</button>
+    <button mat-stroked-button [routerLink]="['/public/collections', collection.id, 'disks']">See all</button>
   </div>
 
   <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
@@ -50,7 +51,7 @@
           src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
           alt="Image of a collection"
         />
-        <a mat-button [routerLink]="['disks/1']">Go to disk details</a>
+        <a mat-button [routerLink]="['/public/collections/', collection.id, 'disks', disk.id]">Go to disk details</a>
       </mat-card-content>
     </mat-card>
   </div>

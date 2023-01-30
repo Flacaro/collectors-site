@@ -28,7 +28,9 @@ export class CollectionService {
   }
 
   getCollection(collectionId: number): Observable<Collection> {
-    return this.http.get<Collection>(`${this.API_URL_COLLECTIONS}/${collectionId}`);
+    return this.http.get<Collection>(`${this.API_URL_COLLECTIONS}/${collectionId}`).pipe
+      (tap((data) => console.log('Collection: ', JSON.stringify(data)))
+      );
   }
 
 
