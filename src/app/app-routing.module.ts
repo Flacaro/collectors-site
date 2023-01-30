@@ -10,6 +10,10 @@ import { DiskDetailsComponent } from "./components/disk-details/disk-details.com
 import { ProfileComponent } from "./components/profile/profile.component";
 import { IsAlreadyLoggedGuard } from "./services/is-already-logged.guard";
 import { AuthGuard } from "./security/auth.guard";
+import { CollectionsComponent } from "./components/collections/collections.component";
+import { CollectionsFavouritesComponent } from "./components/collections-favourites/collections-favourites.component";
+import { DisksFavouritesComponent } from "./components/disks-favourites/disks-favourites.component";
+
 
 const routes: Routes = [
   {
@@ -36,7 +40,12 @@ const routes: Routes = [
       { path: "public/collections/:collectionId/disks/:diskId", component: DiskDetailsComponent },
       { path: "private/collectors/profile", component: ProfileComponent, canActivate: [AuthGuard] },
       { path: "private/collectors/profile/:id", component: ProfileComponent, canActivate: [AuthGuard] },
-      { path : "public/collections", component: HomeComponent }
+      { path : "public/collections", component: HomeComponent },
+      { path: "private/collections", component: CollectionsComponent, canActivate: [AuthGuard]},
+      { path: "private/collections/:collectionId", component: DiskDetailsComponent, canActivate: [AuthGuard]},
+      { path: "private/collectors/favourites", component: CollectionsFavouritesComponent, canActivate: [AuthGuard]},
+      { path: "private/collectors/disks/favourites", component: DisksFavouritesComponent, canActivate: [AuthGuard]}
+
     ],
   },
 ];

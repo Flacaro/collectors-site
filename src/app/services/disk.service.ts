@@ -8,7 +8,7 @@ import { CollectionService } from './collection.service';
 @Injectable({
   providedIn: 'root'
 })
-export class DiskServiceService {
+export class DiskService {
 
   constructor(
     private http: HttpClient,
@@ -16,17 +16,18 @@ export class DiskServiceService {
   ) { }
 
   private API_URL_COLLECTIONS = CONSTANTS.API_URL + "/public/collections";
+  private API_URL_DISKSF = CONSTANTS.API_URL + "/public/collectors/disks/favourites";
 
   getDisksOfCollection(collectionId: number): Observable<Disk []> {
-    return this.http.get<Disk []>(`${this.API_URL_COLLECTIONS}/${collectionId}/disks`).pipe(
-      tap((data) => console.log('Disks: ', JSON.stringify(data)))
-    );
+    return this.http.get<Disk []>(`${this.API_URL_COLLECTIONS}/${collectionId}/disks`);
   }
 
   getDiskById(collectionId: number, diskId: number): Observable<Disk> {
-    return this.http.get<Disk>(`${this.API_URL_COLLECTIONS}/${collectionId}/disks/${diskId}`).pipe(
-      tap((data) => console.log('Disk: ', JSON.stringify(data)))
-    );
+    return this.http.get<Disk>(`${this.API_URL_COLLECTIONS}/${collectionId}/disks/${diskId}`);
   }
-  
+
+  getDiskFromFavorites(): Observable<Disk[]> {
+    return this.http.get<Disk[]>(`${this.API_URL_DISKSF}`);
+  }
+
 }

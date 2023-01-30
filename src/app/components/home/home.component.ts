@@ -1,9 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+
 import { Component, Input, OnInit } from "@angular/core";
-import { Observable } from "rxjs/internal/Observable";
+
 import { Collection } from "src/app/models/collection";
 import { CollectionService } from "src/app/services/collection.service";
-import { HomeService } from "src/app/services/home.service";
 
 @Component({
   selector: "app-home",
@@ -16,7 +15,6 @@ export class HomeComponent implements OnInit {
   collections: Collection[] = [];
 
   constructor(
-    private homeService: HomeService,
     private collectionService: CollectionService) {}
   
      

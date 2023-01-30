@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
+import { Collection } from 'src/app/models/collection';
 import { LoggedCollectorService } from 'src/app/security/logged-collector.service';
+import { CollectionService } from 'src/app/services/collection.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,16 +11,23 @@ import { LoggedCollectorService } from 'src/app/security/logged-collector.servic
 })
 export class ProfileComponent implements OnInit {
 
+  privateCollections$!: Observable<Collection[]>;
+
   constructor(
-    public loggedCollectorService: LoggedCollectorService) { }
+    public loggedCollectorService: LoggedCollectorService,
+    private collectionService: CollectionService) { }
 
   ngOnInit(): void {
+    this.privateCollections$ = this.collectionService.getPrivateCollections();
+
   }
 
   //prendo il valore del collezionista loggato
   get loggedCollector() {
     return this.loggedCollectorService.getCurrentCollectorValue();
   }
+
+ 
 
 
  

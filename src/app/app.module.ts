@@ -35,6 +35,9 @@ import { DialogComponent } from "./components/diskAddDialog/dialog.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { JwtTokenInterceptor } from "./security/jwt-token.interceptor";
+import { CollectionsComponent } from './components/collections/collections.component';
+import { CollectionsFavouritesComponent } from './components/collections-favourites/collections-favourites.component';
+import { DisksFavouritesComponent } from './components/disks-favourites/disks-favourites.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -71,6 +74,9 @@ const materialModules = [
     DiskDetailsComponent,
     DialogComponent,
     ProfileComponent,
+    CollectionsComponent,
+    CollectionsFavouritesComponent,
+    DisksFavouritesComponent,
   ],
   imports: [
     BrowserModule,

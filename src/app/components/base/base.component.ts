@@ -24,6 +24,8 @@ type AppRoute = {
 export class BaseComponent implements OnInit {
 
   // collection$!: Observable<Collection>;
+
+  collections: Collection[] = [];
   
   sideNavConfig: SideNavConfig = {
     mode: "side",
@@ -32,6 +34,7 @@ export class BaseComponent implements OnInit {
   
   isUserLogged: boolean = !!localStorage.getItem(CONSTANTS.JWT_TOKEN_KEY);
   isMobile: boolean = false;
+  
 
 //if isUserLogged is true, then the user is logged in and we can show the protected routes
 
@@ -56,11 +59,11 @@ protectedRoutes: AppRoute[] = [
     name: "Collections",
   },
   {
-    link: "private/collectors/collections/favourites",
+    link: "private/collectors/favourites",
     name: "Favourites collections",
   },
   {
-    link: "private/disks/favourites",
+    link: "private/collectors/disks/favourites",
     name: "Favourites disks",
   },
 ];
@@ -68,7 +71,7 @@ protectedRoutes: AppRoute[] = [
   constructor(
     private breakpointObserver: BreakpointObserver,
     private collectionService: CollectionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
     ) {}
 
   ngOnInit(): void {
