@@ -1,5 +1,10 @@
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Observable } from "rxjs";
+import { Collection } from "src/app/models/collection";
+import { CollectionService } from "src/app/services/collection.service";
+import { CONSTANTS } from "src/app/constants";
 
 type SideNavConfig = {
   mode: "side" | "over";
@@ -17,40 +22,63 @@ type AppRoute = {
   styleUrls: ["./base.component.scss"],
 })
 export class BaseComponent implements OnInit {
+
+  // collection$!: Observable<Collection>;
+
+  collections: Collection[] = [];
+  
   sideNavConfig: SideNavConfig = {
     mode: "side",
     opened: true,
   };
-
-  isUserLogged: boolean = true;
-
+  
+  isUserLogged: boolean = !!localStorage.getItem(CONSTANTS.JWT_TOKEN_KEY);
   isMobile: boolean = false;
+  
 
-  publicRoutes: AppRoute[] = [
-    {
-      link: "/disks",
-      name: "All disks",
-    },
-    {
-      link: "/tracks",
-      name: "All tracks",
-    },
-  ];    
+//if isUserLogged is true, then the user is logged in and we can show the protected routes
 
-  protectedRoutes: AppRoute[] = [
-    {
-      link: "/",
-      name: "Home",
-    },
-    {
-      link: "/profile",
-      name: "Profile",
-    },
-  ];
+publicRoutes: AppRoute[] = [
+  {
+    link: "/",
+    name: "Home",
+  }
+];  
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+protectedRoutes: AppRoute[] = [
+  {
+    link: "/",
+    name: "Home",
+  },
+  {
+    link: "private/collectors/profile",
+    name: "Profile",
+  },
+  {
+    link: "private/collections",
+    name: "Collections",
+  },
+  {
+    link: "private/collectors/favourites",
+    name: "Favourites collections",
+  },
+  {
+    link: "private/collectors/disks/favourites",
+    name: "Favourites disks",
+  },
+];
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private collectionService: CollectionService,
+    private route: ActivatedRoute,
+    ) {}
 
   ngOnInit(): void {
+
+    // const collectionId = this.route.snapshot.params["id"];
+
+    // this.collection$ = this.collectionService.getCollection(collectionId);
     // se e' mobile allora bisogna nascondere la sidenav, altrimenti lasciarla aperta
     this.breakpointObserver
       .observe(Breakpoints.XSmall)

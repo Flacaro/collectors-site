@@ -17,6 +17,7 @@ export class JwtTokenInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    
     const url = new URL(request.url);
 
     if (url.pathname.startsWith("/private")) {
@@ -31,4 +32,6 @@ export class JwtTokenInterceptor implements HttpInterceptor {
 
     return next.handle(request);
   }
+
+
 }

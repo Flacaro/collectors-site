@@ -1,42 +1,50 @@
-<div class="div">
-  <form [formGroup]="loginForm" class="form-container">
-    <mat-card>
-      <mat-card-header class="d-center mb-3">
-        <mat-card-title>Welcome back</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
+<form [formGroup]="loginForm" class="h-100 d-grid place-items-center">
+  <mat-card class="login-card">
+    <mat-card-header class="d-center mb-3 pt-6 justify-content-center">
+      <h1>Welcome back</h1>
+    </mat-card-header>
+    <mat-card-content class="py-6">
+      <div>
         <div>
-          <div>
-            <mat-form-field class="full-width">
-              <input matInput formControlName="email" placeholder="Email" />
-            </mat-form-field>
-          </div>
-          <div>
-            <mat-form-field class="full-width">
-              <input type="password" formControlName="password" matInput placeholder="Password" />
-            </mat-form-field>
-          </div>
+          <mat-form-field class="full-width">
+            <input matInput formControlName="email" placeholder="Email" />
+          </mat-form-field>
         </div>
+        <div>
+          <mat-form-field class="full-width">
+            <input
+              type="password"
+              formControlName="password"
+              matInput
+              placeholder="Password"
+            />
+          </mat-form-field>
+        </div>
+      </div>
 
-        <!-- display form error -->
-        <ng-container *ngIf="loginForm.errors">
-          <div *ngIf="hasInvalidCredentialsError()">
-            <p>Credenziali errate</p>
-          </div>
-          <div *ngIf="hasUnknownError()">
-            <p>Qualcosa e' andato storto</p>
-          </div>
-        </ng-container>
-
-      </mat-card-content>
-      <mat-card-actions class="button d-center">
-        <button [disabled]="loginForm.invalid" (click)="onSubmit()" mat-raised-button color="primary">
-          Login
-        </button>
-      </mat-card-actions>
-      <a class="d-center mb-2 mt-2" [routerLink]="['registration']">
-        <div>go to sign up</div>
+      <!-- display form error -->
+      <ng-container *ngIf="loginForm.errors">
+        <div *ngIf="hasInvalidCredentialsError()">
+          <p>Credenziali errate</p>
+        </div>
+        <div *ngIf="hasUnknownError()">
+          <p>Qualcosa e' andato storto</p>
+        </div>
+      </ng-container>
+    </mat-card-content>
+    <mat-card-actions class="flex-column align-items-center pb-6">
+      <button
+        [disabled]="loginForm.invalid"
+        (click)="onSubmit()"
+        mat-raised-button
+        color="primary"
+        class="mb-4"
+      >
+        Login
+      </button>
+      <a class="d-center mb-2 mt-2" [routerLink]="['/auth','registration']">
+        <div>Don't have an account? Register right now!</div>
       </a>
-    </mat-card>
-  </form>
-</div>
+    </mat-card-actions>
+  </mat-card>
+</form>

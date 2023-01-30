@@ -14,7 +14,7 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MatCardModule } from "@angular/material/card";
 import { MatSelectModule } from "@angular/material/select";
 import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatNativeDateModule } from "@angular/material/core";
+import { MatNativeDateModule, MAT_DATE_FORMATS, NativeDateModule } from "@angular/material/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
@@ -31,10 +31,13 @@ import { AvatarPhotoComponent } from "./components/avatar-photo/avatar-photo.com
 import { LayoutModule } from "@angular/cdk/layout";
 import { CollectionDetailsComponent } from "./components/collection-details/collection-details.component";
 import { DiskDetailsComponent } from "./components/disk-details/disk-details.component";
-import { DialogComponent } from "./components/dialog/dialog.component";
+import { DialogComponent } from "./components/diskAddDialog/dialog.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { MatDialogModule } from "@angular/material/dialog";
-import { JwtTokenInterceptor } from "./services/jwt-token.interceptor";
+import { JwtTokenInterceptor } from "./security/jwt-token.interceptor";
+import { CollectionsComponent } from './components/collections/collections.component';
+import { CollectionsFavouritesComponent } from './components/collections-favourites/collections-favourites.component';
+import { DisksFavouritesComponent } from './components/disks-favourites/disks-favourites.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -52,6 +55,7 @@ const materialModules = [
   MatDividerModule,
   MatListModule,
   MatDialogModule,
+  NativeDateModule
 ];
 
 @NgModule({
@@ -70,6 +74,9 @@ const materialModules = [
     DiskDetailsComponent,
     DialogComponent,
     ProfileComponent,
+    CollectionsComponent,
+    CollectionsFavouritesComponent,
+    DisksFavouritesComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,7 +93,7 @@ const materialModules = [
       provide: HTTP_INTERCEPTORS,
       useClass: JwtTokenInterceptor,
       multi: true
-    },
+    }
   ],
   bootstrap: [AppComponent],
 })

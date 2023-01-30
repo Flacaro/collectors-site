@@ -1,8 +1,3 @@
-<div>
-
-  <div>{{ loggedCollectorService.getCurrentCollectorValue() | json}}</div>
-
-
   <div class="content d-flex mt-10">
     <img
       mat-card-md-image
@@ -14,19 +9,46 @@
 
 
       <div class="ml-10 mt-10 d-flex">
-        <h1>Giovanni</h1>
-        <a mat-button class="ml-5" [routerLink]="">
+        <h1>{{loggedCollector?.username}}</h1>
+        <a mat-button class="ml-5" [routerLink]="[loggedCollector?.id]">
           <mat-icon> edit</mat-icon></a
         >
       </div>
       <div class="ml-10 mt-5">
-        <p>nickname: Giov</p>
-        <p>email: giovanni@gmail.com</p>
-        <p>...</p>
+        <p>name: {{loggedCollector?.name}}</p>
+        <p>surname: {{loggedCollector?.surname}}</p>
+        <p>username: {{loggedCollector?.username}}</p>
+        <p>email: {{loggedCollector?.email}}</p>
+        <p>birthday: {{loggedCollector?.birthdate}}</p>
+        
       </div>
     </div>
   </div>
-</div>
-<section>
-  <a mat-button [routerLink]="" class="mt-5"> Collections of user</a>
-</section>
+
+  <section class="mt-8">
+    <div class="d-flex justify-content-between">
+      <h2>Your collections</h2>
+      <a mat-button [routerLink]="['/private/collections']">See all</a>
+    </div>
+  
+    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
+      <mat-card class="card" *ngFor="let collection of (privateCollections$ | async)">
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title class="pb-2"> {{ collection.name }} </mat-card-title>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <img
+            mat-card-md-image
+            class="mb-2"
+            src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+            alt="Image of a collection"
+          />
+        
+          <a mat-button [routerLink]="['/public/collections', collection.id]"
+            >Go to collection details</a>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>

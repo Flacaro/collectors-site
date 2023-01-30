@@ -1,8 +1,8 @@
-import { HttpClient } from "@angular/common/http";
+
 import { Component, Input, OnInit } from "@angular/core";
+
 import { Collection } from "src/app/models/collection";
-import { HomeService } from "src/app/services/home.service";
-import { LoggedCollectorService } from "src/app/services/logged-collector.service";
+import { CollectionService } from "src/app/services/collection.service";
 
 @Component({
   selector: "app-home",
@@ -10,26 +10,33 @@ import { LoggedCollectorService } from "src/app/services/logged-collector.servic
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-  headers!: string[];
 
-  constructor(private homeService: HomeService) {}
+  header: string = "Welcome to the Collector's Hub";
+  collections: Collection[] = [];
 
-  // private API_URL = CONSTANTS.API_URL;
+  constructor(
+    private collectionService: CollectionService) {}
+  
+     
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.collectionService.getCollections().subscribe({
+      next: collections => {
+        this.collections = collections;
+      }
 
-  collection: Collection | undefined;
+    });
 
-  // showCollections(): void {
-  //   this.homeService.getCollections().subscribe((data: Collection) => {
-  //     this.collection = data;
-  //   });
+
+  }
+
+
+
+
+
 }
-// @Input() collection!: Collection;
 
-// getCollection(): void {
-//   this.homeService.getCollection().subscribe((data: Collection) => {
-//     this.collection = data;
-//   }
 
-// );
+  
+
+

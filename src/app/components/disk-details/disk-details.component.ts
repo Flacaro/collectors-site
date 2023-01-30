@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-// import { MatDialog } from '@angular/material/dialog';
-// import { DialogComponent } from '../dialog/dialog.component';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { CONSTANTS } from 'src/app/constants';
+import { Disk } from 'src/app/models/disk';
+import { Track } from 'src/app/models/track';
+import { CollectionService } from 'src/app/services/collection.service';
+import { DiskService } from 'src/app/services/disk.service';
+import { TrackService } from 'src/app/services/track.service';
+
 
 @Component({
   selector: 'app-disk-details',
@@ -9,19 +16,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiskDetailsComponent implements OnInit {
 
+  disk$!: Observable<Disk>;
+  disks$!: Observable<Disk []>;
+  tracks$!: Observable<Track []>;
+  isUserLogged!: boolean;
+
+
   constructor (
-    // public dialog: MatDialog
+    private diskService: DiskService,
+    private collectionService: CollectionService,
+    private trackService: TrackService,
+    private route: ActivatedRoute
+ 
   ) {}
 
-  ngOnInit(): void {}
 
-  // openDialog() {
-  //   const dialogRef = this.dialog.open(DialogComponent);
+  ngOnInit(): void {
 
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     console.log(`Dialog result: ${result}`);
-  //   });
-  // }
+    const collectionId = this.route.snapshot.params["collectionId"];
+  
+    const diskId = this.route.snapshot.params["diskId"];
+
+    this.isUserLogged = !!localStorage.getItem(CONSTANTS.JWT_TOKEN_KEY);
+
+    this.disk$ = this.diskService.getDiskById(collectionId, diskId);
+    
+    this.disks$ = this.diskService.getDisksOfCollection(collectionId);
+
+    this.tracks$ = this.trackService.getTracksOfDisk(collectionId, diskId);
+  }
+
 
 }
 

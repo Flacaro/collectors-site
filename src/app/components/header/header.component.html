@@ -1,13 +1,13 @@
-<div class="c">
+<div>
   <mat-toolbar>
     <button (click)="toggleSideNav.emit()" class="mr-3" mat-icon-button *ngIf="isMobile">
-      <mat-icon class="color">menu</mat-icon>
+      <mat-icon class="color-white">menu</mat-icon>
     </button>
-    <a class="logo pl-1" [routerLink]="['']">
+    <a class="logo color-white pl-1" [routerLink]="['']">
       <div>Collector's Site</div>
     </a>
 
-    <div class="container logo pl-1">
+    <div class="container logo color-white pl-1">
       <ng-container *ngIf="isCollectorLogged() | async as collector">
         <ng-container *ngIf="collector.isLogged; else logout">
           <a mat-button [routerLink]="['/auth/login']">login</a>

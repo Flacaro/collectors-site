@@ -1,0 +1,74 @@
+<h1 mat-dialog-title class="text-center mt-4 mb-6">Add a collection</h1>
+
+<section mat-dialog-content>
+  <form [formGroup]="addDiskForm" class="d-grid gap-1 grid-template-columns-2">
+    <mat-form-field class="form-field">
+      <mat-label>Title</mat-label>
+      <input type="text" matInput formControlName="title" placeholder="Title" />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Artist</mat-label>
+      <input
+        type="text"
+        formControlName="artist"
+        matInput
+        placeholder="Artist"
+      />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Year</mat-label>
+      <input formControlName="year" matInput placeholder="Year" />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Genre</mat-label>
+      <input type="text" formControlName="genre" matInput placeholder="Genre" />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Author</mat-label>
+      <input
+        type="text"
+        formControlName="author"
+        matInput
+        placeholder="Author"
+      />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Label</mat-label>
+      <input type="text" formControlName="label" matInput placeholder="Label" />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Band</mat-label>
+      <input type="text" formControlName="band" matInput placeholder="Band" />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>State</mat-label>
+      <input type="text" formControlName="state" matInput placeholder="State" />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Number of copies</mat-label>
+      <input
+        formControlName="duplicate"
+        matInput
+        placeholder="Duplicate"
+      />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Format</mat-label>
+      <input
+        type="text"
+        formControlName="format"
+        matInput
+        placeholder="Format"
+      />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Barcode</mat-label>
+      <input formControlName="barcode" matInput placeholder="Barcode" />
+    </mat-form-field>
+  </form>
+</section>
+
+<div mat-dialog-actions class="d-flex justify-content-center mb-6">
+  <button mat-raised-button color="primary" class="mr-4" [mat-dialog-close]="addDiskForm.value" [disabled]="addDiskForm.invalid">Create</button>
+  <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
+</div>

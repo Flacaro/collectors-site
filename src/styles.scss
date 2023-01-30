@@ -2,10 +2,11 @@
 
 @use "sass/partials/spacing";
 @use "sass/partials/layouts";
+@use "sass/partials/typography";
 
 html,
 body {
-  min-height: 100%;
+  height: 100%;
 }
 
 body {

@@ -1,17 +1,21 @@
 import { AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
 import { CONSTANTS } from "./constants";
-import { LoggedCollectorService } from "./services/logged-collector.service";
+import { LoggedCollectorService } from "./security/logged-collector.service";
 
 @Component({
   selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+  template: `
+  <router-outlet></router-outlet>
+  `,
+  styles: [`
+    :host {
+      display: block;
+      height: 100%;
+    }
+  `]
 })
 export class AppComponent implements OnInit {
-  @ViewChild('dialogContent', {read: TemplateRef}) dialogTemplate!: TemplateRef<any>;
-
-  constructor(private dialog: MatDialog, private loggedCollectorService: LoggedCollectorService) {
+  constructor(private loggedCollectorService: LoggedCollectorService) {
   }
 
   ngOnInit(): void {
@@ -28,10 +32,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  openDialog() {
-    this.dialog.open(this.dialogTemplate, {
-      width: '500px',
-    })
-  }
+
 
 }
