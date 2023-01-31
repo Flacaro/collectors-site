@@ -4,6 +4,7 @@ import { CONSTANTS } from "../constants";
 import { Observable } from "rxjs";
 import { LoggedCollectorService } from "./logged-collector.service";
 import { Collector } from "../models/collector";
+import { PersistenceService } from "../services/persistence/persistence-service";
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +12,8 @@ import { Collector } from "../models/collector";
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private loggedCollectorService: LoggedCollectorService
+    private loggedCollectorService: LoggedCollectorService,
+    private persistenceService: PersistenceService
   ) {}
 
   private API_LOGIN_URL = CONSTANTS.API_URL + "/auth/login";
@@ -26,7 +28,7 @@ export class AuthService {
 
   logout() {
     this.loggedCollectorService.setCurrentCollector(null);
-    localStorage.clear();
+    this.persistenceService.clear();
   }
 
   register(data: {

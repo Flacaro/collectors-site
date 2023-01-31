@@ -20,10 +20,8 @@ export class HomeComponent implements OnInit {
      
 
   ngOnInit(): void {
-    this.collectionService.getCollections().subscribe({
-      next: collections => {
-        this.collections = collections;
-      }
+    this.collectionService.getPublicCollections().subscribe((collections) => {
+      this.collections = collections;
 
     });
 

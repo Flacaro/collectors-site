@@ -38,6 +38,8 @@ import { JwtTokenInterceptor } from "./security/jwt-token.interceptor";
 import { CollectionsComponent } from './components/collections/collections.component';
 import { CollectionsFavouritesComponent } from './components/collections-favourites/collections-favourites.component';
 import { DisksFavouritesComponent } from './components/disks-favourites/disks-favourites.component';
+import { PersistenceService } from "./services/persistence/persistence-service";
+import { LocalStoragePersistenceService } from "./services/persistence/local-storage-persistence.service";
 
 const materialModules = [
   MatFormFieldModule,
@@ -93,6 +95,10 @@ const materialModules = [
       provide: HTTP_INTERCEPTORS,
       useClass: JwtTokenInterceptor,
       multi: true
+    },
+    {
+      provide: PersistenceService,
+      useClass: LocalStoragePersistenceService
     }
   ],
   bootstrap: [AppComponent],

@@ -22,15 +22,17 @@ export class CollectionService {
   private API_URL_COLLECTOR_COLLECTIONSF = CONSTANTS.API_URL + "/private/collectors/favourites";
 
 
-  getCollections(): Observable<Collection[]> {
+  getPublicCollections(): Observable<Collection[]> {
     // debugger;
     return this.http.get<Collection[]>(this.API_URL_COLLECTIONS);
   }
 
-  getCollection(collectionId: number): Observable<Collection> {
-    return this.http.get<Collection>(`${this.API_URL_COLLECTIONS}/${collectionId}`);
-    
+
+  getPublicCollection(collectionId: number): Observable<Collection> {  
+      return this.http.get<Collection>(`${this.API_URL_COLLECTIONS}/${collectionId}`);
+   
   }
+  
 
   getPrivateCollections(): Observable<Collection[]> {
     return this.http.get<Collection[]>(this.API_URL_PRIVATE_COLLECTIONS);

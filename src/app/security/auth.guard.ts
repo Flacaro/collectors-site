@@ -18,22 +18,6 @@ export class AuthGuard implements CanActivate {
     private router: Router,
     private token: TokenStorageService) {}
 
-
-  // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  //   let authReq = req;
-  //   const token = this.token.getToken();
-  //   if(token != null) {
-  //     //per backend
-  //     authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
-  //   }
-  //   return next.handle(authReq);
-
-  // }
-
-  // export const authInterceptorProviders = [
-  //   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  // ];
-
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

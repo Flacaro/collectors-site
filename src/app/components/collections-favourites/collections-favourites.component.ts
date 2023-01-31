@@ -20,18 +20,14 @@ export class CollectionsFavouritesComponent {
     
   }
 
-  isCollectionFavNotEmpty(): boolean {
-    if (this.collections$ == null) {
-      return false;
-    }
-    return true;
-  }
-
-  isCollectionFavEmpty(): boolean {
-    if (this.collections$ == null) {
-      return true;
-    }
-    return false;
+  isCollectionFavListEmpty(): boolean {
+    let empty = true;
+    this.collections$.subscribe((collections) => {
+      if(collections.length > 0) {
+        empty = false;
+      }
+    });
+    return empty;
   }
 
 

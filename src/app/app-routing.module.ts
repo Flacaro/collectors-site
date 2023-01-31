@@ -42,10 +42,10 @@ const routes: Routes = [
       { path: "private/collectors/profile/:id", component: ProfileComponent, canActivate: [AuthGuard] },
       { path : "public/collections", component: HomeComponent },
       { path: "private/collections", component: CollectionsComponent, canActivate: [AuthGuard]},
-      { path: "private/collections/:collectionId", component: DiskDetailsComponent, canActivate: [AuthGuard]},
+      { path: "private/collections/:collectionId", component: CollectionDetailsComponent, canActivate: [AuthGuard]},
+      { path: "private/collections/:collectionId/disks/:diskId", component: DiskDetailsComponent, canActivate: [AuthGuard]},
       { path: "private/collectors/favourites", component: CollectionsFavouritesComponent, canActivate: [AuthGuard]},
-      { path: "private/collectors/disks/favourites", component: DisksFavouritesComponent, canActivate: [AuthGuard]}
-
+      { path: "private/collectors/disks/favourites", component: DisksFavouritesComponent, canActivate: [AuthGuard]},
     ],
   },
 ];

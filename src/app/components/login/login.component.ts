@@ -6,6 +6,7 @@ import { catchError, EMPTY, map, Subscriber, switchMap, tap } from "rxjs";
 import { CONSTANTS } from "src/app/constants";
 import { AuthService } from "src/app/security/auth.service";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
+import { PersistenceService } from "src/app/services/persistence/persistence-service";
 import { ProfileService } from "src/app/services/profile.service";
 
 @Component({
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private loggedCollectorService: LoggedCollectorService,
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private persistenceService: PersistenceService
   ) {}
 
   ngOnInit(): void {
@@ -40,16 +42,19 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(this.loginForm.value)
       .pipe(
-        tap(data => {
-          localStorage.setItem(CONSTANTS.JWT_TOKEN_KEY, data.token);
+        tap((data) => {
+          this.persistenceService.save(CONSTANTS.JWT_TOKEN_KEY, data.token);
         }),
         switchMap(() => this.profileService.getPersonalProfile()),
-        tap(collector => {
-          localStorage.setItem(CONSTANTS.LOGGED_COLLECTOR_KEY, JSON.stringify(collector));
-          this.loggedCollectorService.setCurrentCollector(collector)
+        tap((collector) => {
+          this.persistenceService.save(
+            CONSTANTS.LOGGED_COLLECTOR_KEY,
+            JSON.stringify(collector)
+          );
+          this.loggedCollectorService.setCurrentCollector(collector);
         }),
         catchError((error) => {
-          this.loginForm.patchValue({password: ""});
+          this.loginForm.patchValue({ password: "" });
 
           if (error instanceof HttpErrorResponse) {
             if (error.status >= 400 && error.status < 500) {
@@ -58,7 +63,7 @@ export class LoginComponent implements OnInit {
           } else {
             this.loginForm.setErrors({ unknownError: true });
           }
-          
+
           return EMPTY;
         })
       )
@@ -71,7 +76,6 @@ export class LoginComponent implements OnInit {
       });
   }
 
-
   hasInvalidCredentialsError(): boolean {
     return this.loginForm.hasError("invalidCredentials");
   }
@@ -79,5 +83,4 @@ export class LoginComponent implements OnInit {
   hasUnknownError(): boolean {
     return this.loginForm.hasError("unknownError");
   }
-
 }

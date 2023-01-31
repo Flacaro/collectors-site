@@ -1,4 +1,4 @@
-<section *ngIf="isCollectionFavNotEmpty" >
+<section *ngIf="!isCollectionFavListEmpty" >
     <div class="d-flex justify-content-between mt-8">
       <h2 >Your collections</h2>
   
@@ -25,5 +25,7 @@
       </mat-card>
     </div>
   </section>
+   <div *ngIf="isCollectionFavListEmpty">You don't have any collection in favoutires list</div>
+  
 
-  <h3 *ngIf="isCollectionFavEmpty"> You don't have any collection in favoutires list</h3>
+ 
