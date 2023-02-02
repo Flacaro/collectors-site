@@ -6,6 +6,7 @@ export interface Collection {
     name: string;
     visible: boolean;
     type: string;
+    ownerId?: number
     // collector?: Collector;
     // disks?: Disk[];
 }

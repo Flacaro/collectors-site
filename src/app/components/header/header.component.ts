@@ -24,7 +24,7 @@ export class HeaderComponent {
   logoutCollector() {
     this.authService.logout();
     //refresh the page
-    window.location.reload();
+    // window.location.reload();
   }
 
 }

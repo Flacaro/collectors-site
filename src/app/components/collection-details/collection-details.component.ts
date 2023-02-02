@@ -28,6 +28,9 @@ export class CollectionDetailsComponent implements OnInit {
   isUserLogged!: boolean;
   privateOrPublic!: string;
   isPublic!: string;
+  loggedCollector!: any;
+  ownerOfCollection$!: Observable<any>;
+  owner: any;
 
 
   
@@ -42,6 +45,14 @@ export class CollectionDetailsComponent implements OnInit {
   ngOnInit(): void {
 
     const collectionId = this.route.snapshot.params["collectionId"];
+  
+    this.loggedCollector = this.persistenceService.get(CONSTANTS.LOGGED_COLLECTOR_KEY);
+
+    this.ownerOfCollection$ = this.collectionService.getOwnerOfCollection(collectionId);
+
+
+    console.log(this.owner);
+    
 
     this.isPublic = this.route.snapshot.queryParamMap.get("isPublic") || "false";
 
