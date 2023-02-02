@@ -40,6 +40,9 @@ import { CollectionsFavouritesComponent } from './components/collections-favouri
 import { DisksFavouritesComponent } from './components/disks-favourites/disks-favourites.component';
 import { PersistenceService } from "./services/persistence/persistence-service";
 import { LocalStoragePersistenceService } from "./services/persistence/local-storage-persistence.service";
+import { TrackDialogComponent } from './components/track-dialog/track-dialog.component';
+import { TrackDetailsComponent } from './components/track-details/track-details.component';
+
 
 const materialModules = [
   MatFormFieldModule,
@@ -79,6 +82,8 @@ const materialModules = [
     CollectionsComponent,
     CollectionsFavouritesComponent,
     DisksFavouritesComponent,
+    TrackDialogComponent,
+    TrackDetailsComponent,
   ],
   imports: [
     BrowserModule,

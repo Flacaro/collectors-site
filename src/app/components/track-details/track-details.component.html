@@ -1,0 +1,22 @@
+<div class="content d-flex mt-10" *ngIf="track$ | async as track">
+    <img
+            mat-card-md-image
+            class="image mt-10 ml-4 mb-10"
+            src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+            alt="Image of a Disk"
+    />
+    <div>
+        <div class="ml-10 mt-10" >
+            <div class="d-flex">
+                <h1>{{track.title}}</h1>
+                <a mat-button [routerLink]=""> <mat-icon>edit</mat-icon></a>
+            </div>
+            <div>
+                <p> artist: {{track.artist}}</p>
+                <p>album: {{track.album}}</p>
+                <p>band: {{track.band}}</p>
+                <p>compositor: {{track.compositor}}</p>
+            </div>
+        </div>
+    </div>
+</div>

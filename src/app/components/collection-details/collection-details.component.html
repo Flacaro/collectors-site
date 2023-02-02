@@ -31,12 +31,13 @@
   <h2 class="mt-6">Disks of collection :</h2>
 </div>
 
-<section>
-  <div class="d-flex justify-content-between justify-content-end">
-    <button mat-stroked-button [routerLink]="[privateOrPublic,'collections', collectionId, 'disks']">See all</button>
+<section >
+  <div *ngIf="collection$ | async as collection">
+  <div class="d-flex justify-content-between justify-content-end" >
+    <button mat-stroked-button [routerLink]="['/private/collections', collection.id]">See all</button>
   </div>
 
-  <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
+ <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
     <mat-card class="card" *ngFor="let disk of (disks$ | async)">
       <mat-card-header>
         <mat-card-title-group>
@@ -50,8 +51,12 @@
           src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
           alt="Image of a collection"
         />
-        <a mat-button [routerLink]="[privateOrPublic,'collections', collectionId, 'disks', disk.id]">Go to disk details</a>
+        <a mat-button [routerLink]="['/private/collections', collection.id, 'disks', disk.id]" >Go to disk details</a>
       </mat-card-content>
     </mat-card>
   </div>
+</div>
 </section>
+
+{{isPublic}}
+

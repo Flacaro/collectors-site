@@ -1,23 +1,15 @@
 import {
   Component,
-  Inject,
   OnInit,
-  TemplateRef,
-  ViewChild,
 } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
 import {
   MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
 } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { filter, map, Observable, of, switchMap } from "rxjs";
 import { CONSTANTS } from "src/app/constants";
 import { Collection } from "src/app/models/collection";
-import { Collector } from "src/app/models/collector";
 import { Disk } from "src/app/models/disk";
-import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 import { CollectionService } from "src/app/services/collection.service";
 import { DiskService } from "src/app/services/disk.service";
 import { PersistenceService } from "src/app/services/persistence/persistence-service";
@@ -29,14 +21,12 @@ import { DialogComponent } from "../diskAddDialog/dialog.component";
   styleUrls: ["./collection-details.component.scss"],
 })
 export class CollectionDetailsComponent implements OnInit {
-  collection$!: Observable<Collection>;
+
+
+  isPublic: boolean = true;
   disks$!: Observable<Disk[]>;
-  collectionId!: number;
+  collection$!: Observable<Collection>;
   isUserLogged!: boolean;
-  collection!: Collection;
-  privateOrPublic!: string;
-  currentCollector: Collector | null = null;
-  ownerOfCollection!: boolean;
 
   constructor(
     private dialog: MatDialog,
@@ -47,24 +37,28 @@ export class CollectionDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.collectionId = this.route.snapshot.params["collectionId"];
-    this.collection$ = this.collectionService.getPublicCollection(this.collectionId);
-    if (this.collection$ !== null) {
-      this.privateOrPublic = "/public";
-    } else {
-      this.privateOrPublic = "/private";
-      this.collection$ = this.collectionService.getPrivateCollection(this.collectionId);
+
+    const collectionId = this.route.snapshot.params["collectionId"];
+
+    if(this.route.queryParamMap.subscribe((params) => {
+      this.isPublic = params.get("isPublic") === "true";
+    })) {
+      this.collection$ = this.collectionService.getPublicCollection(collectionId);
+      this.disks$ = this.diskService.getDisksOfCollection(collectionId);
+    }
+    else {
+
+      this.collection$ = this.collectionService.getPrivateCollection(collectionId);
+      this.disks$ = this.diskService.getDisksOfPrivateCollection(collectionId);
     }
 
-    // this.collection$ = this.collectionService.getCollection(this.collectionId);
-    // this.collection$ = this.collectionService.getPrivateCollection(this.collectionId);
-
-    this.disks$ = this.diskService.getDisksOfCollection(this.collectionId);
-
+    
     this.isUserLogged = !!this.persistenceService.get(CONSTANTS.JWT_TOKEN_KEY);
   }
 
   openDialog() {
+    const collectionId = this.route.snapshot.params["collectionId"];
+  
     this.dialog
       .open(DialogComponent, {
         width: "500px",
@@ -73,14 +67,14 @@ export class CollectionDetailsComponent implements OnInit {
       .pipe(
         filter((diskFormData) => !!diskFormData),
         switchMap((diskFormData) =>
-          this.diskService.addDiskToCollection(this.collectionId, diskFormData)
+          this.diskService.addDiskToCollection(collectionId, diskFormData)
         ),
         switchMap(() =>
-          this.diskService.getDisksOfCollection(this.collectionId)
+          this.diskService.getDisksOfCollection(collectionId)
         )
       )
       .subscribe((result) => {
-        debugger;
+        this.disks$ = of(result);
       });
   }
-}
+ }

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { CollectionService } from "src/app/services/collection.service";
 
 @Component({
@@ -6,8 +6,17 @@ import { CollectionService } from "src/app/services/collection.service";
   templateUrl: "./collections.component.html",
   styleUrls: ["./collections.component.scss"],
 })
-export class CollectionsComponent {
-  collections$ = this.collectionService.getPublicCollections();
+export class CollectionsComponent implements OnInit{
 
-  constructor(private collectionService: CollectionService) {}
+
+  collections$ = this.collectionService.getPrivateCollections();
+
+
+  constructor(private collectionService: CollectionService) {
+
+  }
+
+  ngOnInit(): void {
+
+  }
 }
