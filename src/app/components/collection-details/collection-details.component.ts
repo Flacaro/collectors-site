@@ -53,8 +53,6 @@ export class CollectionDetailsComponent implements OnInit {
 
   }
 
- 
-
   openDialog() {
     this.dialog.open(DialogComponent, {
       width: "500px",

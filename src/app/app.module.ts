@@ -38,6 +38,8 @@ import { JwtTokenInterceptor } from "./security/jwt-token.interceptor";
 import { CollectionsComponent } from './components/collections/collections.component';
 import { CollectionsFavouritesComponent } from './components/collections-favourites/collections-favourites.component';
 import { DisksFavouritesComponent } from './components/disks-favourites/disks-favourites.component';
+import { TrackDialogComponent } from './components/track-dialog/track-dialog.component';
+import { TrackDetailsComponent } from './components/track-details/track-details.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -77,6 +79,8 @@ const materialModules = [
     CollectionsComponent,
     CollectionsFavouritesComponent,
     DisksFavouritesComponent,
+    TrackDialogComponent,
+    TrackDetailsComponent,
   ],
   imports: [
     BrowserModule,

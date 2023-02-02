@@ -30,22 +30,27 @@
   <div class="d-flex">
     <a mat-button [routerLink]="" class="mt-5" *ngIf="isUserLogged"> Collectors that share the list</a> 
   </div>
-  <section>
-     <div class="mt-5 ml-2">
-      <div class="d-flex" *ngIf="isUserLogged">
-        <button mat-raised-button class="mb-5">
-          Add track <mat-icon>add</mat-icon>
-        </button>
-      </div>
-    <h2> Tracks of disk :</h2>
-  
+
+
+<div class="mt-5 ml-2">
+  <div class="d-flex" *ngIf="isUserLogged">
+    <button mat-raised-button (click)="openDialog()">
+      Add Track <mat-icon>add</mat-icon>
+    </button>
   </div>
+  <h2 class="mt-6">Tracks of the Disk :</h2>
+</div>
+
+
+
+  <section>
     <div class="d-flex justify-content-between justify-content-end">
       <a mat-button routerLink="['collections']">See all</a>
      
     </div>
   
-    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
+    <div class="d-grid grid-template-columns-5 gap-2 grid-columns"
+    *ngIf="(collection$|async) as collection ">
       <mat-card class="card" *ngFor="let track of (tracks$ | async)">
         <mat-card-header>
           <mat-card-title-group>
@@ -58,7 +63,7 @@
             src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
             alt="Image of a collection"
           />
-          <a mat-button [routerLink]="['']"> Go to track details</a>
+          <a mat-button [routerLink]="['/public/collections',collection.id,'disks',diskId,'tracks',track.id]"> Go to track details</a>
         </mat-card-content>
       </mat-card>
     </div>

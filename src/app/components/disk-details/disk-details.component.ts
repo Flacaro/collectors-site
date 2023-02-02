@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import {filter, Observable} from 'rxjs';
 import { CONSTANTS } from 'src/app/constants';
 import { Disk } from 'src/app/models/disk';
 import { Track } from 'src/app/models/track';
 import { CollectionService } from 'src/app/services/collection.service';
 import { DiskService } from 'src/app/services/disk.service';
 import { TrackService } from 'src/app/services/track.service';
+import {MatDialog} from "@angular/material/dialog";
+import {TrackDialogComponent} from "../track-dialog/track-dialog.component";
+import {Collection} from "../../models/collection";
 
 
 @Component({
@@ -18,11 +21,14 @@ export class DiskDetailsComponent implements OnInit {
 
   disk$!: Observable<Disk>;
   disks$!: Observable<Disk []>;
+  diskId!: number;
   tracks$!: Observable<Track []>;
+  collection$!: Observable<Collection>;
   isUserLogged!: boolean;
 
 
   constructor (
+      private dialog: MatDialog,
     private diskService: DiskService,
     private collectionService: CollectionService,
     private trackService: TrackService,
@@ -34,18 +40,29 @@ export class DiskDetailsComponent implements OnInit {
   ngOnInit(): void {
 
     const collectionId = this.route.snapshot.params["collectionId"];
+
+    this.collection$ = this.collectionService.getCollection(collectionId);
   
-    const diskId = this.route.snapshot.params["diskId"];
+    this.diskId = this.route.snapshot.params["diskId"];
 
     this.isUserLogged = !!localStorage.getItem(CONSTANTS.JWT_TOKEN_KEY);
 
-    this.disk$ = this.diskService.getDiskById(collectionId, diskId);
+    this.disk$ = this.diskService.getDiskById(collectionId, this.diskId);
     
     this.disks$ = this.diskService.getDisksOfCollection(collectionId);
 
-    this.tracks$ = this.trackService.getTracksOfDisk(collectionId, diskId);
+    this.tracks$ = this.trackService.getTracksOfDisk(collectionId, this.diskId);
   }
 
-
+  openDialog() {
+    this.dialog.open(TrackDialogComponent, { //componente,optionalConfiguration
+      width: "500px",
+    }).afterClosed().pipe(
+        filter(result => !!result)
+    ).subscribe(result => {
+      console.log(result);
+    });
+  }
 }
+
 

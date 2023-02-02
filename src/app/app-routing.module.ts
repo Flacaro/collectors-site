@@ -13,6 +13,7 @@ import { AuthGuard } from "./security/auth.guard";
 import { CollectionsComponent } from "./components/collections/collections.component";
 import { CollectionsFavouritesComponent } from "./components/collections-favourites/collections-favourites.component";
 import { DisksFavouritesComponent } from "./components/disks-favourites/disks-favourites.component";
+import {TrackDetailsComponent} from "./components/track-details/track-details.component";
 
 
 const routes: Routes = [
@@ -44,7 +45,8 @@ const routes: Routes = [
       { path: "private/collections", component: CollectionsComponent, canActivate: [AuthGuard]},
       { path: "private/collections/:collectionId", component: DiskDetailsComponent, canActivate: [AuthGuard]},
       { path: "private/collectors/favourites", component: CollectionsFavouritesComponent, canActivate: [AuthGuard]},
-      { path: "private/collectors/disks/favourites", component: DisksFavouritesComponent, canActivate: [AuthGuard]}
+      { path: "private/collectors/disks/favourites", component: DisksFavouritesComponent, canActivate: [AuthGuard]},
+      {path: "public/collections/:collectionId/disks/:diskId/tracks/:trackId", component: TrackDetailsComponent}
 
     ],
   },

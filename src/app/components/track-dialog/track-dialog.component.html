@@ -1,0 +1,33 @@
+<h1 mat-dialog-title class="text-center mt-4 mb-6">Add a Track</h1>
+
+<section mat-dialog-content>
+    <form [formGroup]="addTrackForm" class="d-grid gap-1 grid-template-columns-2">
+        <mat-form-field class="form-field">
+            <mat-label>Title</mat-label>
+            <input type="text" matInput formControlName="title" placeholder="Title" />
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Artist</mat-label>
+            <input type="text" matInput formControlName="artist" matInput placeholder="Artist"/>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Album</mat-label>
+            <input type="text" formControlName="album" matInput placeholder="Album"/>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Band</mat-label>
+            <input type="text" formControlName="band" matInput placeholder="Band"/>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Compositor</mat-label>
+            <input type="text" formControlName="compositor" matInput placeholder="Compositor"/>
+        </mat-form-field>
+
+    </form>
+</section>
+
+<div mat-dialog-actions class="d-flex justify-content-center mb-6">
+    <button mat-raised-button color="primary" class="mr-4" [mat-dialog-close]="addTrackForm.value" [disabled]="addTrackForm.invalid">Create</button>
+    <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
+</div>
+
