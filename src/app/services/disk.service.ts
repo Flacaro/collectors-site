@@ -31,7 +31,7 @@ export class DiskService {
     return this.http.get<Disk>(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks/${diskId}`);
   }
 
-  getDiskById(collectionId: number, diskId: number): Observable<Disk> {
+  getDiskOfPublicCollection(collectionId: number, diskId: number): Observable<Disk> {
     return this.http.get<Disk>(`${this.API_URL_PUBLIC_COLLECTIONS}/${collectionId}/disks/${diskId}`);
   }
 

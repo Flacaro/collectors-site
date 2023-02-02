@@ -48,6 +48,8 @@ const routes: Routes = [
       { path: "private/collectors/favourites", component: CollectionsFavouritesComponent, canActivate: [AuthGuard]},
       { path: "private/collectors/disks/favourites", component: DisksFavouritesComponent, canActivate: [AuthGuard]},
       { path: "private/collections/:collectionId/disks/", component: CollectionDetailsComponent, canActivate: [AuthGuard] },
+      { path: "private/collections/:collectionId/disks/:diskId/tracks", component: DiskDetailsComponent, canActivate: [AuthGuard]},
+      { path: "private/collections/:collectionId/disks/:diskId/tracks/:trackId", component: TrackDetailsComponent, canActivate: [AuthGuard]},
 
     ],
   },

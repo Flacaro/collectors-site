@@ -50,6 +50,14 @@ export class CollectionService {
     return this.http.get<Collector>(`${this.API_URL_PUBLIC_COLLECTIONS}/${collectionId}/owner`);
   }
 
+  addCollection(data: {
+    name: string;
+    type: string;
+    visible: boolean;
+  }): Observable<Collection> {
+    return this.http.post<Collection>(`${this.API_URL_PRIVATE_COLLECTIONS}`, data);
+  }
+
 
 
 

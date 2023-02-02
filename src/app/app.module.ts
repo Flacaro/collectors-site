@@ -42,6 +42,7 @@ import { PersistenceService } from "./services/persistence/persistence-service";
 import { LocalStoragePersistenceService } from "./services/persistence/local-storage-persistence.service";
 import { TrackDialogComponent } from './components/track-dialog/track-dialog.component';
 import { TrackDetailsComponent } from './components/track-details/track-details.component';
+import { CollectionDialogComponent } from './components/collection-dialog/collection-dialog.component';
 
 
 const materialModules = [
@@ -84,6 +85,7 @@ const materialModules = [
     DisksFavouritesComponent,
     TrackDialogComponent,
     TrackDetailsComponent,
+    CollectionDialogComponent,
   ],
   imports: [
     BrowserModule,

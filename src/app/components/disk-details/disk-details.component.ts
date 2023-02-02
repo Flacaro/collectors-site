@@ -26,6 +26,8 @@ export class DiskDetailsComponent implements OnInit {
   isUserLogged!: boolean;
   diskId!: number;
   collection$!: Observable<Collection>;
+  privateOrPublic!: string;
+  isPublic!: string;
 
 
 
@@ -40,18 +42,30 @@ export class DiskDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const collectionId = this.route.snapshot.params["collectionId"];
-
-    // this.collection$ = this.collectionService.getCollection(collectionId);
-  
     this.diskId = this.route.snapshot.params["diskId"];
 
-    this.isUserLogged = !!this.persistenceService.get(CONSTANTS.JWT_TOKEN_KEY);
+    this.isPublic = this.route.snapshot.queryParamMap.get("isPublic") || "false";
 
-    this.disk$ = this.diskService.getDiskById(collectionId, this.diskId);
-    
-    this.disks$ = this.diskService.getDisksOfPrivateCollection(collectionId);
+    if (this.isPublic === "true") {
+      this.collection$ = this.collectionService.getPublicCollection(
+        collectionId
+      );
+      this.privateOrPublic = "/public";
+      this.disk$ = this.diskService.getDiskOfPublicCollection(collectionId, this.diskId);
+      console.log(this.isPublic);
+      this.tracks$ = this.trackService.getPublicTracksOfDisk(collectionId, this.diskId);
+    }
+    else {
+      this.collection$ = this.collectionService.getPrivateCollection(
+        collectionId
+      );
+      this.privateOrPublic = "/private";
+      this.disk$ = this.diskService.getDiskOfPrivateCollection(collectionId, this.diskId);
+      console.log(this.isPublic);
+      this.tracks$ = this.trackService.getPrivateTracksOfDisk(collectionId, this.diskId);
+    }
 
-    this.tracks$ = this.trackService.getTracksOfDisk(collectionId, this.diskId);
+   
   }
 
 

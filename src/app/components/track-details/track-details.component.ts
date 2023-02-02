@@ -21,6 +21,8 @@ export class TrackDetailsComponent implements OnInit {
   track$!: Observable<Track>;
   tracks$!: Observable<Track[]>;
   isUserLogged!: boolean;
+  isPublic!: string;
+  privateOrPublic!: string;
 
   constructor (
       private dialog: MatDialog,
@@ -33,17 +35,27 @@ export class TrackDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
+  this.isUserLogged = !!localStorage.getItem(CONSTANTS.JWT_TOKEN_KEY);
+
     const collectionId = this.route.snapshot.params["collectionId"];
 
     const diskId = this.route.snapshot.params["diskId"];
 
     const trackId = this.route.snapshot.params["trackId"];
 
-    this.isUserLogged = !!localStorage.getItem(CONSTANTS.JWT_TOKEN_KEY);
+    this.isPublic = this.route.snapshot.queryParamMap.get("isPublic") || "false";
 
-    this.track$ = this.trackService.getTrackById(collectionId, diskId, trackId);
+    if (this.isPublic === "true") {
+      this.privateOrPublic = "/public";
 
+    this.track$ = this.trackService.getPublicTrackById(collectionId, diskId, trackId);
+    this.privateOrPublic = "/public";
+
+  } else {
+    this.track$ = this.trackService.getPrivateTrackById(collectionId, diskId, trackId);
+    this.privateOrPublic = "/private";
   }
 
+}
 }
 
