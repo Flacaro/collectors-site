@@ -49,7 +49,7 @@ export class DiskDetailsComponent implements OnInit {
 
     this.disk$ = this.diskService.getDiskById(collectionId, this.diskId);
     
-    this.disks$ = this.diskService.getDisksOfCollection(collectionId);
+    this.disks$ = this.diskService.getDisksOfPrivateCollection(collectionId);
 
     this.tracks$ = this.trackService.getTracksOfDisk(collectionId, this.diskId);
   }

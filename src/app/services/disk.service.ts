@@ -19,7 +19,7 @@ export class DiskService {
   private API_URL_PRIVATE_COLLECTION = CONSTANTS.API_URL + "/private/collections";
   private API_URL_DISKSF = CONSTANTS.API_URL + "/private/collectors/disks/favourites";
 
-  getDisksOfCollection(collectionId: number): Observable<Disk []> {
+  getDisksOfPublicCollection(collectionId: number): Observable<Disk []> {
     return this.http.get<Disk []>(`${this.API_URL_PUBLIC_COLLECTIONS}/${collectionId}/disks`);
   }
 

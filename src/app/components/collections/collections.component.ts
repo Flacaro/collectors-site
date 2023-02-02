@@ -1,4 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
+import { Observable } from "rxjs";
+import { Collection } from "src/app/models/collection";
 import { CollectionService } from "src/app/services/collection.service";
 
 @Component({
@@ -8,8 +10,7 @@ import { CollectionService } from "src/app/services/collection.service";
 })
 export class CollectionsComponent implements OnInit{
 
-
-  collections$ = this.collectionService.getPrivateCollections();
+  collections$!: Observable<Collection[]>;
 
 
   constructor(private collectionService: CollectionService) {
@@ -17,6 +18,8 @@ export class CollectionsComponent implements OnInit{
   }
 
   ngOnInit(): void {
+
+    this.collections$ = this.collectionService.getPrivateCollections();
 
   }
 }

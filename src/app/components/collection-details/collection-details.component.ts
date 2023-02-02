@@ -23,38 +23,49 @@ import { DialogComponent } from "../diskAddDialog/dialog.component";
 export class CollectionDetailsComponent implements OnInit {
 
 
-  isPublic: boolean = true;
   disks$!: Observable<Disk[]>;
   collection$!: Observable<Collection>;
   isUserLogged!: boolean;
+  privateOrPublic!: string;
+  isPublic!: string;
 
+
+  
   constructor(
     private dialog: MatDialog,
     private collectionService: CollectionService,
     private diskService: DiskService,
-    private route: ActivatedRoute,
-    private persistenceService: PersistenceService
+    private persistenceService: PersistenceService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
 
     const collectionId = this.route.snapshot.params["collectionId"];
 
-    if(this.route.queryParamMap.subscribe((params) => {
-      this.isPublic = params.get("isPublic") === "true";
-    })) {
-      this.collection$ = this.collectionService.getPublicCollection(collectionId);
-      this.disks$ = this.diskService.getDisksOfCollection(collectionId);
-    }
-    else {
+    this.isPublic = this.route.snapshot.queryParamMap.get("isPublic") || "false";
 
+    console.log(this.isPublic);
+
+    if (this.isPublic === "true") {
+      this.collection$ = this.collectionService.getPublicCollection(
+        collectionId
+      );
+      this.disks$ = this.diskService.getDisksOfPublicCollection(collectionId);
+      this.privateOrPublic = "/public";
+      console.log(this.privateOrPublic);
+
+    } else {
       this.collection$ = this.collectionService.getPrivateCollection(collectionId);
       this.disks$ = this.diskService.getDisksOfPrivateCollection(collectionId);
+      this.privateOrPublic = "/private";
     }
-
+    
     
     this.isUserLogged = !!this.persistenceService.get(CONSTANTS.JWT_TOKEN_KEY);
   }
+
+
 
   openDialog() {
     const collectionId = this.route.snapshot.params["collectionId"];
@@ -70,7 +81,7 @@ export class CollectionDetailsComponent implements OnInit {
           this.diskService.addDiskToCollection(collectionId, diskFormData)
         ),
         switchMap(() =>
-          this.diskService.getDisksOfCollection(collectionId)
+          this.diskService.getDisksOfPrivateCollection(collectionId)
         )
       )
       .subscribe((result) => {
