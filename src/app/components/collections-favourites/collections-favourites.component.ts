@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Collection } from 'src/app/models/collection';
 import { CollectionService } from 'src/app/services/collection.service';
 
 @Component({
@@ -9,25 +10,24 @@ import { CollectionService } from 'src/app/services/collection.service';
 })
 export class CollectionsFavouritesComponent {
 
-  collections$ = this.collectionService.getFavouriteCollections();
-  
+  collectionsFavourites$!: Observable<Collection[]>;
+  collectionsFavourites: Collection[] = [];
+
 
   constructor(
     private collectionService: CollectionService,
   ) { }
 
   ngOnInit(): void {
-    
+    this.collectionsFavourites$ = this.collectionService.getFavouriteCollections();
+    this.collectionsFavourites$.subscribe(collections => {
+      this.collectionsFavourites = collections;
+    }
+    );
   }
 
   isCollectionFavListEmpty(): boolean {
-    let empty = true;
-    this.collections$.subscribe((collections) => {
-      if(collections.length > 0) {
-        empty = false;
-      }
-    });
-    return empty;
+    return this.collectionsFavourites.length === 0;
   }
 
 

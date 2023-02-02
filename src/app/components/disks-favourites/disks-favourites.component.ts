@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Disk } from 'src/app/models/disk';
 import { DiskService } from 'src/app/services/disk.service';
 
 @Component({
@@ -7,30 +9,31 @@ import { DiskService } from 'src/app/services/disk.service';
   templateUrl: './disks-favourites.component.html',
   styleUrls: ['./disks-favourites.component.scss']
 })
-export class DisksFavouritesComponent {
+export class DisksFavouritesComponent  implements OnInit{
 
-  collectionId = this.route.snapshot.params["collectionId"];
-  
-
-  disks$ = this.diskService.getDiskFromFavorites();
+  collectionId!: number;
+  disks$!: Observable<Disk[]>;
+  disks: Disk[] = [];
 
   constructor(
     private diskService: DiskService,
     private route: ActivatedRoute
   ) { }
+  ngOnInit(): void {
 
+    this.collectionId = this.route.snapshot.params["collectionId"];
+    this.disks$ = this.diskService.getDiskFromFavorites();
 
-  isDiskFavNotEmpty(): boolean {
-    if (this.disks$ == null) {
-      return false;
+    this.disks$.subscribe(disks => {
+      this.disks = disks;
     }
-    return true;
+    );
   }
 
-  isDiskFavEmpty(): boolean {
-    if (this.disks$ == null) {
-      return true;
-    }
-    return false;
+  isDiskFavListEmpty(): boolean {
+    return this.disks.length === 0;
   }
+
+
+ 
 }
