@@ -24,7 +24,7 @@ export class DialogComponent implements OnInit {
       year: [0, [Validators.required, Validators.min(1800)]],
       genre: ["", [Validators.required]],
       author: ["", [Validators.required]],
-      label: [""],
+      label: ["", [Validators.required]],
       band: ["", [Validators.required]],
       state: ["", [Validators.required]],
       duplicate: [0],
