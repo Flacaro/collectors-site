@@ -13,10 +13,17 @@ export class SearchService {
   constructor(private http: HttpClient) { }
 
   search(search: Search): Observable<SearchResult> {
+    let params: any = {
+      query: search.value,
+    };
+
+    if(search.options) {
+      params.includePrivateCollections = search.options.includePrivateCollections;
+      params.includeSharedCollections = search.options.includeSharedCollections
+    }
+
     return this.http.get<SearchResult>(`${CONSTANTS.API_URL}/public/search`, {
-      params: {
-        query: search.value
-      }
+      params: params
     })
   }
 
