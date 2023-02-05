@@ -1,5 +1,7 @@
 <div class="search">
-  <app-search-bar></app-search-bar>
+  <ng-container *ngIf="{logged: (isCollectorLogged$ | async)} as isCollector">
+    <app-search-bar (searchEvent)="onValueChanges($event)" [isCollectorLogged]="!!isCollector.logged"></app-search-bar>
+  </ng-container>
 </div>
 <div class="container">
   <div>
@@ -13,7 +15,34 @@
   </div>
 
   <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-    <mat-card class="card" *ngFor="let collection of collections$ | async">
+    <ng-container *ngFor="let item of results$ | async">
+      <ng-container
+        [ngTemplateOutlet]="collectionCard"
+        [ngTemplateOutletContext]="{ $implicit: item }"
+        *ngIf="isCollection(item)"
+      >
+      </ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="collectorCard"
+        [ngTemplateOutletContext]="{ $implicit: item }"
+        *ngIf="isCollector(item)"
+      >
+      </ng-container>
+
+      <ng-container
+        [ngTemplateOutlet]="diskCard"
+        [ngTemplateOutletContext]="{ $implicit: item }"
+        *ngIf="isDisk(item)"
+      >
+      </ng-container>
+    </ng-container>
+  </div>
+</section>
+
+<ng-template #collectionCard let-collection>
+
+ <mat-card class="card">
       <mat-card-header>
         <mat-card-title-group>
           <mat-card-title class="pb-2"> {{ collection.name }} </mat-card-title>
@@ -36,5 +65,62 @@
         >
       </mat-card-content>
     </mat-card>
-  </div>
-</section>
+</ng-template>
+
+<ng-template #diskCard let-disk>
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title class="pb-2"> {{ disk.title }} </mat-card-title>
+      </mat-card-title-group>
+    </mat-card-header>
+    <mat-card-content>
+      <img
+        mat-card-md-image
+        class="mb-2"
+        src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+        alt="Image of a collection"
+      />
+
+      <a
+        mat-button
+        [routerLink]="['/public/collections', disk.collectionId]"
+        [queryParams]="{ isPublic: true }"
+      >
+        Go to disk details</a
+      >
+    </mat-card-content>
+  </mat-card>
+
+</ng-template>
+
+<ng-template #collectorCard let-collector>
+  
+  <mat-card class="card">
+    <mat-card-header>
+      <p style="flex: 1">{{collector.email}}</p>
+      <mat-icon>person</mat-icon>
+      <!-- <mat-card-title-group>
+        <mat-card-title class="pb-2"> {{ collector.email | uppercase }} </mat-card-title>
+      </mat-card-title-group> -->
+    </mat-card-header>
+    <mat-card-content>
+      <img
+        mat-card-md-image
+        class="mb-2"
+        src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+        alt="Image of a collection"
+      />
+
+      <a
+        mat-button
+        [routerLink]="['/public/collections/UUUUUUUUUUUPS']"
+      >
+        Go to collector details</a
+      >
+    </mat-card-content>
+  </mat-card>
+
+
+</ng-template>

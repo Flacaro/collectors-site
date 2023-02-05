@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "../../../sass/partials/breakpoints";
+
 a:hover,
 a:active {
   color: lightgray;
@@ -21,4 +24,11 @@ mat-toolbar {
 
 .color-white {
   color: white;
+}
+
+
+@media screen and #{map.get(breakpoints.$breakpoints, "xm")} {
+ .logo {
+  font-size: 1em;
+ }
 }

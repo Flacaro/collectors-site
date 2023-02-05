@@ -1,13 +1,24 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import {
+  BehaviorSubject,
   combineLatest,
   map,
   Observable,
+  of,
+  Subject,
+  switchMap,
 } from "rxjs";
 
 import { Collection } from "src/app/models/collection";
+import { Collector } from "src/app/models/collector";
+import { Disk } from "src/app/models/disk";
+import { SearchResult } from "src/app/models/search-result";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 import { CollectionService } from "src/app/services/collection.service";
+import { SearchService } from "src/app/services/search.service";
+import { Search } from "../search-bar/search-bar.component";
+
+type ShuffledSearchResult = Array<Collection | Disk | Collector>;
 
 @Component({
   selector: "app-home",
@@ -16,29 +27,89 @@ import { CollectionService } from "src/app/services/collection.service";
 })
 export class HomeComponent implements OnInit {
   header: string = "Welcome to the Collector's Hub";
-  collections$!: Observable<Collection[]>;
-  collections: Collection[] = [];
+
+  private publicCollections$!: Observable<Collection[]>;
+  private search$ = new Subject<Search>();
+  isCollectorLogged$: Observable<boolean> = this.loggedCollectorService.getCurrentCollector().pipe(
+    map(collector => collector !== null)
+  );
+
+  results$!: Observable<ShuffledSearchResult | Collection[]>;
 
   constructor(
     private collectionService: CollectionService,
-    private loggedCollectorService: LoggedCollectorService
+    private loggedCollectorService: LoggedCollectorService,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
-    this.collections$ = combineLatest([
-      this.loggedCollectorService.getCurrentCollector(),
-      this.collectionService.getPublicCollections(),
-    ]).pipe(
-      map(([loggedCollector, collections]) => {
-        if (loggedCollector !== null) {
-          const result = collections
-            .filter((collection) => !!collection.ownerId)
-            .filter((collection) => collection.ownerId !== loggedCollector.id);
+    this.publicCollections$ = this.collectionService.getPublicCollections();
 
-          return result;
+    this.results$ = combineLatest([
+      this.publicCollections$,
+      this.search$,
+    ]).pipe(
+      switchMap(([publicCollections, search]) => {
+        if (search.value === "") {
+          return of(publicCollections);
+        } else {
+          return this.searchService
+            .search(search)
+            .pipe(map((results) => this.shuffleSearchResults(results)));
         }
-        return collections;
       })
     );
+  }
+
+  onValueChanges(searchValue: Search) {
+    this.search$.next(searchValue);
+  }
+
+  shuffleSearchResults(result: SearchResult): ShuffledSearchResult {
+    const { collections, collectors, disks } = result;
+    let m = collections.length,
+      t,
+      i;
+
+    while (m) {
+      i = Math.floor(Math.random() * m--);
+
+      t = collections[m];
+      collections[m] = collections[i];
+      collections[i] = t;
+
+      t = collectors[m];
+      collectors[m] = collectors[i];
+      collectors[i] = t;
+
+      t = disks[m];
+      disks[m] = disks[i];
+      disks[i] = t;
+    }
+
+    return [...collections, ...collectors, ...disks];
+  }
+
+  // type guard -> https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types
+
+  isCollection(item: ShuffledSearchResult[number]): item is Collection {
+    if(item) {
+      return "type" in item;
+    }
+    return false;
+  }
+
+  isCollector(item: ShuffledSearchResult[number]): item is Collector {
+    if(item) {
+      return "email" in item;
+    }
+    return false;
+  }
+
+  isDisk(item: ShuffledSearchResult[number]): item is Disk {
+    if(item) {
+      return "title" in item;
+    }
+    return false;
   }
 }

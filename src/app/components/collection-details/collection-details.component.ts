@@ -7,9 +7,9 @@ import {
 } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { filter, map, Observable, of, switchMap } from "rxjs";
-import { CONSTANTS } from "src/app/constants";
 import { Collection } from "src/app/models/collection";
 import { Disk } from "src/app/models/disk";
+import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 import { CollectionService } from "src/app/services/collection.service";
 import { DiskService } from "src/app/services/disk.service";
 import { PersistenceService } from "src/app/services/persistence/persistence-service";
@@ -29,8 +29,7 @@ export class CollectionDetailsComponent implements OnInit {
   privateOrPublic!: string;
   isPublic!: string;
   loggedCollector!: any;
-  ownerOfCollection$!: Observable<any>;
-  owner: any;
+
 
 
   
@@ -38,7 +37,7 @@ export class CollectionDetailsComponent implements OnInit {
     private dialog: MatDialog,
     private collectionService: CollectionService,
     private diskService: DiskService,
-    private persistenceService: PersistenceService,
+    private loggedCollectorService: LoggedCollectorService,
     private route: ActivatedRoute
   ) {}
 
@@ -46,17 +45,11 @@ export class CollectionDetailsComponent implements OnInit {
 
     const collectionId = this.route.snapshot.params["collectionId"];
   
-    this.loggedCollector = this.persistenceService.get(CONSTANTS.LOGGED_COLLECTOR_KEY);
-
-    this.ownerOfCollection$ = this.collectionService.getOwnerOfCollection(collectionId);
-
-
-    console.log(this.owner);
+    this.loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
     
 
     this.isPublic = this.route.snapshot.queryParamMap.get("isPublic") || "false";
-
-    console.log(this.isPublic);
+    
 
     if (this.isPublic === "true") {
       this.collection$ = this.collectionService.getPublicCollection(
@@ -64,16 +57,16 @@ export class CollectionDetailsComponent implements OnInit {
       );
       this.disks$ = this.diskService.getDisksOfPublicCollection(collectionId);
       this.privateOrPublic = "/public";
-      console.log(this.privateOrPublic);
+    
 
     } else {
       this.collection$ = this.collectionService.getPrivateCollection(collectionId);
       this.disks$ = this.diskService.getDisksOfPrivateCollection(collectionId);
       this.privateOrPublic = "/private";
     }
+
     
     
-    this.isUserLogged = !!this.persistenceService.get(CONSTANTS.JWT_TOKEN_KEY);
   }
 
 

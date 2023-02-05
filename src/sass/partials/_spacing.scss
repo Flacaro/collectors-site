@@ -1,75 +1,172 @@
-$map: (
-    1: 0.25,
-    2: 0.5,
-    3: 0.75,
-    4: 1,
-    5: 1.25,
-    6: 1.5,
-    7: 1.75,
-    8: 2,
-    9: 2.25,
-    10: 2.5
-  );
+@use "./breakpoints"; 
 
-@each $key, $value in $map {
-    .m-#{$key} {
-        margin: #{$value}em!important;
+$spacingMap: (
+  1: 0.25,
+  2: 0.5,
+  3: 0.75,
+  4: 1,
+  5: 1.25,
+  6: 1.5,
+  7: 1.75,
+  8: 2,
+  9: 2.25,
+  10: 2.5,
+);
+
+@each $key, $value in $spacingMap {
+  .m-#{$key} {
+    margin: #{$value}em;
+  }
+
+  .mt-#{$key} {
+    margin-top: #{$value}em;
+  }
+
+  .mr-#{$key} {
+    margin-right: #{$value}em;
+  }
+
+  .mb-#{$key} {
+    margin-bottom: #{$value}em;
+  }
+
+  .ml-#{$key} {
+    margin-left: #{$value}em;
+  }
+
+  .mx-#{$key} {
+    margin-left: #{$value}em;
+    margin-right: #{$value}em;
+  }
+
+  .my-#{$key} {
+    margin-top: #{$value}em;
+    margin-bottom: #{$value}em;
+  }
+
+  .p-#{$key} {
+    padding: #{$value}em;
+  }
+
+  .pt-#{$key} {
+    padding-top: #{$value}em;
+  }
+
+  .pr-#{$key} {
+    padding-right: #{$value}em;
+  }
+
+  .pb-#{$key} {
+    padding-bottom: #{$value}em;
+  }
+
+  .pl-#{$key} {
+    padding-left: #{$value}em;
+  }
+
+  .px-#{$key} {
+    padding-left: #{$value}em;
+    padding-right: #{$value}em;
+  }
+
+  .py-#{$key} {
+    padding-top: #{$value}em;
+    padding-bottom: #{$value}em;
+  }
+
+  @each $breakpoint, $breakpointValue in breakpoints.$breakpoints {
+    .mr-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        margin-right: #{$value}em !important;
+      }
     }
 
-    .mt-#{$key} {
-        margin-top: #{$value}em!important;
+    .m-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        margin: #{$value}em !important;
+      }
     }
 
-    .mr-#{$key} {
-        margin-right: #{$value}em!important;
+    .mt-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        margin-top: #{$value}em !important;
+      }
     }
 
-    .mb-#{$key} {
-        margin-bottom: #{$value}em!important;
+    .mr-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        margin-right: #{$value}em;
+      }
     }
 
-    .ml-#{$key} {
-        margin-left: #{$value}em!important;
+    .mb-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        margin-bottom: #{$value}em !important;
+      }
     }
 
-    .mx-#{$key} {
-        margin-left: #{$value}em!important;
-        margin-right: #{$value}em!important;
+    .ml-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        margin-left: #{$value}em !important;
+      }
     }
 
-    .my-#{$key} {
-        margin-top: #{$value}em!important;
-        margin-bottom: #{$value}em!important;
+    .mx-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        margin-left: #{$value}em !important;
+        margin-right: #{$value}em !important;
+      }
     }
 
-
-    .p-#{$key} {
-        padding: #{$value}em!important;
+    .my-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        margin-top: #{$value}em !important;
+        margin-bottom: #{$value}em !important;
+      }
     }
 
-    .pt-#{$key} {
-        padding-top: #{$value}em!important;
+    .p-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        padding: #{$value}em !important;
+      }
     }
 
-    .pr-#{$key} {
-        padding-right: #{$value}em!important;
+    .pt-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        padding-top: #{$value}em !important;
+      }
     }
 
-    .pb-#{$key} {
-        padding-bottom: #{$value}em!important;
+    .pr-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        padding-right: #{$value}em !important;
+      }
     }
 
-    .pl-#{$key} {
-        padding-left: #{$value}em!important;
+    .pb-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        padding-bottom: #{$value}em !important;
+      }
     }
 
-    .px-#{$key} {
-        padding-left: #{$value}em!important;
-        padding-right: #{$value}em!important;
+    .pl-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        padding-left: #{$value}em !important;
+      }
     }
 
-    .py-#{$key} {
-        padding-top: #{$value}em!important;
-        padding-bottom: #{$value}em!important;
+    .px-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        padding-left: #{$value}em !important;
+        padding-right: #{$value}em !important;
+      }
     }
+
+    .py-#{$breakpoint}-#{$key} {
+      @media #{$breakpointValue} {
+        padding-top: #{$value}em !important;
+        padding-bottom: #{$value}em !important;
+      }
+    }
+  }
 }
