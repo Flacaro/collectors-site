@@ -70,7 +70,6 @@ export class CollectionDetailsComponent implements OnInit {
   }
 
 
-
   openDialog() {
     const collectionId = this.route.snapshot.params["collectionId"];
   
@@ -92,4 +91,19 @@ export class CollectionDetailsComponent implements OnInit {
         this.disks$ = of(result);
       });
   }
- }
+
+
+  addCollectiontoFav() {
+    const collectionId = this.route.snapshot.params["collectionId"];
+    this.collectionService.addCollectionToFavourites(collectionId).subscribe();
+    this.openPopUp();
+
+  }
+
+  openPopUp() {
+    alert("This collection has been added to your favourites!");
+    
+  }
+ 
+
+}

@@ -11,7 +11,7 @@ import { CollectionService } from 'src/app/services/collection.service';
 export class CollectionsFavouritesComponent {
 
   collectionsFavourites$!: Observable<Collection[]>;
-  collectionsFavourites: Collection[] = [];
+
 
 
   constructor(
@@ -20,15 +20,12 @@ export class CollectionsFavouritesComponent {
 
   ngOnInit(): void {
     this.collectionsFavourites$ = this.collectionService.getFavouriteCollections();
-    this.collectionsFavourites$.subscribe(collections => {
-      this.collectionsFavourites = collections;
-    }
-    );
-  }
-
-  isCollectionFavListEmpty(): boolean {
-    return this.collectionsFavourites.length === 0;
   }
 
 
-}
+    
+  }
+  
+
+
+

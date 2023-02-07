@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
 
   private publicCollections$!: Observable<Collection[]>;
   private search$ = new Subject<Search>();
+
   isCollectorLogged$: Observable<boolean> = this.loggedCollectorService.getCurrentCollector().pipe(
     map(collector => collector !== null)
   );
@@ -42,27 +43,37 @@ export class HomeComponent implements OnInit {
     private searchService: SearchService
   ) {}
 
+
+     
   ngOnInit(): void {
+
     this.publicCollections$ = this.collectionService.getPublicCollections();
 
     this.results$ = combineLatest([
       this.publicCollections$,
       this.search$,
+
     ]).pipe(
       switchMap(([publicCollections, search]) => {
         if (search.value === "") {
           return of(publicCollections);
-        } else {
+        } 
+        else {
           return this.searchService
             .search(search)
             .pipe(map((results) => this.shuffleSearchResults(results)));
         }
       })
     );
+
+
+
   }
 
   onValueChanges(searchValue: Search) {
     this.search$.next(searchValue);
+  
+
   }
 
   shuffleSearchResults(result: SearchResult): ShuffledSearchResult {

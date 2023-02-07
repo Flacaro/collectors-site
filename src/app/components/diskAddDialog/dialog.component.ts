@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
+import { Select } from "src/app/models/select";
 
 @Component({
   selector: "app-dialog",
@@ -10,6 +11,14 @@ import { ActivatedRoute } from "@angular/router";
 export class DialogComponent implements OnInit {
   addDiskForm!: FormGroup;
   collectionId!: number;
+
+
+  selectValues: Select[] = [
+    {string: 'buono', viewValue: 'Buono'},
+    {string: 'ottimo', viewValue: 'Ottimo'},
+    {string: 'discreto', viewValue: 'Discreto'},
+  ];
+  
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,6 +44,9 @@ export class DialogComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.collectionId = params["collectioId"];
     });
+
+   
+
   }
 
   onSubmit() {
@@ -42,4 +54,6 @@ export class DialogComponent implements OnInit {
     this.dialogRef.close(this.addDiskForm.value);
     this.addDiskForm.reset();
   }
+
+  
 }

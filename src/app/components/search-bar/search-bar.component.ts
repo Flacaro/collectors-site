@@ -27,7 +27,7 @@ export type Search = {
           #search
           matInput
           type="search"
-          placeholder="Cerca qualcosa..."
+          placeholder="search something..."
           formControlName="value"
         />
         <mat-icon matSuffix>search</mat-icon>
@@ -38,11 +38,10 @@ export type Search = {
         *ngIf="isCollectorLogged"
         [formGroup]="optionsFormGroup"
       >
-        <mat-checkbox formControlName="includePrivateCollections"
-          >Include private collections</mat-checkbox
+        <mat-checkbox formControlName="includePrivateCollections">Include private collections</mat-checkbox
         >
         <mat-checkbox formControlName="includeSharedCollections"
-          >Include private collections</mat-checkbox
+          >Include shared collections</mat-checkbox
         >
       </form>
     </form>
@@ -73,9 +72,12 @@ export type Search = {
   ],
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
+
   @Input() isCollectorLogged = true;
 
+
   @Output() searchEvent = new EventEmitter<Search>();
+
 
   searchGroup!: FormGroup;
 
@@ -116,9 +118,19 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       .subscribe((searchValue) => {
         this.searchEvent.emit(searchValue);
       });
+
+     
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  
+
+
+
+
+ 
+
 }

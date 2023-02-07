@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { CONSTANTS } from '../constants';
 import { Collection } from '../models/collection';
+import { CollectionPayload } from '../models/collection-payload';
 import { Collector } from '../models/collector';
 import { Disk } from '../models/disk';
 
@@ -22,6 +23,7 @@ export class CollectionService {
   private API_URL_PUBLIC_COLLECTIONS = CONSTANTS.API_URL + "/public/collections";
   private API_URL_PRIVATE_COLLECTIONS = CONSTANTS.API_URL + "/private/collections";
   private API_URL_COLLECTOR_COLLECTIONSF = CONSTANTS.API_URL + "/private/collectors/favourites";
+  private API_URL_COLLECTIONTOFAV= CONSTANTS.API_URL + "/private/collectors/collections/favourites";
 
 
 
@@ -46,6 +48,10 @@ export class CollectionService {
 
   getFavouriteCollections(): Observable<Collection[]> {
     return this.http.get<Collection[]>(`${this.API_URL_COLLECTOR_COLLECTIONSF}`);
+  }
+
+  addCollectionToFavourites(collectionId: number): Observable<CollectionPayload> {
+    return this.http.post<CollectionPayload>(`${this.API_URL_COLLECTIONTOFAV}`, {collectionId: collectionId});
   }
 
   addCollection(data: {

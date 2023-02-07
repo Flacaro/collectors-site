@@ -1,6 +1,6 @@
 <div class="search">
   <ng-container *ngIf="{logged: (isCollectorLogged$ | async)} as isCollector">
-    <app-search-bar (searchEvent)="onValueChanges($event)" [isCollectorLogged]="!!isCollector.logged"></app-search-bar>
+    <app-search-bar (searchEvent)="onValueChanges($event)"  [isCollectorLogged]="!!isCollector.logged"></app-search-bar>
   </ng-container>
 </div>
 <div class="container">
