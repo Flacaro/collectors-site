@@ -7,5 +7,5 @@ export interface Track {
     album: string;
     artist: string;
     compositor: string;
-    time : number;
+    time: number
 }

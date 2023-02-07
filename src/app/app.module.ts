@@ -45,7 +45,6 @@ import { TrackDetailsComponent } from './components/track-details/track-details.
 import { CollectionDialogComponent } from './components/collection-dialog/collection-dialog.component';
 import {MatCheckboxModule} from '@angular/material/checkbox'
 
-
 const materialModules = [
   MatFormFieldModule,
   MatInputModule,
@@ -89,6 +88,7 @@ const materialModules = [
     TrackDetailsComponent,
     CollectionDialogComponent
 
+
   ],
   imports: [
     BrowserModule,
@@ -99,6 +99,7 @@ const materialModules = [
     HttpClientModule,
     ...materialModules,
     BrowserAnimationsModule,
+
   ],
   providers: [
     {
