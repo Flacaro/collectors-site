@@ -1,12 +1,24 @@
-
-import { Component, Input, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import {
+  BehaviorSubject,
+  combineLatest,
+  map,
+  Observable,
+  of,
+  Subject,
+  switchMap,
+} from "rxjs";
 
 import { Collection } from "src/app/models/collection";
 import { Collector } from "src/app/models/collector";
+import { Disk } from "src/app/models/disk";
+import { SearchResult } from "src/app/models/search-result";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 import { CollectionService } from "src/app/services/collection.service";
-import { CollectorService } from "src/app/services/collector.service";
+import { SearchService } from "src/app/services/search.service";
+import { Search } from "../search-bar/search-bar.component";
+
+type ShuffledSearchResult = Array<Collection | Disk | Collector>;
 
 @Component({
   selector: "app-home",
@@ -14,54 +26,90 @@ import { CollectorService } from "src/app/services/collector.service";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-
   header: string = "Welcome to the Collector's Hub";
-  owner!: any;
-  loggedCollector!: any | null;
-  collections$!: Observable<Collection[]>;
-  collections: Collection[] = [];
-  collectionsNotMine: Collection[] = [];
-  isOwner: boolean = false;
 
+  private publicCollections$!: Observable<Collection[]>;
+  private search$ = new Subject<Search>();
+  isCollectorLogged$: Observable<boolean> = this.loggedCollectorService.getCurrentCollector().pipe(
+    map(collector => collector !== null)
+  );
+
+  results$!: Observable<ShuffledSearchResult | Collection[]>;
 
   constructor(
     private collectionService: CollectionService,
     private loggedCollectorService: LoggedCollectorService,
-    private collectorService: CollectorService
-
-    ) {}
-  
-     
+    private searchService: SearchService
+  ) {}
 
   ngOnInit(): void {
+    this.publicCollections$ = this.collectionService.getPublicCollections();
 
-    this.loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
-    console.log(this.loggedCollector);
-
-    this.collections$ = this.collectionService.getPublicCollections();
-  
-    this.collections$.subscribe((collections) => {
-      this.collections = collections;
-    });
-
-    for (let collection of this.collections) {
-      this.owner = this.collectorService.getOwnerOfCollection(collection.id);
-      if (this.owner.id !== this.loggedCollector.id) {
-        this.collections;
-      } else {
-        this.collectionsNotMine.push(collection);
-      }
-    
-    }
-
-    console.log(this.collectionsNotMine);
-
-  
-
-
-
+    this.results$ = combineLatest([
+      this.publicCollections$,
+      this.search$,
+    ]).pipe(
+      switchMap(([publicCollections, search]) => {
+        if (search.value === "") {
+          return of(publicCollections);
+        } else {
+          return this.searchService
+            .search(search)
+            .pipe(map((results) => this.shuffleSearchResults(results)));
+        }
+      })
+    );
   }
 
+  onValueChanges(searchValue: Search) {
+    this.search$.next(searchValue);
+  }
 
+  shuffleSearchResults(result: SearchResult): ShuffledSearchResult {
+    const { collections, collectors, disks } = result;
+    let m = collections.length,
+      t,
+      i;
+
+    while (m) {
+      i = Math.floor(Math.random() * m--);
+
+      t = collections[m];
+      collections[m] = collections[i];
+      collections[i] = t;
+
+      t = collectors[m];
+      collectors[m] = collectors[i];
+      collectors[i] = t;
+
+      t = disks[m];
+      disks[m] = disks[i];
+      disks[i] = t;
+    }
+
+    return [...collections, ...collectors, ...disks];
+  }
+
+  // type guard -> https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types
+
+  isCollection(item: ShuffledSearchResult[number]): item is Collection {
+    if(item) {
+      return "type" in item;
+    }
+    return false;
+  }
+
+  isCollector(item: ShuffledSearchResult[number]): item is Collector {
+    if(item) {
+      return "email" in item;
+    }
+    return false;
+  }
+
+  isDisk(item: ShuffledSearchResult[number]): item is Disk {
+    if(item) {
+      return "title" in item;
+    }
+    return false;
+  }
 }
-

@@ -14,5 +14,5 @@ export interface Disk {
     duplicate: number;
     format: string;
     barcode: number;
-
+    collectionId?: number;
 }

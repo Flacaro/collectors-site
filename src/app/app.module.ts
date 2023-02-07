@@ -43,6 +43,7 @@ import { LocalStoragePersistenceService } from "./services/persistence/local-sto
 import { TrackDialogComponent } from './components/track-dialog/track-dialog.component';
 import { TrackDetailsComponent } from './components/track-details/track-details.component';
 import { CollectionDialogComponent } from './components/collection-dialog/collection-dialog.component';
+import {MatCheckboxModule} from '@angular/material/checkbox'
 
 const materialModules = [
   MatFormFieldModule,
@@ -60,7 +61,8 @@ const materialModules = [
   MatDividerModule,
   MatListModule,
   MatDialogModule,
-  NativeDateModule
+  NativeDateModule,
+  MatCheckboxModule
 ];
 
 @NgModule({
@@ -84,7 +86,8 @@ const materialModules = [
     DisksFavouritesComponent,
     TrackDialogComponent,
     TrackDetailsComponent,
-    CollectionDialogComponent,
+    CollectionDialogComponent
+
 
   ],
   imports: [
