@@ -15,7 +15,7 @@ export class TrackService {
 
   ) { }
 
-  private API_URL_COLLECTIONS = CONSTANTS.API_URL + "/public/collections"; //?
+  private API_URL_COLLECTIONS = CONSTANTS.API_URL + "/public/collections";
   private API_URL_TRACK = CONSTANTS.API_URL + "/public/collections/:collectionId/disks/:diskId/tracks";
   private API_URL_PRIVATE_TRACKS = CONSTANTS.API_URL + "/private/collections/:collectionId/disks/:diskId/tracks";
   private API_URL_PRIVATE_TRACK = CONSTANTS.API_URL + "/private/collections/:collectionId/disks/:diskId/tracks/:trackId";
@@ -37,6 +37,17 @@ export class TrackService {
     return this.http.get<Track>(`${this.API_URL_PRIVATE_TRACK}`.replace(":collectionId", collectionId.toString()).replace(":diskId", diskId.toString()).replace(":trackId", trackId.toString()));
   }
 
+  addTrackToDisk(collectionId, diskId, data:{
+    id: number;
+    title: string;
+    band: string;
+    album: string;
+    artist: string;
+    compositor: string;
+    time : number;
+  }): Observable<Track>{
+    return this.http.post<Track>(`${this.API_URL_PRIVATE_TRACKS}`.replace(":collectionId", collectionId.toString()).replace(":diskId", diskId.toString()),data);
+  }
 
 
 

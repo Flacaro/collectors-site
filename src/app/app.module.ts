@@ -44,7 +44,6 @@ import { TrackDialogComponent } from './components/track-dialog/track-dialog.com
 import { TrackDetailsComponent } from './components/track-details/track-details.component';
 import { CollectionDialogComponent } from './components/collection-dialog/collection-dialog.component';
 
-
 const materialModules = [
   MatFormFieldModule,
   MatInputModule,
@@ -86,6 +85,7 @@ const materialModules = [
     TrackDialogComponent,
     TrackDetailsComponent,
     CollectionDialogComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -96,6 +96,7 @@ const materialModules = [
     HttpClientModule,
     ...materialModules,
     BrowserAnimationsModule,
+
   ],
   providers: [
     {

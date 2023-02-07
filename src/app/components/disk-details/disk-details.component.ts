@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { filter, Observable } from "rxjs";
+import {filter, Observable, of, switchMap} from "rxjs";
 import { CONSTANTS } from "src/app/constants";
 import { Disk } from "src/app/models/disk";
 import { Track } from "src/app/models/track";
@@ -30,15 +30,15 @@ export class DiskDetailsComponent implements OnInit {
   isPublic!: string;
 
 
-
-  constructor (
-    private dialog: MatDialog,
-    private diskService: DiskService,
-    private trackService: TrackService,
-    private route: ActivatedRoute,
-    private persistenceService: PersistenceService,
-    private collectionService: CollectionService
-  ) {}
+  constructor(
+      private dialog: MatDialog,
+      private diskService: DiskService,
+      private trackService: TrackService,
+      private route: ActivatedRoute,
+      private persistenceService: PersistenceService,
+      private collectionService: CollectionService
+  ) {
+  }
 
   ngOnInit(): void {
     const collectionId = this.route.snapshot.params["collectionId"];
@@ -48,16 +48,15 @@ export class DiskDetailsComponent implements OnInit {
 
     if (this.isPublic === "true") {
       this.collection$ = this.collectionService.getPublicCollection(
-        collectionId
+          collectionId
       );
       this.privateOrPublic = "/public";
       this.disk$ = this.diskService.getDiskOfPublicCollection(collectionId, this.diskId);
       console.log(this.isPublic);
       this.tracks$ = this.trackService.getPublicTracksOfDisk(collectionId, this.diskId);
-    }
-    else {
+    } else {
       this.collection$ = this.collectionService.getPrivateCollection(
-        collectionId
+          collectionId
       );
       this.privateOrPublic = "/private";
       this.disk$ = this.diskService.getDiskOfPrivateCollection(collectionId, this.diskId);
@@ -65,20 +64,29 @@ export class DiskDetailsComponent implements OnInit {
       this.tracks$ = this.trackService.getPrivateTracksOfDisk(collectionId, this.diskId);
     }
 
-   
+
   }
 
 
   openDialog() {
+    const collectionId = this.route.snapshot.params["collectionId"];
+
     this.dialog.open(TrackDialogComponent, { //componente,optionalConfiguration
       width: "500px",
-    }).afterClosed().pipe(
-        filter(result => !!result)
-    ).subscribe(result => {
-      console.log(result);
-    });
+    })
+        .afterClosed()
+        .pipe(
+        filter(trackFormData => !!trackFormData),
+        switchMap((trackFormData) =>
+            this.trackService.addTrackToDisk(collectionId, this.diskId, trackFormData)
+        ),
+        switchMap(() =>
+            this.trackService.getPrivateTracksOfDisk(collectionId, this.diskId)
+        )
+    )
+        .subscribe((result) => {this.tracks$ = of(result);
+        });
   }
 }
-
 
 

@@ -84,8 +84,7 @@ export class CollectionDetailsComponent implements OnInit {
           this.diskService.getDisksOfPrivateCollection(collectionId)
         )
       )
-      .subscribe((result) => {
-        this.disks$ = of(result);
+        .subscribe((result) => {this.disks$ = of(result);
       });
   }
  }

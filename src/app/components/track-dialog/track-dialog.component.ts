@@ -1,13 +1,12 @@
-import {
-  Component,
-  OnInit,
-} from "@angular/core";
+import {Component, ElementRef, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-dialog",
   templateUrl: "./track-dialog.component.html"
+
 })
+
 export class TrackDialogComponent implements OnInit {
 
   addTrackForm!: FormGroup;
@@ -21,7 +20,8 @@ export class TrackDialogComponent implements OnInit {
       artist: ["", [Validators.required]],
       album: ["", [Validators.required]],
       band: ["", [Validators.required]],
-      compositor: [""]
+      compositor: [""],
+      time:[0]
     });
   }
 

@@ -22,6 +22,11 @@
             <mat-label>Compositor</mat-label>
             <input type="text" formControlName="compositor" matInput placeholder="Compositor"/>
         </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Time</mat-label>
+            <input type="number" min="1" max="9" step="0.01"
+                   formControlName="time" matInput placeholder="Time" >
+        </mat-form-field>
 
     </form>
 </section>
