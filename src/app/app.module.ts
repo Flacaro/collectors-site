@@ -43,7 +43,9 @@ import { LocalStoragePersistenceService } from "./services/persistence/local-sto
 import { TrackDialogComponent } from './components/track-dialog/track-dialog.component';
 import { TrackDetailsComponent } from './components/track-details/track-details.component';
 import { CollectionDialogComponent } from './components/collection-dialog/collection-dialog.component';
-import {MatCheckboxModule} from '@angular/material/checkbox'
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { FavListComponent } from './components/fav-list/fav-list.component';
+import { CollectionsSharedWithMeComponent } from './components/collections-shared-with-me/collections-shared-with-me.component'
 
 const materialModules = [
   MatFormFieldModule,
@@ -86,7 +88,9 @@ const materialModules = [
     DisksFavouritesComponent,
     TrackDialogComponent,
     TrackDetailsComponent,
-    CollectionDialogComponent
+    CollectionDialogComponent,
+    FavListComponent,
+    CollectionsSharedWithMeComponent
 
 
   ],

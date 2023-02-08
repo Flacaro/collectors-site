@@ -24,6 +24,8 @@ export class CollectionService {
   private API_URL_PRIVATE_COLLECTIONS = CONSTANTS.API_URL + "/private/collections";
   private API_URL_COLLECTOR_COLLECTIONSF = CONSTANTS.API_URL + "/private/collectors/favourites";
   private API_URL_COLLECTIONTOFAV= CONSTANTS.API_URL + "/private/collectors/collections/favourites";
+  private API_URL_PRIVATE_COLLECTION_SHARED = CONSTANTS.API_URL + "/private/collectors/collections/withMe";
+    
 
 
 
@@ -66,6 +68,13 @@ export class CollectionService {
     return this.http.get<Collection>(`${this.API_URL_PUBLIC_COLLECTIONS}`, {params: {name: name}});
   }
 
+  deleteCollection(collectionId: number): Observable<Collection> {
+    return this.http.delete<Collection>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}`);
+  }
+  
+  getCollectionSharedWithMe(): Observable<Collection[]> {
+    return this.http.get<Collection[]>(`${this.API_URL_PRIVATE_COLLECTION_SHARED}`);
+  }
 
 
 

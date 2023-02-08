@@ -62,6 +62,10 @@ export class BaseComponent implements OnInit {
       link: "private/collectors/disks/favourites",
       name: "Favourites disks",
     },
+    {
+      link: "private/collectors/collections/withMe",
+      name: "Collections shared with me",
+    }
   ];
 
   constructor(

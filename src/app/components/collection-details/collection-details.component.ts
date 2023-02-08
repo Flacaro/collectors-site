@@ -6,7 +6,7 @@ import {
   MatDialog,
 } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
-import { filter, map, Observable, of, switchMap } from "rxjs";
+import { filter, map, Observable, of, switchMap, window } from "rxjs";
 import { Collection } from "src/app/models/collection";
 import { Disk } from "src/app/models/disk";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
@@ -29,9 +29,9 @@ export class CollectionDetailsComponent implements OnInit {
   privateOrPublic!: string;
   isPublic!: string;
   loggedCollector!: any;
+  collectionById$!: Observable<Collection>;
 
-
-
+  collectionId = this.route.snapshot.params["collectionId"];
   
   constructor(
     private dialog: MatDialog,
@@ -43,25 +43,23 @@ export class CollectionDetailsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const collectionId = this.route.snapshot.params["collectionId"];
-  
+
     this.loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
-    
 
     this.isPublic = this.route.snapshot.queryParamMap.get("isPublic") || "false";
     
 
     if (this.isPublic === "true") {
       this.collection$ = this.collectionService.getPublicCollection(
-        collectionId
+        this.collectionId
       );
-      this.disks$ = this.diskService.getDisksOfPublicCollection(collectionId);
+      this.disks$ = this.diskService.getDisksOfPublicCollection(this.collectionId);
       this.privateOrPublic = "/public";
     
 
     } else {
-      this.collection$ = this.collectionService.getPrivateCollection(collectionId);
-      this.disks$ = this.diskService.getDisksOfPrivateCollection(collectionId);
+      this.collection$ = this.collectionService.getPrivateCollection(this.collectionId);
+      this.disks$ = this.diskService.getDisksOfPrivateCollection(this.collectionId);
       this.privateOrPublic = "/private";
     }
 
@@ -89,20 +87,24 @@ export class CollectionDetailsComponent implements OnInit {
       )
         .subscribe((result) => {this.disks$ = of(result);
       });
+   
   }
 
 
   addCollectiontoFav() {
     const collectionId = this.route.snapshot.params["collectionId"];
     this.collectionService.addCollectionToFavourites(collectionId).subscribe();
-    this.openPopUp();
+    alert("This collection has been added to your favourites!");
 
   }
 
-  openPopUp() {
-    alert("This collection has been added to your favourites!");
+  deleteCollection() {
+    this.collectionService.deleteCollection(this.collectionId).subscribe();
+    alert("This collection has been deleted!");
     
   }
- 
 
 }
+
+
+ 

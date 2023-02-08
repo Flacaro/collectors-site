@@ -18,8 +18,6 @@ export class CollectionsComponent implements OnInit{
   collections$!: Observable<Collection[]>;
 
 
-
-
   constructor(private collectionService: CollectionService,
     private persistenceService: PersistenceService,
     private dialog: MatDialog,
@@ -50,6 +48,7 @@ export class CollectionsComponent implements OnInit{
   ).subscribe((result) => {
     this.collections$ = of(result);
   });
+  
   }
 
 }

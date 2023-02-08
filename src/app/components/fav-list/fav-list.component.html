@@ -1,0 +1,34 @@
+
+<section>
+    <div class="d-flex justify-content-between mt-8">
+      <h2>Collectors in shared list</h2>
+      <button mat-stroked-button [routerLink]="['/private/collections']">See all</button>
+    </div>
+    <div class="d-flex">
+      <!-- <button mat-raised-button (click)="openDialog()">
+        Add Collection <mat-icon>add</mat-icon>
+      </button> -->
+    </div>
+    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
+      <mat-card class="card" *ngFor="let collector of (collectors$ | async)">
+        
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title class="pb-2"> {{ collector.username }} </mat-card-title>
+          </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-content>
+          <img
+            mat-card-md-image
+            class="mb-2"
+            src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+            alt="Image of a collection"
+          />
+  
+          <a mat-button [routerLink]="['/public/collectors', collector.id]">
+            Go to collector profile
+          </a>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
