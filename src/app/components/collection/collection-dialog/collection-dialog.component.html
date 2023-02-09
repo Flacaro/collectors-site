@@ -1,7 +1,10 @@
 <h1 mat-dialog-title class="text-center mt-4 mb-6">Add a collection</h1>
 
 <section mat-dialog-content>
-  <form [formGroup]="collectionFormData" class="d-grid gap-1 grid-template-columns-2">
+  <form
+    [formGroup]="collectionFormData"
+    class="d-grid gap-1 grid-template-columns-2"
+  >
     <mat-form-field class="form-field">
       <mat-label>name</mat-label>
       <input type="text" matInput formControlName="name" placeholder="Name" />
@@ -9,17 +12,26 @@
     <mat-form-field class="form-field">
       <mat-label>Type</mat-label>
       <input
-        type="type" matInput formControlName="type" matInput placeholder="Tipe"/>
+        type="type"
+        matInput
+        formControlName="type"
+        matInput
+        placeholder="Tipe"
+      />
     </mat-form-field>
-    <mat-form-field class="form-field">
-      <mat-label>Visile</mat-label>
-      <input formControlName="visible" matInput placeholder="Visible" />
-    </mat-form-field>
-    
+    <mat-checkbox formControlName="visible" labelPosition="before">Is public?</mat-checkbox>
   </form>
 </section>
 
 <div mat-dialog-actions class="d-flex justify-content-center mb-6">
-  <button mat-raised-button color="primary" class="mr-4" [mat-dialog-close]="collectionFormData.value" [disabled]="collectionFormData.invalid">Create</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="mr-4"
+    [mat-dialog-close]="collectionFormData.value"
+    [disabled]="collectionFormData.invalid"
+  >
+    Create
+  </button>
   <button mat-flat-button color="warn" mat-dialog-close>Cancel</button>
 </div>

@@ -46,6 +46,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FavListComponent } from './components/collection/fav-list/fav-list.component';
 import { CollectionsSharedWithMeComponent } from './components/collection/collections-shared-with-me/collections-shared-with-me.component'
 import { TrackDetailsComponent } from './components/track/track-details/track-details.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 const materialModules = [
   MatFormFieldModule,
@@ -64,7 +65,8 @@ const materialModules = [
   MatListModule,
   MatDialogModule,
   NativeDateModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatSnackBarModule
 ];
 
 @NgModule({
