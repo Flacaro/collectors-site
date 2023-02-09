@@ -2,7 +2,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import {filter, Observable, of, switchMap} from "rxjs";
-import { CONSTANTS } from "src/app/constants";
 import { Disk } from "src/app/models/disk";
 import { Track } from "src/app/models/track";
 import { DiskService } from "src/app/services/disk.service";
@@ -10,8 +9,9 @@ import { PersistenceService } from "src/app/services/persistence/persistence-ser
 import { TrackService } from "src/app/services/track.service";
 import { CollectionService } from 'src/app/services/collection.service';
 import {MatDialog} from "@angular/material/dialog";
-import {TrackDialogComponent} from "../track-dialog/track-dialog.component";
-import {Collection} from "../../models/collection";
+import {TrackDialogComponent} from "../../track/track-dialog/track-dialog.component";
+import { Collection } from "src/app/models/collection";
+
 
 
 @Component({

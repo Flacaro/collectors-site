@@ -29,23 +29,23 @@ import { BaseComponent } from "./components/base/base.component";
 import { MatListModule } from "@angular/material/list";
 import { AvatarPhotoComponent } from "./components/avatar-photo/avatar-photo.component";
 import { LayoutModule } from "@angular/cdk/layout";
-import { CollectionDetailsComponent } from "./components/collection-details/collection-details.component";
-import { DiskDetailsComponent } from "./components/disk-details/disk-details.component";
-import { DialogComponent } from "./components/diskAddDialog/dialog.component";
+import { CollectionDetailsComponent } from "./components/collection/collection-details/collection-details.component";
+import { DiskDetailsComponent } from "./components/disk/disk-details/disk-details.component";
+import { DialogComponent } from "./components/disk/diskAddDialog/dialog.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { JwtTokenInterceptor } from "./security/jwt-token.interceptor";
-import { CollectionsComponent } from './components/collections/collections.component';
-import { CollectionsFavouritesComponent } from './components/collections-favourites/collections-favourites.component';
-import { DisksFavouritesComponent } from './components/disks-favourites/disks-favourites.component';
+import { CollectionsComponent } from './components/collection/collections/collections.component';
+import { CollectionsFavouritesComponent } from './components/collection/collections-favourites/collections-favourites.component';
+import { DisksFavouritesComponent } from './components/disk/disks-favourites/disks-favourites.component';
 import { PersistenceService } from "./services/persistence/persistence-service";
 import { LocalStoragePersistenceService } from "./services/persistence/local-storage-persistence.service";
-import { TrackDialogComponent } from './components/track-dialog/track-dialog.component';
-import { TrackDetailsComponent } from './components/track-details/track-details.component';
-import { CollectionDialogComponent } from './components/collection-dialog/collection-dialog.component';
+import { TrackDialogComponent } from './components/track/track-dialog/track-dialog.component';
+import { CollectionDialogComponent } from './components/collection/collection-dialog/collection-dialog.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { FavListComponent } from './components/fav-list/fav-list.component';
-import { CollectionsSharedWithMeComponent } from './components/collections-shared-with-me/collections-shared-with-me.component'
+import { FavListComponent } from './components/collection/fav-list/fav-list.component';
+import { CollectionsSharedWithMeComponent } from './components/collection/collections-shared-with-me/collections-shared-with-me.component'
+import { TrackDetailsComponent } from './components/track/track-details/track-details.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -87,7 +87,6 @@ const materialModules = [
     CollectionsFavouritesComponent,
     DisksFavouritesComponent,
     TrackDialogComponent,
-    TrackDetailsComponent,
     CollectionDialogComponent,
     FavListComponent,
     CollectionsSharedWithMeComponent
