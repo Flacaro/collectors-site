@@ -1,22 +1,21 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { CollectionDetailsComponent } from "./components/collection-details/collection-details.component";
+import { CollectionDetailsComponent } from "./components/collection/collection-details/collection-details.component";
 import { AuthComponent } from "./components/auth/auth.component";
 import { BaseComponent } from "./components/base/base.component";
 import { HomeComponent } from "./components/home/home.component";
 import { LoginComponent } from "./components/login/login.component";
 import { RegistrationComponent } from "./components/registration/registration.component";
-import { DiskDetailsComponent } from "./components/disk-details/disk-details.component";
+import { DiskDetailsComponent } from "./components/disk/disk-details/disk-details.component";
 import { ProfileComponent } from "./components/profile/profile.component";
 import { IsAlreadyLoggedGuard } from "./services/is-already-logged.guard";
 import { AuthGuard } from "./security/auth.guard";
-import { CollectionsComponent } from "./components/collections/collections.component";
-import { CollectionsFavouritesComponent } from "./components/collections-favourites/collections-favourites.component";
-import { DisksFavouritesComponent } from "./components/disks-favourites/disks-favourites.component";
-import {TrackDetailsComponent} from "./components/track-details/track-details.component";
-import { FavListComponent } from "./components/fav-list/fav-list.component";
-import { CollectionsSharedWithMeComponent } from "./components/collections-shared-with-me/collections-shared-with-me.component";
-
+import { CollectionsComponent } from "./components/collection/collections/collections.component";
+import { CollectionsFavouritesComponent } from "./components/collection/collections-favourites/collections-favourites.component";
+import { DisksFavouritesComponent } from "./components/disk/disks-favourites/disks-favourites.component";
+import { FavListComponent } from "./components/collection/fav-list/fav-list.component";
+import { CollectionsSharedWithMeComponent } from "./components/collection/collections-shared-with-me/collections-shared-with-me.component";
+import { TrackDetailsComponent } from "./components/track/track-details/track-details.component";
 
 const routes: Routes = [
   {

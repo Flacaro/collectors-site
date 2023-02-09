@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { DialogComponent } from '../diskAddDialog/dialog.component';
-import {Select} from "../../models/select";
+import { Select } from 'src/app/models/select';
+import { DialogComponent } from '../../disk/diskAddDialog/dialog.component';
 
 @Component({
   selector: 'app-collection-dialog',

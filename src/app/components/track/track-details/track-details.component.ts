@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {filter, Observable} from "rxjs";
-import {Disk} from "../../models/disk";
-import {Track} from "../../models/track";
+
 import {MatDialog} from "@angular/material/dialog";
-import {DiskService} from "../../services/disk.service";
-import {CollectionService} from "../../services/collection.service";
-import {TrackService} from "../../services/track.service";
 import {ActivatedRoute} from "@angular/router";
-import {CONSTANTS} from "../../constants";
-import {DialogComponent} from "../diskAddDialog/dialog.component";
+import { TrackService } from 'src/app/services/track.service';
+import { DiskService } from 'src/app/services/disk.service';
+import { CollectionService } from 'src/app/services/collection.service';
+import { CONSTANTS } from 'src/app/constants';
+import { Track } from 'src/app/models/track';
 
 @Component({
   selector: 'app-track-details',

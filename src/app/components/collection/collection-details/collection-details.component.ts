@@ -13,7 +13,7 @@ import { LoggedCollectorService } from "src/app/security/logged-collector.servic
 import { CollectionService } from "src/app/services/collection.service";
 import { DiskService } from "src/app/services/disk.service";
 import { PersistenceService } from "src/app/services/persistence/persistence-service";
-import { DialogComponent } from "../diskAddDialog/dialog.component";
+import { DialogComponent } from "../../disk/diskAddDialog/dialog.component";
 
 @Component({
   selector: "app-collection-details",
