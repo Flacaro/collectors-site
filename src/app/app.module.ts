@@ -89,7 +89,8 @@ const materialModules = [
     TrackDialogComponent,
     CollectionDialogComponent,
     FavListComponent,
-    CollectionsSharedWithMeComponent
+    CollectionsSharedWithMeComponent,
+    TrackDetailsComponent
 
 
   ],
