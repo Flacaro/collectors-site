@@ -8,8 +8,11 @@
     </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>Type</mat-label>
-      <input
-        type="type" matInput formControlName="type" matInput placeholder="Tipe"/>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let string of genre" [value]="string.string">
+          {{string.viewValue}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>Visile</mat-label>
