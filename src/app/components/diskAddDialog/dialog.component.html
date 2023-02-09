@@ -15,9 +15,13 @@
       <mat-label>Year</mat-label>
       <input formControlName="year" matInput placeholder="Year" />
     </mat-form-field>
-    <mat-form-field class="form-field">
+    <mat-form-field class="form-field" appearance="fill">
       <mat-label>Genre</mat-label>
-      <input type="text" formControlName="genre" matInput placeholder="Genre" />
+      <mat-select formControlName="genre">
+        <mat-option *ngFor="let string of genre" [value]="string.string">
+          {{string.viewValue}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>Author</mat-label>
@@ -53,14 +57,13 @@
         placeholder="Duplicate"
       />
     </mat-form-field>
-    <mat-form-field class="form-field">
+    <mat-form-field class="form-field" appearance="fill">
       <mat-label>Format</mat-label>
-      <input
-        type="text"
-        formControlName="format"
-        matInput
-        placeholder="Format"
-      />
+      <mat-select formControlName="format">
+        <mat-option *ngFor="let string of format" [value]="string.string">
+          {{string.viewValue}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>Barcode</mat-label>
