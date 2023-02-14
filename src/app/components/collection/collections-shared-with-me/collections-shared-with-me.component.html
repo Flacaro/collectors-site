@@ -1,17 +1,18 @@
 <section>
     <div class="d-flex justify-content-between mt-8">
       <h2>Collection shared with me</h2>
-      <button mat-stroked-button [routerLink]="['/private/collections']">See all</button>
+      <button mat-stroked-button [routerLink]="['/personal/collections/sharedWithMe']">See all</button>
     </div>
     <div class="d-flex">
-      <!-- <button mat-raised-button (click)="openDialog()">
-        Add Collection <mat-icon>add</mat-icon>
-      </button> -->
+      
     </div>
     <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
       <mat-card class="card" *ngFor="let collection of (collections$ | async)">
         
         <mat-card-header>
+          <!-- <button mat-raised-button (click)="unshare()">
+        Delete <mat-icon>delete</mat-icon>
+      </button> -->
           <mat-card-title-group>
             <mat-card-title class="pb-2"> {{ collection.name }} </mat-card-title>
           </mat-card-title-group>
@@ -25,7 +26,7 @@
           />
   
 
-          <a mat-button [routerLink]="[isPrivateOrPublic,'collections', collection.id]" [queryParams]="{ isPublic: collection.visible}">
+          <a mat-button [routerLink]="['/personal/collections', collection.id ]">
             Go to collections details
           </a>
         </mat-card-content>

@@ -67,7 +67,6 @@ export class DialogComponent implements OnInit {
     {string: 'udf', viewValue: 'UDF'},
     {string: 'dvd-audio', viewValue: 'DVD-Audio'},
     {string: 'dvd-video', viewValue: 'DVD-Video'},
-    
   ];
 
 

@@ -11,7 +11,7 @@
 <section>
   <div class="d-flex justify-content-between">
     <h2>Public collections</h2>
-    <a mat-stroked-button [routerLink]="['/public/collections']">See all</a>
+    <a mat-stroked-button [routerLink]="['/collections']">See all</a>
   </div>
 
   <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
@@ -58,8 +58,7 @@
 
         <a
           mat-button
-          [routerLink]="['/public/collections', collection.id]"
-          [queryParams]="{ isPublic: collection.visible }"
+          [routerLink]="['/collections', collection.id]"
         >
           Go to collection details</a
         >
@@ -85,8 +84,7 @@
 
       <a
         mat-button
-        [routerLink]="['/public/collections', disk.collectionId]"
-        [queryParams]="{ isPublic: true }"
+        [routerLink]="['/collections', disk.collectionId]"
       >
         Go to disk details</a
       >
@@ -115,7 +113,7 @@
 
       <a
         mat-button
-        [routerLink]="['/public/collections/UUUUUUUUUUUPS']"
+        [routerLink]="['/personal/profile']"
       >
         Go to collector details</a
       >

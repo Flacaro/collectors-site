@@ -13,7 +13,7 @@ export class AddService {
     private http: HttpClient
   ) { }
 
-  private API_URL_ADD_DISK = CONSTANTS.API_URL + "/private/collections/:id/disks";
+  private API_URL_ADD_DISK = CONSTANTS.API_URL + "/personal/collections/:id/disks";
 
 addDisk(data: {
   title: string;

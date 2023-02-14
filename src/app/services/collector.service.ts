@@ -9,20 +9,21 @@ import { Collector } from '../models/collector';
 })
 export class CollectorService {
 
-  private API_URL_PRIVATE_COLLECTIONS = CONSTANTS.API_URL + '/private/collections';
+  private API_URL_PRIVATE_COLLECTIONS = CONSTANTS.API_URL + '/personal/collections';
+
 
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getOwnerOfCollection(collectionId: number) {
-    return this.http.get(`${CONSTANTS.API_URL}/public/collections/${collectionId}/owner`);
+//   getOwnerOfCollection(collectionId: number) {
+//     return this.http.get(`${CONSTANTS.API_URL}/public/collections/${collectionId}/owner`);
 
-}
+// }
 
   getCollectorsListInShared(collectionId: number): Observable<Collector[]> {
-    return this.http.get<Collector[]>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/collectors`);
+    return this.http.get<Collector[]>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/shareWith`);
 
   }
 

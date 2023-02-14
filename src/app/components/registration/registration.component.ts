@@ -32,6 +32,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(): void {
+    debugger;
     const birthday = this.convertDate(this.registrationForm.value.birthday);
     this.authService
       .register({...this.registrationForm.value, birthday: birthday})

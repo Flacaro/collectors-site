@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { filter, Observable, of, switchMap } from "rxjs";
 import { Disk } from "src/app/models/disk";
 import { Track } from "src/app/models/track";
@@ -10,6 +10,7 @@ import { CollectionService } from "src/app/services/collection.service";
 import { MatDialog } from "@angular/material/dialog";
 import { TrackDialogComponent } from "../../track/track-dialog/track-dialog.component";
 import { Collection } from "src/app/models/collection";
+import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 
 @Component({
   selector: "app-disk-details",
@@ -20,58 +21,49 @@ export class DiskDetailsComponent implements OnInit {
   disk$!: Observable<Disk>;
   disks$!: Observable<Disk[]>;
   tracks$!: Observable<Track[]>;
-  isUserLogged!: boolean;
+  owner: any;
   diskId!: number;
   collection$!: Observable<Collection>;
-  privateOrPublic!: string;
-  isPublic!: string;
+  isCollectorLogged!: boolean;
+  loggedCollector!: any;
 
   constructor(
     private dialog: MatDialog,
     private diskService: DiskService,
     private trackService: TrackService,
     private route: ActivatedRoute,
+    private router : Router,
     private persistenceService: PersistenceService,
-    private collectionService: CollectionService
+    private collectionService: CollectionService,
+    private loggedCollectorService: LoggedCollectorService
+
   ) {}
 
   ngOnInit(): void {
+
+    this.loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
+
     const collectionId = this.route.snapshot.params["collectionId"];
     this.diskId = this.route.snapshot.params["diskId"];
 
-    this.isPublic =
-      this.route.snapshot.queryParamMap.get("isPublic") || "false";
+    this.owner = this.collectionService.getOwnerOfACollection(collectionId);
 
-    if (this.isPublic === "true") {
-      this.collection$ =
-        this.collectionService.getPublicCollection(collectionId);
-      this.privateOrPublic = "/public";
-      this.disk$ = this.diskService.getDiskOfPublicCollection(
-        collectionId,
-        this.diskId
-      );
-      console.log(this.isPublic);
-      this.tracks$ = this.trackService.getPublicTracksOfDisk(
-        collectionId,
-        this.diskId
-      );
+    console.log(this.owner.value);
+
+    
+    if (this.owner == this.loggedCollector) {
+      this.disk$ = this.diskService.getPersonalDiskById(collectionId, this.diskId);
+      this.tracks$ = this.trackService.getPersonalTracksOfDisk(collectionId,this.diskId);
     } else {
-      this.collection$ =
-        this.collectionService.getPrivateCollection(collectionId);
-      this.privateOrPublic = "/private";
-      this.disk$ = this.diskService.getDiskOfPrivateCollection(
-        collectionId,
-        this.diskId
-      );
-      console.log(this.isPublic);
-      this.tracks$ = this.trackService.getPrivateTracksOfDisk(
-        collectionId,
-        this.diskId
-      );
+      this.disk$ = this.diskService.getDiskById(collectionId, this.diskId);
+      this.tracks$ = this.trackService.getTracksOfDisk( collectionId, this.diskId);
     }
+
+
   }
 
   openDialog() {
+
     const collectionId = this.route.snapshot.params["collectionId"];
 
     this.dialog
@@ -90,11 +82,16 @@ export class DiskDetailsComponent implements OnInit {
           )
         ),
         switchMap(() =>
-          this.trackService.getPrivateTracksOfDisk(collectionId, this.diskId)
+          this.trackService.getPersonalTracksOfDisk(collectionId, this.diskId)
         )
       )
       .subscribe((result) => {
         this.tracks$ = of(result);
       });
+  }
+
+  addDisktoFav() {
+ 
+    this.diskService.addDiskToFav(this.diskId).subscribe();
   }
 }

@@ -21,7 +21,6 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatDividerModule } from "@angular/material/divider";
-import { ListComponent } from "./components/list/list.component";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { AuthComponent } from "./components/auth/auth.component";
@@ -47,6 +46,10 @@ import { FavListComponent } from './components/collection/fav-list/fav-list.comp
 import { CollectionsSharedWithMeComponent } from './components/collection/collections-shared-with-me/collections-shared-with-me.component'
 import { TrackDetailsComponent } from './components/track/track-details/track-details.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ImportDiskComponent } from './components/disk/import-disk/import-disk.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import { EditCollectionComponent } from './components/collection/edit-collection/edit-collection.component';
+
 
 const materialModules = [
   MatFormFieldModule,
@@ -66,7 +69,8 @@ const materialModules = [
   MatDialogModule,
   NativeDateModule,
   MatCheckboxModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatStepperModule
 ];
 
 @NgModule({
@@ -77,7 +81,6 @@ const materialModules = [
     HeaderComponent,
     SearchBarComponent,
     HomeComponent,
-    ListComponent,
     AuthComponent,
     BaseComponent,
     AvatarPhotoComponent,
@@ -92,7 +95,9 @@ const materialModules = [
     CollectionDialogComponent,
     FavListComponent,
     CollectionsSharedWithMeComponent,
-    TrackDetailsComponent
+    TrackDetailsComponent,
+    ImportDiskComponent,
+    EditCollectionComponent
 
 
   ],

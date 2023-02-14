@@ -14,20 +14,17 @@
   width: 100%;
 }
 
-.justify-content-between {
-  justify-content: space-between;
-}
+$directions: (
+  "between": space-between,
+  "end": flex-end,
+  "start": flex-start,
+  "center": center,
+);
 
-.justify-content-end {
-  justify-content: flex-end;
-}
-
-.justify-content-start {
-  justify-content: flex-start;
-}
-
-.justify-content-center {
-  justify-content: center!important;
+@each $name, $value in $directions {
+  .justify-content-#{$name} {
+    justify-content: $value;
+  }
 }
 
 .align-items-center {

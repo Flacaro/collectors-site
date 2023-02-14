@@ -28,7 +28,7 @@
   <section class="mt-8">
     <div class="d-flex justify-content-between">
       <h2>Your collections</h2>
-      <a mat-button [routerLink]="['/private/collections']">See all</a>
+      <a mat-button [routerLink]="['/personal/collections']">See all</a>
     </div>
   
     <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
@@ -46,8 +46,8 @@
             alt="Image of a collection"
           />
         
-          <a mat-button [routerLink]="['/private/collections', collection.id]" [queryParams]="{ isPublic: collection.visible}"
-            >Go to collection details</a>
+          <a mat-button [routerLink]="['/personal/collections', collection.id]">Go to collection details</a>
+      
         </mat-card-content>
       </mat-card>
     </div>

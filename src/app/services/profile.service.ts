@@ -13,7 +13,7 @@ export class ProfileService {
 
 
   getPersonalProfile(): Observable<Collector> {
-    return this.http.get<Collector>(`${CONSTANTS.API_URL}/private/collectors/profile`);
+    return this.http.get<Collector>(`${CONSTANTS.API_URL}/personal/profile`);
   }
 
 }

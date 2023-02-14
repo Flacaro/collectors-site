@@ -21,7 +21,7 @@ export class JwtTokenInterceptor implements HttpInterceptor {
 
     const url = new URL(request.url);
 
-    if (url.pathname.startsWith("/private")) {
+    if (url.pathname.startsWith("/personal")) {
       const jwtToken = this.persistenceService.get(CONSTANTS.JWT_TOKEN_KEY);
       const headers = new HttpHeaders({
         Authorization: `Bearer ${jwtToken}`,

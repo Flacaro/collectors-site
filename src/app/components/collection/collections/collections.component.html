@@ -1,7 +1,7 @@
 <section>
   <div class="d-flex justify-content-between mt-8">
     <h2>Your collections</h2>
-    <button mat-stroked-button [routerLink]="['/private/collections']">See all</button>
+    <button mat-stroked-button [routerLink]="['/personal/collections']">See all</button>
   </div>
   <div class="d-flex">
     <button mat-raised-button (click)="openDialog()">
@@ -24,7 +24,7 @@
           alt="Image of a collection"
         />
 
-        <a mat-button [routerLink]="['/private/collections', collection.id]" [queryParams]="{ isPublic: collection.visible}">
+        <a mat-button [routerLink]="[collection.id]">
           Go to collection details
         </a>
       </mat-card-content>

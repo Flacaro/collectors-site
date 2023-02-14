@@ -18,7 +18,8 @@ export class ProfileComponent implements OnInit {
     private collectionService: CollectionService) { }
 
   ngOnInit(): void {
-    this.privateCollections$ = this.collectionService.getPrivateCollections();
+    
+    this.privateCollections$ = this.collectionService.getPersonalCollections();
 
   }
 

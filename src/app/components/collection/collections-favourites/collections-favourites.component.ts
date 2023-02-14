@@ -19,12 +19,15 @@ export class CollectionsFavouritesComponent {
   ) { }
 
   ngOnInit(): void {
-    this.collectionsFavourites$ = this.collectionService.getFavouriteCollections();
+    this.collectionsFavourites$ = this.collectionService.getFavoriteCollections();
   }
 
-
+  isFavoriteListEmpty(): boolean {
+     this.collectionsFavourites$ == null;
+      return true;
     
   }
+}
   
 
 

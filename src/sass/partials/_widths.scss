@@ -1,0 +1,6 @@
+
+@for $i from 1 through 10 {
+  .min-w-#{$i} {
+    min-width: #{$i}rem;
+  }
+}

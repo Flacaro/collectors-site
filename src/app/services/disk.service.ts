@@ -15,29 +15,35 @@ export class DiskService {
     private collectionService: CollectionService
   ) { }
 
-  private API_URL_PUBLIC_COLLECTIONS = CONSTANTS.API_URL + "/public/collections";
-  private API_URL_PRIVATE_COLLECTION = CONSTANTS.API_URL + "/private/collections";
-  private API_URL_DISKSF = CONSTANTS.API_URL + "/private/collectors/disks/favourites";
+  private API_URL_COLLECTIONS = CONSTANTS.API_URL + "/collections";
+  private API_URL_PRIVATE_COLLECTION = CONSTANTS.API_URL + "/personal/collections";
+  private API_URL_PRIVATE = CONSTANTS.API_URL + "/personal";
 
-  getDisksOfPublicCollection(collectionId: number): Observable<Disk []> {
-    return this.http.get<Disk []>(`${this.API_URL_PUBLIC_COLLECTIONS}/${collectionId}/disks`);
+
+
+  getDisksByPublicCollectionId(collectionId: number): Observable<Disk []> {
+    return this.http.get<Disk []>(`${this.API_URL_COLLECTIONS}/${collectionId}/disks`);
   }
 
-  getDisksOfPrivateCollection(collectionId: number): Observable<Disk []> {
+  getDisksByPersonalCollectionId(collectionId: number): Observable<Disk []> {
     return this.http.get<Disk []>(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks`);
   }
 
-  getDiskOfPrivateCollection(collectionId: number, diskId: number): Observable<Disk> {
+  getDisksFromFavorites(): Observable<Disk[]> {
+    return this.http.get<Disk[]>(`${this.API_URL_PRIVATE}/disks/favorites`);
+  }
+  
+  getPersonalDiskById(collectionId: number, diskId: number): Observable<Disk> {
     return this.http.get<Disk>(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks/${diskId}`);
   }
 
-  getDiskOfPublicCollection(collectionId: number, diskId: number): Observable<Disk> {
-    return this.http.get<Disk>(`${this.API_URL_PUBLIC_COLLECTIONS}/${collectionId}/disks/${diskId}`);
+  getDiskById(collectionId: number, diskId: number): Observable<Disk> {
+    return this.http.get<Disk>(`${this.API_URL_COLLECTIONS}/${collectionId}/disks/${diskId}`);
+  }
+  addDiskToFav(diskId: number): Observable<Disk> {
+    return this.http.post<Disk>(`${this.API_URL_PRIVATE}/disks/favorites`, {diskId: diskId});
   }
 
-  getDiskFromFavorites(): Observable<Disk[]> {
-    return this.http.get<Disk[]>(`${this.API_URL_DISKSF}`);
-  }
 
   addDiskToCollection(collectionId: number, data: {
     title: string;
@@ -55,5 +61,8 @@ export class DiskService {
     return this.http.post<Disk>(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks`, data);
   }
 
+  // getMostSearchedDisks(): Observable<Disk[]> {
+  //   return this.http.get<Disk[]>(`${this.API_URL_PUBLIC_COLLECTIONS}/statistics`);
+  // }
 
 }

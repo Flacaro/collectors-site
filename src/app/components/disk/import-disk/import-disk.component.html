@@ -1,0 +1,126 @@
+<!-- <div class="search">
+    <ng-container *ngIf=" ">
+      <app-search-bar (searchEvent)="onValueChanges($event)" ></app-search-bar>
+    </ng-container>
+  </div> -->
+
+
+<h2 mat-dialog-title>Import a disk</h2>
+
+<section class="m-6">
+
+  <mat-stepper linear #stepper>
+
+    <mat-step [stepControl]="searchStepControl" label="Search for existing disk" [editable]="true" >
+      <div class="py-8 d-flex justify-content-center">
+        <mat-form-field class="search-bar min-w-8" appearance="outline">
+          <mat-label>Search</mat-label>
+          <input
+            matInput
+            type="search"
+            placeholder="Search a disk by name, artist,..."
+            [formControl]="searchControl"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <div class="search-result">
+          <ng-container *ngFor="let result of results$ | async">
+              <li (click)="setSelectedResult(result)">{{ result | json }}</li>
+          </ng-container>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button mat-flat-button matStepperNext>Continue</button>
+      </div>
+     
+    </mat-step>
+
+    <mat-step [stepControl]="diskStepControl" label="Create disk" [editable]="true">
+
+      <form [formGroup]="addDiskForm" class="d-grid gap-1 grid-template-columns-2 py-8">
+        <mat-form-field class="form-field">
+          <mat-label>Title</mat-label>
+          <input type="text" matInput formControlName="title" placeholder="Title" />
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Artist</mat-label>
+          <input
+            type="text" matInput formControlName="artist" matInput placeholder="Artist"/>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Year</mat-label>
+          <input formControlName="year" matInput placeholder="Year" />
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Genre</mat-label>
+          <mat-select formControlName="genre">
+            <mat-option *ngFor="let string of genre" [value]="string.string">
+              {{string.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Author</mat-label>
+          <input
+            type="text"
+            formControlName="author"
+            matInput
+            placeholder="Author"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Label</mat-label>
+          <input type="text" formControlName="label" matInput placeholder="Record Company" />
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Band</mat-label>
+          <input type="text" formControlName="band" matInput placeholder="Band" />
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+            <mat-label>State</mat-label>
+            <mat-select formControlName="state">
+              <mat-option *ngFor="let string of selectValues" [value]="string.string">
+                {{string.viewValue}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+       
+        <mat-form-field class="form-field">
+          <mat-label>Number of copies</mat-label>
+          <input
+            formControlName="duplicate"
+            matInput
+            placeholder="Duplicate"
+          />
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="fill">
+          <mat-label>Format</mat-label>
+          <mat-select formControlName="format">
+            <mat-option *ngFor="let string of format" [value]="string.string">
+              {{string.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+          <mat-label>Barcode</mat-label>
+          <input formControlName="barcode" matInput placeholder="Barcode" />
+        </mat-form-field>
+      </form>
+
+
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button color="primary" [disabled]="addDiskForm.invalid" [mat-dialog-close]="addDiskForm.value">Continue</button>
+        <button mat-flat-button>Cancel</button>
+
+      </div>
+
+    </mat-step>
+
+  </mat-stepper>
+
+
+ 
+
+</section>

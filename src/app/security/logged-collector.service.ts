@@ -14,6 +14,11 @@ export class LoggedCollectorService {
   constructor(private persistenceService: PersistenceService) {
   }
 
+  isCollectorLogged(): boolean {
+    return this.currentLoggedCollector$.value !== null;
+  }
+
+
   getCurrentCollector(): Observable<Collector | null> {
     return this.currentLoggedCollector$.asObservable();
   }

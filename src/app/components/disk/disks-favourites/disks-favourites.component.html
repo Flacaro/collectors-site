@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between mt-8">
       <h2 >Your disks in favourites list</h2>
     </div>
-  <h3 *ngIf="isDiskFavListEmpty()"> You don't have any disk in favoutires list</h3>
+  <h3 *ngIf="isFavoriteListEmpty() == true"> You don't have any disk in favoutires list</h3>
     <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
       <mat-card class="card" *ngFor="let disk of (disks$ | async)">
         
@@ -20,7 +20,7 @@
             alt="Image of a collection"
           />
         
-          <a mat-button [routerLink]="['/private/collections/', collectionId, 'disks', disk.id]"
+          <a mat-button [routerLink]="['/personal/collections/', disk.collectionId, 'disks', disk.id]"
             >Go to disk details</a>
         </mat-card-content>
       </mat-card>

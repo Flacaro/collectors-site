@@ -7,6 +7,7 @@
     />
     <div>
       <div class="ml-10 mt-10" >
+        <a mat-button (click)="addDisktoFav()"><mat-icon> favorite </mat-icon></a>
         <div class="d-flex">
           <h1>{{disk.title}}</h1>
           <a mat-button [routerLink]=""> <mat-icon>edit</mat-icon></a>
@@ -27,9 +28,6 @@
      </div>
     </div>
   </div>
-  <div class="d-flex">
-    <a mat-button [routerLink]="" class="mt-5" *ngIf="isUserLogged"> Collectors that share the list</a> 
-  </div>
 
 
 <div class="mt-5 ml-2">
@@ -45,12 +43,11 @@
 
   <section>
     <div class="d-flex justify-content-between justify-content-end">
-      <a mat-button routerLink="['collections']">See all</a>
+      <a mat-button [routerLink] ="['/collections']">See all</a>
      
     </div>
   
-    <div class="d-grid grid-template-columns-5 gap-2 grid-columns"
-    *ngIf="(collection$|async) as collection ">
+    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
       <mat-card class="card" *ngFor="let track of (tracks$ | async)">
         <mat-card-header>
           <mat-card-title-group>
@@ -63,7 +60,7 @@
             src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
             alt="Image of a collection"
           />
-          <a mat-button [routerLink]="[privateOrPublic,'collections',collection.id,'disks',diskId,'tracks',track.id]" [queryParams]="{ isPublic: collection.visible}"> Go to track details</a>
+          <a mat-button [routerLink]="[diskId,'tracks',track.id]"> Go to track details</a>
         </mat-card-content>
       </mat-card>
     </div>

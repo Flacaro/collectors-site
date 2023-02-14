@@ -16,18 +16,15 @@ import { DisksFavouritesComponent } from "./components/disk/disks-favourites/dis
 import { FavListComponent } from "./components/collection/fav-list/fav-list.component";
 import { CollectionsSharedWithMeComponent } from "./components/collection/collections-shared-with-me/collections-shared-with-me.component";
 import { TrackDetailsComponent } from "./components/track/track-details/track-details.component";
+import { EditCollectionComponent } from "./components/collection/edit-collection/edit-collection.component";
 
 const routes: Routes = [
   {
     path: "auth",
     component: AuthComponent,
     children: [
-      { path: "", redirectTo: "login", pathMatch: "full" },
-      {
-        path: "login",
-        component: LoginComponent,
-        canActivate: [IsAlreadyLoggedGuard],
-      },
+      // { path: "", redirectTo: "login", pathMatch: "full" },
+      {path: "login", component: LoginComponent, canActivate: [IsAlreadyLoggedGuard]},
       { path: "registration", component: RegistrationComponent },
     ],
   },
@@ -36,25 +33,47 @@ const routes: Routes = [
     component: BaseComponent,
     children: [
       { path: "", component: HomeComponent },
-      { path: "public/collections/:collectionId", component: CollectionDetailsComponent },
-      { path: "public/collections/:collectionId/disks", component: CollectionDetailsComponent },
-      { path: "public/collections/:collectionId/disks/:diskId/tracks/:trackId", component: TrackDetailsComponent},
-      { path: "public/collections/:collectionId/disks/:diskId", component: DiskDetailsComponent },
-      { path: "private/collectors/profile", component: ProfileComponent, canActivate: [AuthGuard] },
-      { path: "private/collectors/profile/:id", component: ProfileComponent, canActivate: [AuthGuard] },
-      { path: "private/collectors/collections/withMe", component: CollectionsSharedWithMeComponent, canActivate: [AuthGuard] },
-      { path: "public/collections", component: HomeComponent },
-      { path: "private/collections", component: CollectionsComponent, canActivate: [AuthGuard]},
-      { path: "private/collections/:collectionId/collectors", component: FavListComponent, canActivate: [AuthGuard]},
-      { path: "private/collections/:collectionId", component: CollectionDetailsComponent, canActivate: [AuthGuard]},
-      { path: "private/collections/:collectionId/disks/:diskId", component: DiskDetailsComponent, canActivate: [AuthGuard]},
-      { path: "private/collectors/favourites", component: CollectionsFavouritesComponent, canActivate: [AuthGuard]},
-      { path: "private/collectors/collections/favourites", component: CollectionsFavouritesComponent, canActivate: [AuthGuard]},
-      { path: "private/collectors/disks/favourites", component: DisksFavouritesComponent, canActivate: [AuthGuard]},
-      { path: "private/collections/:collectionId/disks/", component: CollectionDetailsComponent, canActivate: [AuthGuard] },
-      { path: "private/collections/:collectionId/disks/:diskId/tracks", component: DiskDetailsComponent, canActivate: [AuthGuard]},
-      { path: "private/collections/:collectionId/disks/:diskId/tracks/:trackId", component: TrackDetailsComponent, canActivate: [AuthGuard]},
+      { path: "collections", component: HomeComponent },
+      { path: "personal/collections/sharedWithMe", component: CollectionsSharedWithMeComponent, canActivate: [AuthGuard]},
+      { path: "personal/collections/:collectionId/unshareWith", component: CollectionsSharedWithMeComponent, canActivate: [AuthGuard]},
+     
 
+      { path: "collections/:collectionId", component: CollectionDetailsComponent },
+      { path: "collections/:collectionId/disks", component: CollectionDetailsComponent },
+      
+      { path: "collections/:collectionId/disks/:diskId/tracks/:trackId", component: TrackDetailsComponent},
+      { path: "collections/:collectionId/disks/:diskId/tracks", component: DiskDetailsComponent },
+      { path: "collections/:collectionId/disks/:diskId", component: DiskDetailsComponent },
+      
+      
+      { path: "collections/:collectionId/disks/:diskId/images", component: DiskDetailsComponent },
+      { path: "statistics/disks", component: ProfileComponent },
+
+
+
+      { path: "personal/profile", component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: "personal/profile/images", component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: "personal/profile/images/:imageId", component: ProfileComponent, canActivate: [AuthGuard] },
+      { path: "personal/collections/favorites", component: CollectionsFavouritesComponent, canActivate: [AuthGuard]},
+
+      { path: "personal/collections", component: CollectionsComponent, canActivate: [AuthGuard]},
+     
+      { path: "personal/collections/:collectionId", component: CollectionDetailsComponent, canActivate: [AuthGuard]},
+      { path: "personal/collections/:collectionId/disks/", component: CollectionDetailsComponent, canActivate: [AuthGuard] },
+      { path: "personal/collections/:collectionId/disks/:diskId/tracks", component: DiskDetailsComponent, canActivate: [AuthGuard]},
+      { path: "personal/collections/:collectionId/disks/:diskId/tracks/:trackId", component: TrackDetailsComponent, canActivate: [AuthGuard]},
+      { path: "personal/collections/:collectionId/disks/:diskId", component: DiskDetailsComponent, canActivate: [AuthGuard]},
+       { path: "personal/collections/:collectionId/edit", component: EditCollectionComponent, canActivate: [AuthGuard]},
+
+
+      { path: "personal/disks/favorites", component: DisksFavouritesComponent, canActivate: [AuthGuard]},
+      { path: "personal/collections/:collectionId/disks/:diskId/images", component: DiskDetailsComponent, canActivate: [AuthGuard]},
+      { path: "personal/collections/:collectionId/disks/:diskId/tracks", component: DiskDetailsComponent, canActivate: [AuthGuard]},
+      { path: "personal/collections/:collectionId/disks/:diskId/tracks/:trackId", component: TrackDetailsComponent, canActivate: [AuthGuard]},
+
+      
+      
+  
     ],
   },
 ];

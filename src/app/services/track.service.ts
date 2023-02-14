@@ -15,26 +15,23 @@ export class TrackService {
 
   ) { }
 
-  private API_URL_COLLECTIONS = CONSTANTS.API_URL + "/public/collections";
-  private API_URL_TRACK = CONSTANTS.API_URL + "/public/collections/:collectionId/disks/:diskId/tracks";
-  private API_URL_PRIVATE_TRACKS = CONSTANTS.API_URL + "/private/collections/:collectionId/disks/:diskId/tracks";
-  private API_URL_PRIVATE_TRACK = CONSTANTS.API_URL + "/private/collections/:collectionId/disks/:diskId/tracks/:trackId";
+  private API_URL_COLLECTIONS = CONSTANTS.API_URL + "/collections";
+  private API_PRIVATE_URL_COLLECTIONS = CONSTANTS.API_URL + "/personal/collections";
 
-
-  getPublicTracksOfDisk(collectionId: number, diskId: number): Observable<Track []> {
-    return this.http.get<Track []>(`${this.API_URL_TRACK}`.replace(":collectionId", collectionId.toString()).replace(":diskId", diskId.toString()));
+  getTracksOfDisk(collectionId: number, diskId: number): Observable<Track []> {
+    return this.http.get<Track []>(`${this.API_URL_COLLECTIONS}/${collectionId}/disks/${diskId}/tracks`);
   }
 
-  getPublicTrackById(collectionId: number, diskId: number, trackId: number): Observable<Track> {
+  getTrackById(collectionId: number, diskId: number, trackId: number): Observable<Track> {
     return this.http.get<Track>(`${this.API_URL_COLLECTIONS}/${collectionId}/disks/${diskId}/tracks/${trackId}`);
   }
 
-  getPrivateTracksOfDisk(collectionId: number, diskId: number): Observable<Track []> {
-    return this.http.get<Track []>(`${this.API_URL_PRIVATE_TRACKS}`.replace(":collectionId", collectionId.toString()).replace(":diskId", diskId.toString()));
+  getPersonalTracksOfDisk(collectionId: number, diskId: number): Observable<Track []> {
+    return this.http.get<Track []>(`${this.API_PRIVATE_URL_COLLECTIONS}/${collectionId}/disks/${diskId}/tracks`);
   }
 
-  getPrivateTrackById(collectionId: number, diskId: number, trackId: number): Observable<Track> {
-    return this.http.get<Track>(`${this.API_URL_PRIVATE_TRACK}`.replace(":collectionId", collectionId.toString()).replace(":diskId", diskId.toString()).replace(":trackId", trackId.toString()));
+  getPersonalTrackById(collectionId: number, diskId: number, trackId: number): Observable<Track> {
+    return this.http.get<Track>(`${this.API_PRIVATE_URL_COLLECTIONS}/${collectionId}/disks/${diskId}/tracks/${trackId}`);
   }
 
   addTrackToDisk(collectionId, diskId, data:{
@@ -46,7 +43,7 @@ export class TrackService {
     compositor: string;
     time : number;
   }): Observable<Track>{
-    return this.http.post<Track>(`${this.API_URL_PRIVATE_TRACKS}`.replace(":collectionId", collectionId.toString()).replace(":diskId", diskId.toString()),data);
+    return this.http.post<Track>(`${this.API_PRIVATE_URL_COLLECTIONS}/${collectionId}/disks/${diskId}/tracks`,data);
   }
 
 

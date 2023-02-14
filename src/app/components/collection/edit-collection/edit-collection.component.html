@@ -1,0 +1,23 @@
+<h1>Edit Collection</h1>
+  
+<section>
+    <form
+      [formGroup]="editCollectionForm"
+      class="d-grid gap-1 grid-template-columns-2"
+    >
+      <mat-form-field class="form-field">
+        <mat-label>name</mat-label>
+        <input type="text" matInput formControlName="name" placeholder="Name" />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Type</mat-label>
+        <input
+          type="type"
+          matInput
+          formControlName="type"
+          matInput
+          placeholder="Tipe"
+        />
+      </mat-form-field>
+    </form>
+  </section>

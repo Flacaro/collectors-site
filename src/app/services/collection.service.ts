@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { CONSTANTS } from '../constants';
 import { Collection } from '../models/collection';
 import { CollectionPayload } from '../models/collection-payload';
+import { CollectorPayload } from '../models/collector-payload';
 import { Collector } from '../models/collector';
 import { Disk } from '../models/disk';
 
@@ -20,40 +21,34 @@ export class CollectionService {
   ) { }
 
   
-  private API_URL_PUBLIC_COLLECTIONS = CONSTANTS.API_URL + "/public/collections";
-  private API_URL_PRIVATE_COLLECTIONS = CONSTANTS.API_URL + "/private/collections";
-  private API_URL_COLLECTOR_COLLECTIONSF = CONSTANTS.API_URL + "/private/collectors/favourites";
-  private API_URL_COLLECTIONTOFAV= CONSTANTS.API_URL + "/private/collectors/collections/favourites";
-  private API_URL_PRIVATE_COLLECTION_SHARED = CONSTANTS.API_URL + "/private/collectors/collections/withMe";
+  private API_URL_COLLECTIONS = CONSTANTS.API_URL + "/collections";
+  private API_URL_PRIVATE_COLLECTIONS = CONSTANTS.API_URL + "/personal/collections";
+  private API_URL_COLLECTIONTOFAV= CONSTANTS.API_URL + "/personal/collections/favorites";
+  private API_URL_PRIVATE_COLLECTION_SHARED = CONSTANTS.API_URL + "/personal/collections/sharedWithMe";
     
 
-
-
-  getPublicCollections(): Observable<Collection[]> {
-    return this.http.get<Collection[]>(this.API_URL_PUBLIC_COLLECTIONS);
+  getPersonalCollections(): Observable<Collection[]> {
+    return this.http.get<Collection[]>(`${this.API_URL_PRIVATE_COLLECTIONS}`);
   }
 
-
-  getPublicCollection(collectionId: number): Observable<Collection> {  
-      return this.http.get<Collection>(`${this.API_URL_PUBLIC_COLLECTIONS}/${collectionId}`);
-   
-  }
-  
-
-  getPrivateCollections(): Observable<Collection[]> {
-    return this.http.get<Collection[]>(this.API_URL_PRIVATE_COLLECTIONS);
-  }
-
-  getPrivateCollection(collectionId: number): Observable<Collection> {
+  getPersonalCollectionById(collectionId: number): Observable<Collection> {
     return this.http.get<Collection>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}`);
   }
 
-  getFavouriteCollections(): Observable<Collection[]> {
-    return this.http.get<Collection[]>(`${this.API_URL_COLLECTOR_COLLECTIONSF}`);
+ getPublicCollections(): Observable<Collection[]> {
+    return this.http.get<Collection[]>(`${this.API_URL_COLLECTIONS}`);
+ }
+
+ getPublicCollectionById(collectionId: number): Observable<Collection> {
+    return this.http.get<Collection>(`${this.API_URL_COLLECTIONS}/${collectionId}`);
   }
 
-  addCollectionToFavourites(collectionId: number): Observable<CollectionPayload> {
+  addCollectionToFavorites(collectionId: number): Observable<CollectionPayload> {
     return this.http.post<CollectionPayload>(`${this.API_URL_COLLECTIONTOFAV}`, {collectionId: collectionId});
+  }
+
+  getOwnerOfACollection(collectionId: number): Observable<Collector> {
+    return this.http.get<Collector>(`${this.API_URL_COLLECTIONS}/${collectionId}/owner`);
   }
 
   addCollection(data: {
@@ -64,9 +59,6 @@ export class CollectionService {
     return this.http.post<Collection>(`${this.API_URL_PRIVATE_COLLECTIONS}`, data);
   }
 
-  getPublicCollectionsByParameters(name : string): Observable<Collection> {
-    return this.http.get<Collection>(`${this.API_URL_PUBLIC_COLLECTIONS}`, {params: {name: name}});
-  }
 
   deleteCollection(collectionId: number): Observable<Collection> {
     return this.http.delete<Collection>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}`);
@@ -75,6 +67,23 @@ export class CollectionService {
   getCollectionSharedWithMe(): Observable<Collection[]> {
     return this.http.get<Collection[]>(`${this.API_URL_PRIVATE_COLLECTION_SHARED}`);
   }
+
+  getFavoriteCollections(): Observable<Collection[]> {
+    return this.http.get<Collection[]>(`${this.API_URL_COLLECTIONTOFAV}`);
+  }
+
+  unshareCollection(collectorsIds: number[], collectionId: number): void {
+     this.http.post(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/unshareWith`, collectorsIds);
+  }
+
+  editCollection(collectionId: number, data: {
+    name: string;
+    type: string;
+    visible: boolean;
+  }): Observable<Collection> {
+    return this.http.patch<Collection>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}`, data);
+  }
+  
 
 
 }

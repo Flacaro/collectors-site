@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { Collection } from "src/app/models/collection";
 import { CONSTANTS } from "src/app/constants";
 import { PersistenceService } from "src/app/services/persistence/persistence-service";
+import { ActivatedRoute } from "@angular/router";
 
 type SideNavConfig = {
   mode: "side" | "over";
@@ -20,7 +21,13 @@ type AppRoute = {
   styleUrls: ["./base.component.scss"],
 })
 export class BaseComponent implements OnInit {
-  // collection$!: Observable<Collection>;
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private persistenceService: PersistenceService,
+    private route: ActivatedRoute,
+  ) {}
+
 
   collections: Collection[] = [];
 
@@ -31,6 +38,7 @@ export class BaseComponent implements OnInit {
 
   isUserLogged: boolean = !!this.persistenceService.get(CONSTANTS.JWT_TOKEN_KEY);
   isMobile: boolean = false;
+
 
   //if isUserLogged is true, then the user is logged in and we can show the protected routes
 
@@ -47,35 +55,32 @@ export class BaseComponent implements OnInit {
       name: "Home",
     },
     {
-      link: "private/collectors/profile",
+      link: "personal/profile",
       name: "Profile",
     },
     {
-      link: "private/collections",
+      link: "personal/collections",
       name: "Collections",
     },
     {
-      link: "private/collectors/favourites",
+      link: "personal/collections/favorites",
       name: "Favourites collections",
     },
     {
-      link: "private/collectors/disks/favourites",
+      link: "personal/disks/favorites",
       name: "Favourites disks",
     },
+
     {
-      link: "private/collectors/collections/withMe",
+      link: "personal/collections/sharedWithMe",
       name: "Collections shared with me",
     }
   ];
 
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    private persistenceService: PersistenceService
-  ) {}
+ 
 
   ngOnInit(): void {
-    // const collectionId = this.route.snapshot.params["id"];
-
+    
     // this.collection$ = this.collectionService.getCollection(collectionId);
     // se e' mobile allora bisogna nascondere la sidenav, altrimenti lasciarla aperta
     this.breakpointObserver

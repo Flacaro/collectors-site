@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { EmailValidator } from "@angular/forms";
 import { map, Observable } from "rxjs";
 import { AuthService } from "src/app/security/auth.service";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
@@ -9,6 +10,7 @@ import { LoggedCollectorService } from "src/app/security/logged-collector.servic
   styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent {
+
   @Input() isMobile: boolean = false;
 
   @Output() toggleSideNav = new EventEmitter<void>();
@@ -23,8 +25,9 @@ export class HeaderComponent {
 
   logoutCollector() {
     this.authService.logout();
-    //refresh the page
-    // window.location.reload();
   }
+
+
+
 
 }

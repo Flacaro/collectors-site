@@ -1,7 +1,7 @@
 <section>
     <div class="d-flex justify-content-between mt-8">
       <h2 >Your Favourites collections</h2>
-      <div *ngIf="">Your collections fav list is empty</div>
+      <div *ngIf="isFavoriteListEmpty() == true ">Your collections fav list is empty</div>
     </div>
    
     <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
@@ -21,7 +21,7 @@
             alt="Image of a collection"
           />
         
-          <a mat-button [routerLink]="['/private/collections', collection.id]"
+          <a mat-button [routerLink]="['/personal/collections', collection.id]"
             >Go to collection details</a>
         </mat-card-content>
       </mat-card>
