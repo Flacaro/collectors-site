@@ -11,6 +11,7 @@
     </mat-form-field>
     <mat-form-field class="form-field">
       <mat-label>Type</mat-label>
+<<<<<<< HEAD
       <input
         type="type"
         matInput
@@ -18,6 +19,13 @@
         matInput
         placeholder="Tipe"
       />
+=======
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let string of genre" [value]="string.string">
+          {{string.viewValue}}
+        </mat-option>
+      </mat-select>
+>>>>>>> 2c0903017bd359ac7c7965390dfc3f0202943e00
     </mat-form-field>
     <mat-checkbox formControlName="visible" labelPosition="before">Is public?</mat-checkbox>
   </form>
