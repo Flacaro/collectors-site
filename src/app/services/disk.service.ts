@@ -61,6 +61,25 @@ export class DiskService {
     return this.http.post<Disk>(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks`, data);
   }
 
+
+  editPersonalDisk(collectionId: number, diskId: number, data: {
+    title: string;
+    artist: string;
+    year: number;
+    genre: string;
+    author: string;
+    label: string;
+    band: string;
+    state: string;
+    duplicate: number;
+    format: string;
+    barcode: number;
+  }): Observable<Disk> {
+    return this.http.patch<Disk>(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks/${diskId}`, data);
+  }
+
+
+
   // getMostSearchedDisks(): Observable<Disk[]> {
   //   return this.http.get<Disk[]>(`${this.API_URL_PUBLIC_COLLECTIONS}/statistics`);
   // }

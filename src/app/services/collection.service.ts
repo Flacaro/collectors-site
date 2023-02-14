@@ -84,6 +84,10 @@ export class CollectionService {
     return this.http.patch<Collection>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}`, data);
   }
   
+  getAllCollections(): Observable<Collection[]> {
+    return this.http.get<Collection[]>(`${this.API_URL_COLLECTIONS}`);
+  }
+  
 
 
 }

@@ -10,7 +10,7 @@
 
       <div class="ml-10 mt-10 d-flex">
         <h1>{{loggedCollector?.username}}</h1>
-        <a mat-button class="ml-5" [routerLink]="[loggedCollector?.id]">
+        <a mat-button class="ml-5" [routerLink]="['/personal/collectors', loggedCollector?.id, 'edit']">
           <mat-icon> edit</mat-icon></a
         >
       </div>

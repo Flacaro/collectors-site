@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
+import * as moment from "moment";
 import { Select } from "src/app/models/select";
 
 
@@ -53,20 +54,7 @@ export class DialogComponent implements OnInit {
     {string: 'vinile', viewValue: 'Vinile'},
     {string: 'cd', viewValue: 'CD'},
     {string: 'cassette', viewValue: 'Cassette'},
-    {string: 'dvd', viewValue: 'DVD'},
-    {string: 'blu-ray', viewValue: 'Blu-Ray'},
-    {string: 'vhs', viewValue: 'VHS'},
-    {string: 'k7', viewValue: 'K7'},
-    {string: 'kasetto', viewValue: 'Kasetto'},
-    {string: 'laserdisc', viewValue: 'Laserdisc'},
-    {string: 'mini disc', viewValue: 'Mini Disc'},
-    {string: 'sacd', viewValue: 'SACD'},
-    {string: 'vcd', viewValue: 'VCD'},
-    {string: 'svcd', viewValue: 'SVCD'},
-    {string: 'hd-dvd', viewValue: 'HD-DVD'},
-    {string: 'udf', viewValue: 'UDF'},
-    {string: 'dvd-audio', viewValue: 'DVD-Audio'},
-    {string: 'dvd-video', viewValue: 'DVD-Video'},
+    {string: 'dvd', viewValue: 'DVD'}
   ];
 
 
@@ -78,6 +66,7 @@ export class DialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.addDiskForm = this.formBuilder.group({
       title: ["", [Validators.required]],
       artist: ["", [Validators.required]],
@@ -96,6 +85,7 @@ export class DialogComponent implements OnInit {
       this.collectionId = params["collectioId"];
     });
 
+    // const year = this.convertDate(this.addDiskForm.value.year);
    
 
   }
@@ -106,5 +96,9 @@ export class DialogComponent implements OnInit {
     this.addDiskForm.reset();
   }
 
+
+  convertDate(date: Date) {
+    return moment(date).format("YYYY-MM-DD");
+  }
   
 }

@@ -1,11 +1,11 @@
-import { Disk } from "./disk";
+
 
 export interface Track {
     id: number;
     title: string;
-    band: string;
+    author: string;
     album: string;
+    band: string;
     artist: string;
-    compositor: string;
     time: number
 }

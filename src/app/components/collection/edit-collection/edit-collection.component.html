@@ -1,6 +1,8 @@
 <h1>Edit Collection</h1>
   
 <section>
+
+  
     <form
       [formGroup]="editCollectionForm"
       class="d-grid gap-1 grid-template-columns-2"
@@ -19,5 +21,12 @@
           placeholder="Tipe"
         />
       </mat-form-field>
+
+    <mat-checkbox formControlName="visible" labelPosition="before">is public?</mat-checkbox>
     </form>
+    <div class="d-flex justify-content-center">
+      <button mat-raised-button color="primary"  (click)="onSubmit()" >Continue</button>
+ 
+    </div>
+
   </section>

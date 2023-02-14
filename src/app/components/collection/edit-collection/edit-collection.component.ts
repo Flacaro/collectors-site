@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, combineLatest, map, Observable, startWith, switchMap } from 'rxjs';
+import { Collection } from 'src/app/models/collection';
 import { CollectionService } from 'src/app/services/collection.service';
 
 @Component({
@@ -12,6 +14,9 @@ export class EditCollectionComponent implements OnInit{
 
   editCollectionForm!: FormGroup;
   collectionId!: number;
+  collection$!: Observable<Collection>;
+
+
 
 
   constructor(
@@ -25,37 +30,37 @@ export class EditCollectionComponent implements OnInit{
 
     this.collectionId = this.route.snapshot.params['collectionId'];
 
+    this.collection$ = this.collectionService.getPersonalCollectionById(this.collectionId);
+
+    
+
     this.editCollectionForm = this.formBuilder.group({
       name: [""],
       type: [""],
-      visible: [false],
+      visible: [""],
     });
-  }
 
-  getCurrentCollection() {
 
-    this.collectionService.getPublicCollectionById(this.collectionId).subscribe(
-      (data) => {
-        this.editCollectionForm.patchValue({
-          name: data.name,
-          type: data.type,
-          visible: data.visible
-        });
-      }
+    //metto i valori di default nel form
+    this.collection$.subscribe((collection) => {
+      this.editCollectionForm.patchValue({
+        name: collection.name,
+        type: collection.type,
+        visible: collection.visible,
+      });
+    }
     );
+
+    
+    
   }
+
 
   onSubmit() {
-    //send the data to the service
-    this.collectionService.editCollection(this.collectionId, this.editCollectionForm.value).subscribe(
-      (data) => {
-        console.log(data);
-      }
-
-    );
-
+  
+    this.collectionService.editCollection(this.collectionId, this.editCollectionForm.value).subscribe();
+    //torna alla pagina precedente
+    window.history.back();
   }
-
-
 
 }

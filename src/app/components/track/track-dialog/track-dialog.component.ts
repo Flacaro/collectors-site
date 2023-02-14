@@ -17,10 +17,10 @@ export class TrackDialogComponent implements OnInit {
   ngOnInit(): void {
     this.addTrackForm = this.formBuilder.group({
       title: ["", [Validators.required]],
-      artist: ["", [Validators.required]],
+      author: ["", [Validators.required]],
       album: ["", [Validators.required]],
       band: ["", [Validators.required]],
-      compositor: [""],
+      artist: ["", [Validators.required]],
       time:[0]
     });
   }

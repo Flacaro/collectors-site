@@ -1,0 +1,88 @@
+<h1>Edit Collection</h1>
+  
+<section>
+
+  
+    <form
+      [formGroup]="editDiskForm"
+      class="d-grid gap-1 grid-template-columns-2"
+    >
+     
+    <mat-form-field class="form-field">
+        <mat-label>Title</mat-label>
+        <input type="text" matInput formControlName="title" placeholder="Title" />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Artist</mat-label>
+        <input
+          type="text" matInput formControlName="artist" matInput placeholder="Artist"/>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Year</mat-label>
+        <input formControlName="year" matInput placeholder="Year" />
+
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Genre</mat-label>
+        <mat-select formControlName="genre">
+          <mat-option *ngFor="let string of genre" [value]="string.string">
+            {{string.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Author</mat-label>
+        <input
+          type="text"
+          formControlName="author"
+          matInput
+          placeholder="Author"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Label</mat-label>
+        <input type="text" formControlName="label" matInput placeholder="Record Company" />
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Band</mat-label>
+        <input type="text" formControlName="band" matInput placeholder="Band" />
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+          <mat-label>State</mat-label>
+          <mat-select formControlName="state">
+            <mat-option *ngFor="let string of selectValues" [value]="string.string">
+              {{string.viewValue}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+     
+      <mat-form-field class="form-field">
+        <mat-label>Number of copies</mat-label>
+        <input
+          formControlName="duplicate"
+          matInput
+          placeholder="Duplicate"
+        />
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>Format</mat-label>
+        <mat-select formControlName="format">
+          <mat-option *ngFor="let string of format" [value]="string.string">
+            {{string.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="form-field">
+        <mat-label>Barcode</mat-label>
+        <input formControlName="barcode" matInput placeholder="Barcode" />
+      </mat-form-field>
+
+
+
+
+    </form>
+    <div class="d-flex justify-content-center">
+      <button mat-raised-button color="primary" (click)="onSubmit()" >Continue</button>
+    </div>
+
+  </section>

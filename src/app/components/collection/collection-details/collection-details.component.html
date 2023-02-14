@@ -38,7 +38,6 @@
   <button mat-menu-item (click)="openImportDiskDialog()">Import disk</button>
   <button mat-menu-item (click)="openDialog()">New</button>
 </mat-menu>
- 
      
   </div>
   <h2 class="mt-6">Disks of collection :</h2>
@@ -50,7 +49,7 @@
   </div>
 
  <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-    <mat-card class="card" *ngFor="let disk of (diskss$ | async)">
+    <mat-card class="card" *ngFor="let disk of (disks$ | async)">
       <mat-card-header>
         <mat-card-title-group>
           <mat-card-title class="pb-2">{{disk.title}}</mat-card-title>

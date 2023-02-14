@@ -11,7 +11,6 @@ import { BehaviorSubject, combineLatest, filter, map, Observable, of, startWith,
 import { Disk } from "src/app/models/disk";
 import { Select } from "src/app/models/select";
 import { SearchService } from "src/app/services/search.service";
-import { Search } from "../../search-bar/search-bar.component";
 
 @Component({
   selector: "app-import-disk",
@@ -70,20 +69,7 @@ export class ImportDiskComponent implements OnInit {
     { string: "vinile", viewValue: "Vinile" },
     { string: "cd", viewValue: "CD" },
     { string: "cassette", viewValue: "Cassette" },
-    { string: "dvd", viewValue: "DVD" },
-    { string: "blu-ray", viewValue: "Blu-Ray" },
-    { string: "vhs", viewValue: "VHS" },
-    { string: "k7", viewValue: "K7" },
-    { string: "kasetto", viewValue: "Kasetto" },
-    { string: "laserdisc", viewValue: "Laserdisc" },
-    { string: "mini disc", viewValue: "Mini Disc" },
-    { string: "sacd", viewValue: "SACD" },
-    { string: "vcd", viewValue: "VCD" },
-    { string: "svcd", viewValue: "SVCD" },
-    { string: "hd-dvd", viewValue: "HD-DVD" },
-    { string: "udf", viewValue: "UDF" },
-    { string: "dvd-audio", viewValue: "DVD-Audio" },
-    { string: "dvd-video", viewValue: "DVD-Video" },
+    { string: "dvd", viewValue: "DVD" }
   ];
 
   constructor(

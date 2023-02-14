@@ -17,6 +17,8 @@ import { FavListComponent } from "./components/collection/fav-list/fav-list.comp
 import { CollectionsSharedWithMeComponent } from "./components/collection/collections-shared-with-me/collections-shared-with-me.component";
 import { TrackDetailsComponent } from "./components/track/track-details/track-details.component";
 import { EditCollectionComponent } from "./components/collection/edit-collection/edit-collection.component";
+import { EditDiskComponent } from "./components/disk/edit-disk/edit-disk.component";
+import { EditCollectorComponent } from "./components/edit-collector/edit-collector.component";
 
 const routes: Routes = [
   {
@@ -63,7 +65,9 @@ const routes: Routes = [
       { path: "personal/collections/:collectionId/disks/:diskId/tracks", component: DiskDetailsComponent, canActivate: [AuthGuard]},
       { path: "personal/collections/:collectionId/disks/:diskId/tracks/:trackId", component: TrackDetailsComponent, canActivate: [AuthGuard]},
       { path: "personal/collections/:collectionId/disks/:diskId", component: DiskDetailsComponent, canActivate: [AuthGuard]},
-       { path: "personal/collections/:collectionId/edit", component: EditCollectionComponent, canActivate: [AuthGuard]},
+      { path: "personal/collections/:collectionId/edit", component: EditCollectionComponent, canActivate: [AuthGuard]},
+      { path: "personal/collections/:collectionId/disks/:diskId/edit", component: EditDiskComponent, canActivate: [AuthGuard]},
+      { path: "personal/collectors/:collectorId/edit", component: EditCollectorComponent, canActivate: [AuthGuard]},
 
 
       { path: "personal/disks/favorites", component: DisksFavouritesComponent, canActivate: [AuthGuard]},

@@ -10,7 +10,7 @@
         <a mat-button (click)="addDisktoFav()"><mat-icon> favorite </mat-icon></a>
         <div class="d-flex">
           <h1>{{disk.title}}</h1>
-          <a mat-button [routerLink]=""> <mat-icon>edit</mat-icon></a>
+          <a mat-button [routerLink]="['edit']"> <mat-icon>edit</mat-icon></a>
         </div>
       <div>
         <p> artist: {{disk.artist}}</p>
@@ -60,7 +60,7 @@
             src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
             alt="Image of a collection"
           />
-          <a mat-button [routerLink]="[diskId,'tracks',track.id]"> Go to track details</a>
+          <a mat-button [routerLink]="['tracks',track.id]"> Go to track details</a>
         </mat-card-content>
       </mat-card>
     </div>

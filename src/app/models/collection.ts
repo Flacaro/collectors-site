@@ -7,6 +7,5 @@ export interface Collection {
     visible: boolean;
     type: string;
     ownerId?: number
-    // collector?: Collector;
-    // disks?: Disk[];
+
 }

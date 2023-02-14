@@ -19,21 +19,19 @@ import { LoggedCollectorService } from "src/app/security/logged-collector.servic
 })
 export class DiskDetailsComponent implements OnInit {
   disk$!: Observable<Disk>;
-  disks$!: Observable<Disk[]>;
   tracks$!: Observable<Track[]>;
-  owner: any;
   diskId!: number;
-  collection$!: Observable<Collection>;
-  isCollectorLogged!: boolean;
   loggedCollector!: any;
+  allCollections$!: Observable<Collection[]>;
+  ownersIds: any[] = [];
+
+
 
   constructor(
     private dialog: MatDialog,
     private diskService: DiskService,
     private trackService: TrackService,
     private route: ActivatedRoute,
-    private router : Router,
-    private persistenceService: PersistenceService,
     private collectionService: CollectionService,
     private loggedCollectorService: LoggedCollectorService
 
@@ -44,14 +42,18 @@ export class DiskDetailsComponent implements OnInit {
     this.loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
 
     const collectionId = this.route.snapshot.params["collectionId"];
+    
     this.diskId = this.route.snapshot.params["diskId"];
 
-    this.owner = this.collectionService.getOwnerOfACollection(collectionId);
+    this.allCollections$ = this.collectionService.getAllCollections();
 
-    console.log(this.owner.value);
-
+    this.allCollections$.subscribe(result => {
+      result.forEach(collection => {
+        this.ownersIds.push(collection.ownerId);
+      });
+    });
     
-    if (this.owner == this.loggedCollector) {
+    if (this.ownersIds.includes(this.loggedCollector.id)) {
       this.disk$ = this.diskService.getPersonalDiskById(collectionId, this.diskId);
       this.tracks$ = this.trackService.getPersonalTracksOfDisk(collectionId,this.diskId);
     } else {

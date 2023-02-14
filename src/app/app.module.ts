@@ -49,6 +49,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ImportDiskComponent } from './components/disk/import-disk/import-disk.component';
 import {MatStepperModule} from '@angular/material/stepper';
 import { EditCollectionComponent } from './components/collection/edit-collection/edit-collection.component';
+import { EditDiskComponent } from './components/disk/edit-disk/edit-disk.component';
+import { EditCollectorComponent } from './components/edit-collector/edit-collector.component';
+
 
 
 const materialModules = [
@@ -97,7 +100,9 @@ const materialModules = [
     CollectionsSharedWithMeComponent,
     TrackDetailsComponent,
     ImportDiskComponent,
-    EditCollectionComponent
+    EditCollectionComponent,
+    EditDiskComponent,
+    EditCollectorComponent
 
 
   ],

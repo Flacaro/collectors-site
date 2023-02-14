@@ -34,6 +34,10 @@ export class RegistrationComponent implements OnInit {
   onSubmit(): void {
     debugger;
     const birthday = this.convertDate(this.registrationForm.value.birthday);
+    //se bithday è null, viene inviata una data  uguale a null
+    if (birthday == "Invalid date") {
+      this.registrationForm.patchValue({ birthday: null });
+    }
     this.authService
       .register({...this.registrationForm.value, birthday: birthday})
       .pipe(

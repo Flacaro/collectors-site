@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { MatMenuTrigger } from "@angular/material/menu";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router } from "@angular/router";
 import { BehaviorSubject, filter, map, Observable, of, switchMap, tap, window } from "rxjs";
@@ -18,14 +19,16 @@ import { ImportDiskComponent } from "../../disk/import-disk/import-disk.componen
 })
 export class CollectionDetailsComponent implements OnInit {
   disks$ = new BehaviorSubject<Disk[]>([]);
-  diskss$!: Observable<Disk[]>;
   collection$!: Observable<Collection>;
+  allCollections$!: Observable<Collection []>;
   owner: any;
+  ownersIds: any[] = [];
   loggedCollector!: any;
   collectionById$!: Observable<Collection>;
   mostSearchedDisks: Disk[] = [];
 
   collectionId = this.route.snapshot.params["collectionId"];
+
 
   constructor(
     private dialog: MatDialog,
@@ -34,42 +37,53 @@ export class CollectionDetailsComponent implements OnInit {
     private loggedCollectorService: LoggedCollectorService,
     private route: ActivatedRoute,
     private snackbar: MatSnackBar,
-    private router: Router
+    private router: Router,
+
   ) {}
 
   ngOnInit(): void {
 
     this.loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
 
-    this.owner = this.collectionService.getOwnerOfACollection(this.collectionId);
+    this.allCollections$ = this.collectionService.getAllCollections();
 
+    this.allCollections$.subscribe(result => {
+      result.forEach(collection => {
+        this.ownersIds.push(collection.ownerId);
+      });
+    });
 
-    if (this.loggedCollector == this.owner) {
+   //se ownersIdes contiene l'id del collector loggato, allora la collection è personale
+    if (this.ownersIds.includes(this.loggedCollector.id)) {
       this.collection$ = this.collectionService.getPersonalCollectionById(this.collectionId);
-      // this.diskService.getDisksByPersonalCollectionId(
-      //   this.collectionId
-      // ).subscribe(result => this.disks$.next(result));
-      this.diskss$ = this.diskService.getDisksByPersonalCollectionId(this.collectionId);
+
+      this.diskService.getDisksByPersonalCollectionId(
+        this.collectionId
+      ).subscribe(result => this.disks$.next(result));
+
   
     } else {
       this.collection$ = this.collectionService.getPublicCollectionById(this.collectionId);
-      // this.diskService.getDisksByPublicCollectionId(
-      //   this.collectionId
-      // ).subscribe(result => this.disks$.next(result));
-      this.diskss$ = this.diskService.getDisksByPublicCollectionId(this.collectionId);
+      this.diskService.getDisksByPublicCollectionId(
+        this.collectionId
+      ).subscribe(result => this.disks$.next(result));
+
     }
 
+  
      
   
   }
 
 
   private getDisksByPersonalCollectionId() {
-   this.diskService.getDisksByPublicCollectionId(this.collectionId).subscribe(result => this.disks$.next(result));
+   this.diskService.getDisksByPublicCollectionId(this.collectionId).subscribe(result => this.disks$.next(result));  
   }
 
+ 
   openDialog() {
     const collectionId = this.route.snapshot.params["collectionId"];
+  
 
     this.dialog
       .open(DialogComponent, {
@@ -87,7 +101,8 @@ export class CollectionDetailsComponent implements OnInit {
       )
       .subscribe(() => {
         this.getDisksByPersonalCollectionId()
-      });
+      }
+      );
   
   }
 
@@ -111,7 +126,12 @@ export class CollectionDetailsComponent implements OnInit {
       .subscribe(() => {
         this.getDisksByPersonalCollectionId()
       });
+
   }
+
+
+
+
 
   addCollectiontoFav() {
     const collectionId = this.route.snapshot.params["collectionId"];
@@ -170,5 +190,6 @@ export class CollectionDetailsComponent implements OnInit {
         );
         
   }
+
     
 }
