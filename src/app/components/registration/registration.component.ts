@@ -32,14 +32,11 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(): void {
-    debugger;
-    const birthday = this.convertDate(this.registrationForm.value.birthday);
-    //se bithday è null, viene inviata una data  uguale a null
-    if (birthday == "Invalid date") {
-      this.registrationForm.patchValue({ birthday: null });
-    }
+    const birthday = this.registrationForm.value.birthday
+      ? this.convertDate(this.registrationForm.value.birthday)
+      : null;
     this.authService
-      .register({...this.registrationForm.value, birthday: birthday})
+      .register({ ...this.registrationForm.value, birthday: birthday })
       .pipe(
         catchError((error) => {
           this.registrationForm.patchValue({ password: "" });
@@ -47,7 +44,7 @@ export class RegistrationComponent implements OnInit {
           if (error instanceof HttpErrorResponse) {
             if (error.status == 409) {
               this.registrationForm.setErrors({ collectorAlreadyExists: true });
-            } else if(error.status == 400) {
+            } else if (error.status == 400) {
               this.registrationForm.setErrors({ badRequest: true });
             } else {
               this.registrationForm.setErrors({ unknownError: true });
@@ -72,14 +69,11 @@ export class RegistrationComponent implements OnInit {
     return this.registrationForm.hasError("badRequest");
   }
 
-
   hasUnknownError(): boolean {
     return this.registrationForm.hasError("unknownError");
   }
 
-
   convertDate(date: Date): string {
     return moment(date).format("YYYY-MM-DD");
   }
-
 }

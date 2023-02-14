@@ -28,6 +28,7 @@
       <div class="search-result">
           <ng-container *ngFor="let result of results$ | async">
               <li (click)="setSelectedResult(result)">{{ result | json }}</li>
+              
           </ng-container>
       </div>
 

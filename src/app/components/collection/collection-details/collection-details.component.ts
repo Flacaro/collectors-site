@@ -3,7 +3,16 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatMenuTrigger } from "@angular/material/menu";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router } from "@angular/router";
-import { BehaviorSubject, filter, map, Observable, of, switchMap, tap, window } from "rxjs";
+import {
+  BehaviorSubject,
+  filter,
+  map,
+  Observable,
+  of,
+  switchMap,
+  tap,
+  window,
+} from "rxjs";
 import { Collection } from "src/app/models/collection";
 import { Disk } from "src/app/models/disk";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
@@ -20,7 +29,7 @@ import { ImportDiskComponent } from "../../disk/import-disk/import-disk.componen
 export class CollectionDetailsComponent implements OnInit {
   disks$ = new BehaviorSubject<Disk[]>([]);
   collection$!: Observable<Collection>;
-  allCollections$!: Observable<Collection []>;
+  allCollections$!: Observable<Collection[]>;
   owner: any;
   ownersIds: any[] = [];
   loggedCollector!: any;
@@ -29,7 +38,6 @@ export class CollectionDetailsComponent implements OnInit {
 
   collectionId = this.route.snapshot.params["collectionId"];
 
-
   constructor(
     private dialog: MatDialog,
     private collectionService: CollectionService,
@@ -37,54 +45,47 @@ export class CollectionDetailsComponent implements OnInit {
     private loggedCollectorService: LoggedCollectorService,
     private route: ActivatedRoute,
     private snackbar: MatSnackBar,
-    private router: Router,
-
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-
-    this.loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
+    this.loggedCollector =
+      this.loggedCollectorService.getCurrentCollectorValue();
 
     this.allCollections$ = this.collectionService.getAllCollections();
 
-    this.allCollections$.subscribe(result => {
-      result.forEach(collection => {
+    this.allCollections$.subscribe((result) => {
+      result.forEach((collection) => {
         this.ownersIds.push(collection.ownerId);
       });
     });
 
-   //se ownersIdes contiene l'id del collector loggato, allora la collection è personale
+    //se ownersIdes contiene l'id del collector loggato, allora la collection è personale
     if (this.ownersIds.includes(this.loggedCollector.id)) {
-      this.collection$ = this.collectionService.getPersonalCollectionById(this.collectionId);
-
-      this.diskService.getDisksByPersonalCollectionId(
+      this.collection$ = this.collectionService.getPersonalCollectionById(
         this.collectionId
-      ).subscribe(result => this.disks$.next(result));
+      );
 
-  
+      this.diskService
+        .getDisksByPersonalCollectionId(this.collectionId)
+        .subscribe((result) => this.disks$.next(result));
     } else {
-      this.collection$ = this.collectionService.getPublicCollectionById(this.collectionId);
-      this.diskService.getDisksByPublicCollectionId(
+      this.collection$ = this.collectionService.getPublicCollectionById(
         this.collectionId
-      ).subscribe(result => this.disks$.next(result));
-
+      );
+      this.diskService
+        .getDisksByPublicCollectionId(this.collectionId)
+        .subscribe((result) => this.disks$.next(result));
     }
-
-  
-     
-  
   }
-
 
   private getDisksByPersonalCollectionId() {
-   this.diskService.getDisksByPublicCollectionId(this.collectionId).subscribe(result => this.disks$.next(result));  
+    this.diskService
+      .getDisksByPublicCollectionId(this.collectionId)
+      .subscribe((result) => this.disks$.next(result));
   }
 
- 
   openDialog() {
-    const collectionId = this.route.snapshot.params["collectionId"];
-  
-
     this.dialog
       .open(DialogComponent, {
         width: "500px",
@@ -92,18 +93,19 @@ export class CollectionDetailsComponent implements OnInit {
       .afterClosed()
       .pipe(
         switchMap((disk: Disk | null) => {
-          if(disk) {
-            return this.diskService.addDiskToCollection(this.collectionId, disk)
+          if (disk) {
+            return this.diskService.addDiskToCollection(
+              this.collectionId,
+              disk
+            );
           } else {
             return of(disk);
           }
-        }),
+        })
       )
       .subscribe(() => {
-        this.getDisksByPersonalCollectionId()
-      }
-      );
-  
+        this.getDisksByPersonalCollectionId();
+      });
   }
 
   openImportDiskDialog() {
@@ -111,27 +113,25 @@ export class CollectionDetailsComponent implements OnInit {
       .open(ImportDiskComponent, {
         minWidth: "800px",
         maxWidth: "1200px",
-        data: this.mostSearchedDisks 
+        data: this.mostSearchedDisks,
       })
       .afterClosed()
       .pipe(
         switchMap((disk: Disk | null) => {
-          if(disk) {
-            return this.diskService.addDiskToCollection(this.collectionId, disk)
+          if (disk) {
+            return this.diskService.addDiskToCollection(
+              this.collectionId,
+              disk
+            );
           } else {
             return of(disk);
           }
-        }),
+        })
       )
       .subscribe(() => {
-        this.getDisksByPersonalCollectionId()
+        this.getDisksByPersonalCollectionId();
       });
-
   }
-
-
-
-
 
   addCollectiontoFav() {
     const collectionId = this.route.snapshot.params["collectionId"];
@@ -148,13 +148,13 @@ export class CollectionDetailsComponent implements OnInit {
             duration: 3000,
           });
         } else {
-        this.snackbar.open(
-          "Ops, something went wrong. Try again later.",
-          "Close",
-          {
-            duration: 3000,
-          }
-        );
+          this.snackbar.open(
+            "Ops, something went wrong. Try again later.",
+            "Close",
+            {
+              duration: 3000,
+            }
+          );
         }
       },
     });
@@ -180,16 +180,14 @@ export class CollectionDetailsComponent implements OnInit {
     });
   }
 
-
   unshareCollection() {
-    this.collectionService.unshareCollection(this.loggedCollector.id, this.collectionId);
-        this.snackbar.open("Collection unshared successfully", "Close", {
-          duration: 3000,
-        });
-        this.router.navigate(["../"], { relativeTo: this.route }
-        );
-        
+    this.collectionService.unshareCollection(
+      this.loggedCollector.id,
+      this.collectionId
+    );
+    this.snackbar.open("Collection unshared successfully", "Close", {
+      duration: 3000,
+    });
+    this.router.navigate(["../"], { relativeTo: this.route });
   }
-
-    
 }

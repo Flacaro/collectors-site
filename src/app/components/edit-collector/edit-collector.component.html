@@ -1,21 +1,23 @@
 <h1>Edit Collector</h1>
-  
+
 <section>
-
-  
-    <form
-      [formGroup]="editCollectorForm"
-      class="d-grid gap-1 grid-template-columns-2"
-    >
-      <mat-form-field class="form-field">
-        <mat-label>username</mat-label>
-        <input type="text" matInput formControlName="username" placeholder="Username" />
-      </mat-form-field>
-      
-    </form>
-    <div class="d-flex justify-content-center">
-      <button mat-raised-button color="primary"  (click)="onSubmit()" >Continue</button>
- 
-    </div>
-
-  </section>
+  <form
+    [formGroup]="editCollectorForm"
+    class="d-grid gap-1 grid-template-columns-2"
+  >
+    <mat-form-field class="form-field">
+      <mat-label>username</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="username"
+        placeholder="Username"
+      />
+    </mat-form-field>
+  </form>
+  <div class="d-flex justify-content-center">
+    <button mat-raised-button color="primary" (click)="onSubmit()">
+      Continue
+    </button>
+  </div>
+</section>

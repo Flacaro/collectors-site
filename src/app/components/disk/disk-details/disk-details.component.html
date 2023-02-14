@@ -1,34 +1,43 @@
 <div class="content d-flex mt-10" *ngIf="disk$ | async as disk">
-    <img
-      mat-card-md-image
-      class="image mt-10 ml-4 mb-10"
-      src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
-      alt="Image of a Disk"
-    />
-    <div>
-      <div class="ml-10 mt-10" >
-        <a mat-button (click)="addDisktoFav()"><mat-icon> favorite </mat-icon></a>
-        <div class="d-flex">
-          <h1>{{disk.title}}</h1>
-          <a mat-button [routerLink]="['edit']"> <mat-icon>edit</mat-icon></a>
-        </div>
-      <div>
-        <p> artist: {{disk.artist}}</p>
-        <p>year: {{disk.year}}</p>
-        <p>author: {{disk.author}}</p>
-        <p>band: {{disk.band}}</p>
-        <p>format: {{disk.format}}</p>
-        <p>genre: {{disk.genre}}</p>
-        <p>publishing house: {{disk.label}}</p>
-        <p>state: {{disk.state}}</p>
-        <p>number of copies: {{disk.duplicate}}</p>
-        <p>barcode: {{disk.barcode}}</p>
+  <img
+    mat-card-md-image
+    class="image mt-10 ml-4 mb-10"
+    src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+    alt="Image of a Disk"
+  />
+  <div>
+    <div class="ml-10 mt-10">
+      <a mat-button (click)="addDisktoFav()"><mat-icon> favorite </mat-icon></a>
+      <div class="d-flex">
+        <h1>{{ disk.title }}</h1>
+        <a mat-button [routerLink]="['edit']"> <mat-icon>edit</mat-icon></a>
       </div>
-        
-     </div>
+      <div>
+        <p>artist: {{ disk.artist }}</p>
+        <p>year: {{ disk.year }}</p>
+        <p>author: {{ disk.author }}</p>
+        <p>band: {{ disk.band }}</p>
+        <p>format: {{ disk.format }}</p>
+        <p>genre: {{ disk.genre }}</p>
+        <p>publishing house: {{ disk.label }}</p>
+        <p>state: {{ disk.state }}</p>
+        <p>number of copies: {{ disk.duplicate }}</p>
+        <p>barcode: {{ disk.barcode }}</p>
+      </div>
     </div>
   </div>
+</div>
 
+<h2>Images</h2>
+
+<div *ngFor="let diskImage of diskImages$ | async">
+  <p>Image id: {{ diskImage.imageId }}</p>
+  <img [src]="generateBlobUrl(diskImage.base64Image) " /> 
+</div>
+
+
+<h2>Carica immagine</h2>
+<input type="file" (change)="selectFile($event)">
 
 <div class="mt-5 ml-2">
   <div class="d-flex">
@@ -39,29 +48,29 @@
   <h2 class="mt-6">Tracks of the Disk :</h2>
 </div>
 
+<section>
+  <div class="d-flex justify-content-between justify-content-end">
+    <a mat-button [routerLink]="['/collections']">See all</a>
+  </div>
 
-
-  <section>
-    <div class="d-flex justify-content-between justify-content-end">
-      <a mat-button [routerLink] ="['/collections']">See all</a>
-     
-    </div>
-  
-    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-      <mat-card class="card" *ngFor="let track of (tracks$ | async)">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title class="pb-2">{{track.title}}</mat-card-title>
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
-          <img
-            mat-card-md-image class="mb-2"
-            src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
-            alt="Image of a collection"
-          />
-          <a mat-button [routerLink]="['tracks',track.id]"> Go to track details</a>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </section>
+  <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
+    <mat-card class="card" *ngFor="let track of tracks$ | async">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title class="pb-2">{{ track.title }}</mat-card-title>
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        <img
+          mat-card-md-image
+          class="mb-2"
+          src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+          alt="Image of a collection"
+        />
+        <a mat-button [routerLink]="['tracks', track.id]">
+          Go to track details</a
+        >
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

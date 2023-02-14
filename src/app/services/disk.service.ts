@@ -79,6 +79,18 @@ export class DiskService {
   }
 
 
+  getDiskImages(collectionId: number, diskId: number): Observable<{imageId: number, base64Image: string}[]> {
+    return this.http.get<{imageId: number, base64Image: string}[]>(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks/${diskId}/images`);
+  }
+
+
+  addDiskImage(collectionId: number, diskId: number, file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks/${diskId}/images`, formData);
+  }
+
 
   // getMostSearchedDisks(): Observable<Disk[]> {
   //   return this.http.get<Disk[]>(`${this.API_URL_PUBLIC_COLLECTIONS}/statistics`);

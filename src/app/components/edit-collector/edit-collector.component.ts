@@ -16,12 +16,11 @@ export class EditCollectorComponent implements OnInit {
   collector$!: Observable<Collector>;
   loggedCollector!: any;
   editCollectorForm!: FormGroup;
-  formBuilder!: FormBuilder;
 
   constructor(
     private collectorService: CollectorService,
     private route: ActivatedRoute,
-    
+    private formBuilder: FormBuilder,
     private loggedCollectorService: LoggedCollectorService
   ) { }
 

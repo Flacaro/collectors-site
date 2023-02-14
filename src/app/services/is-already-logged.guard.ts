@@ -10,7 +10,6 @@ export class IsAlreadyLoggedGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      debugger;
     return !localStorage.getItem(CONSTANTS.JWT_TOKEN_KEY);
   }
   
