@@ -21,6 +21,7 @@ import { EditDiskComponent } from "./components/disk/edit-disk/edit-disk.compone
 import { EditCollectorComponent } from "./components/edit-collector/edit-collector.component";
 import { ImportDiskComponent } from "./components/disk/import-disk/import-disk.component";
 import { ImagesDiskListComponent } from "./components/disk/images-disk-list/images-disk-list.component";
+import { EditTrackComponent } from "./components/track/edit-track/edit-track.component";
 
 const routes: Routes = [
   {
@@ -77,6 +78,7 @@ const routes: Routes = [
       { path: "personal/collections/:collectionId/disks/:diskId/images", component: DiskDetailsComponent, canActivate: [AuthGuard]},
       { path: "personal/collections/:collectionId/disks/:diskId/tracks", component: DiskDetailsComponent, canActivate: [AuthGuard]},
       { path: "personal/collections/:collectionId/disks/:diskId/tracks/:trackId", component: TrackDetailsComponent, canActivate: [AuthGuard]},
+      { path: "personal/collections/:collectionId/disks/:diskId/tracks/:trackId/edit", component: EditTrackComponent, canActivate: [AuthGuard]},
 
       { path: "search/disks", component: ImportDiskComponent, canActivate: [AuthGuard] },
       

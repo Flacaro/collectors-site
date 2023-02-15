@@ -46,6 +46,18 @@ export class TrackService {
     return this.http.post<Track>(`${this.API_PRIVATE_URL_COLLECTIONS}/${collectionId}/disks/${diskId}/tracks`,data);
   }
 
+  editTrack(collectionId: number, diskId: number, trackId: number, data: {
+    title: string;
+    author: string;
+    album: string;
+    band: string;
+    artist: string;
+    time : number;
+  }): Observable<Track> {
+    return this.http.patch<Track>(`${this.API_PRIVATE_URL_COLLECTIONS}/${collectionId}/disks/${diskId}/tracks/${trackId}`, data);
+  }
+
+
 
 
 }

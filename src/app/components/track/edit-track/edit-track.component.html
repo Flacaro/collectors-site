@@ -1,0 +1,36 @@
+<h1>Edit Track</h1>
+  
+<section mat-dialog-content>
+    <form [formGroup]="editTrackForm" class="d-grid gap-1 grid-template-columns-2">
+        <mat-form-field class="form-field">
+            <mat-label>Title</mat-label>
+            <input type="text" matInput formControlName="title" placeholder="Title" />
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Author</mat-label>
+            <input type="text" matInput formControlName="author" matInput placeholder="Author"/>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Album</mat-label>
+            <input type="text" formControlName="album" matInput placeholder="Album"/>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Band</mat-label>
+            <input type="text" formControlName="band" matInput placeholder="Band"/>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Artist</mat-label>
+            <input type="text" formControlName="artist" matInput placeholder="Artist"/>
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Duration</mat-label>
+            <input type="number" min="1" max="9" step="0.01"
+                   formControlName="time" matInput placeholder="Duration" >
+        </mat-form-field>
+
+    </form>
+</section>
+
+<div mat-dialog-actions class="d-flex justify-content-center mb-6">
+    <button mat-raised-button color="primary"  (click)="onSubmit()" >Continue</button>
+</div>

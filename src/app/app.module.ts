@@ -52,6 +52,7 @@ import { EditCollectionComponent } from './components/collection/edit-collection
 import { EditDiskComponent } from './components/disk/edit-disk/edit-disk.component';
 import { EditCollectorComponent } from './components/edit-collector/edit-collector.component';
 import { ImagesDiskListComponent } from './components/disk/images-disk-list/images-disk-list.component';
+import { EditTrackComponent } from './components/track/edit-track/edit-track.component';
 
 
 
@@ -104,7 +105,8 @@ const materialModules = [
     EditCollectionComponent,
     EditDiskComponent,
     EditCollectorComponent,
-    ImagesDiskListComponent
+    ImagesDiskListComponent,
+    EditTrackComponent
 
 
   ],
