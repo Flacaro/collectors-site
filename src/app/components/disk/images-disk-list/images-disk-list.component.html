@@ -1,0 +1,18 @@
+<div class="mt-4">
+
+
+<section>
+    <h2>Carica immagine</h2>
+<input type="file" (change)="selectFile($event)">
+<div class="mt-6">
+    <h1>Images Of Disk</h1>
+<h2>Images of disk</h2>
+<div class="d-grid grid-template-columns-3 gap-1 grid-columns">
+<div *ngFor="let diskImage of diskImages$ | async">
+  <!-- <p>Image id: {{ diskImage.imageId }}</p> -->
+  <img [src]="generateBlobUrl(diskImage.base64Image) " class="image"/> 
+</div>
+</div>
+</div>
+</section>
+</div>

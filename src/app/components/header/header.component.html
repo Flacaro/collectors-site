@@ -14,9 +14,12 @@
         </ng-container>
       </ng-container>
     
+      <ng-container *ngIf="!isCollectorLogged">
       <a mat-button [routerLink]="['/auth/registration']">
         <div>sign up</div>
       </a>
+
+  </ng-container>
     </div>
   </mat-toolbar>
 </div>

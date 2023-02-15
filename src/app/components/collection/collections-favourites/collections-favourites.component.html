@@ -1,8 +1,9 @@
 <section>
     <div class="d-flex justify-content-between mt-8">
       <h2 >Your Favourites collections</h2>
-      <div *ngIf="isFavoriteListEmpty() == true ">Your collections fav list is empty</div>
+      
     </div>
+    <div *ngIf="isFavoriteListEmpty() == true ">Your collections fav list is empty</div>
    
     <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
       <mat-card class="card" *ngFor="let collection of (collectionsFavourites$ | async)">

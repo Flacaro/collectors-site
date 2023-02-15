@@ -24,7 +24,7 @@
           alt="Image of a collection"
         />
 
-        <a mat-button [routerLink]="[collection.id]">
+        <a mat-button [routerLink]="[collection.id]" [queryParams]="{ownerId: collection.ownerId}">
           Go to collection details
         </a>
       </mat-card-content>

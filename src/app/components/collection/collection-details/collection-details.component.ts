@@ -29,11 +29,8 @@ import { ImportDiskComponent } from "../../disk/import-disk/import-disk.componen
 export class CollectionDetailsComponent implements OnInit {
   disks$ = new BehaviorSubject<Disk[]>([]);
   collection$!: Observable<Collection>;
-  allCollections$!: Observable<Collection[]>;
   owner: any;
-  ownersIds: any[] = [];
   loggedCollector!: any;
-  collectionById$!: Observable<Collection>;
   mostSearchedDisks: Disk[] = [];
 
   collectionId = this.route.snapshot.params["collectionId"];
@@ -52,20 +49,12 @@ export class CollectionDetailsComponent implements OnInit {
     this.loggedCollector =
       this.loggedCollectorService.getCurrentCollectorValue();
 
-    this.allCollections$ = this.collectionService.getAllCollections();
+      const ownerIdParam = this.route.snapshot.queryParamMap.get("ownerId");
 
-    this.allCollections$.subscribe((result) => {
-      result.forEach((collection) => {
-        this.ownersIds.push(collection.ownerId);
-      });
-    });
-
-    //se ownersIdes contiene l'id del collector loggato, allora la collection è personale
-    if (this.ownersIds.includes(this.loggedCollector.id)) {
+    if (ownerIdParam == this.loggedCollector.id.toString()) {
       this.collection$ = this.collectionService.getPersonalCollectionById(
         this.collectionId
       );
-
       this.diskService
         .getDisksByPersonalCollectionId(this.collectionId)
         .subscribe((result) => this.disks$.next(result));

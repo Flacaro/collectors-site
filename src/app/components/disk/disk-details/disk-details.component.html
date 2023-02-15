@@ -24,20 +24,21 @@
         <p>number of copies: {{ disk.duplicate }}</p>
         <p>barcode: {{ disk.barcode }}</p>
       </div>
+     
     </div>
   </div>
-</div>
+</div> <a mat-button [routerLink]="['images']">Upload or see all images</a>
 
-<h2>Images</h2>
+<!-- <h2>Images</h2>
 
 <div *ngFor="let diskImage of diskImages$ | async">
   <p>Image id: {{ diskImage.imageId }}</p>
   <img [src]="generateBlobUrl(diskImage.base64Image) " /> 
-</div>
+</div> -->
 
-
-<h2>Carica immagine</h2>
-<input type="file" (change)="selectFile($event)">
+<!-- 
+ <h2>Carica immagine</h2>
+<input type="file" (change)="selectFile($event)"> -->
 
 <div class="mt-5 ml-2">
   <div class="d-flex">
@@ -46,7 +47,7 @@
     </button>
   </div>
   <h2 class="mt-6">Tracks of the Disk :</h2>
-</div>
+</div> 
 
 <section>
   <div class="d-flex justify-content-between justify-content-end">

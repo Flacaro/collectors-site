@@ -51,6 +51,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { EditCollectionComponent } from './components/collection/edit-collection/edit-collection.component';
 import { EditDiskComponent } from './components/disk/edit-disk/edit-disk.component';
 import { EditCollectorComponent } from './components/edit-collector/edit-collector.component';
+import { ImagesDiskListComponent } from './components/disk/images-disk-list/images-disk-list.component';
 
 
 
@@ -102,7 +103,8 @@ const materialModules = [
     ImportDiskComponent,
     EditCollectionComponent,
     EditDiskComponent,
-    EditCollectorComponent
+    EditCollectorComponent,
+    ImagesDiskListComponent
 
 
   ],

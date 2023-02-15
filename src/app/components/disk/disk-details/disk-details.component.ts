@@ -24,7 +24,6 @@ export class DiskDetailsComponent implements OnInit {
   tracks$!: Observable<Track[]>;
   diskId!: number;
   loggedCollector: Collector | null = null;
-  allCollections$!: Observable<Collection[]>;
   collectionId!: number;
 
   @ViewChild("targetImage") targetImage!: HTMLImageElement;
@@ -82,37 +81,37 @@ export class DiskDetailsComponent implements OnInit {
     );
   }
 
-  selectFile(event: any): void {
-    const selectedFile = event.target.files;
+  // selectFile(event: any): void {
+  //   const selectedFile = event.target.files;
     
-    if (selectedFile) {
-      const file: File | null = selectedFile.item(0);
+  //   if (selectedFile) {
+  //     const file: File | null = selectedFile.item(0);
 
-      if(file) {
-        this.diskService.addDiskImage(this.collectionId, this.diskId, file).subscribe(() => {
-          // Fai quello che devi fare
-        })
-      }
-    }
-  }
+  //     if(file) {
+  //       this.diskService.addDiskImage(this.collectionId, this.diskId, file).subscribe(() => {
+  //         // Fai quello che devi fare
+  //       })
+  //     }
+  //   }
+  // }
   
-  generateBlobUrl(base64Image: string): SafeUrl {
-    const binaryString = atob(base64Image);
+  // generateBlobUrl(base64Image: string): SafeUrl {
+  //   const binaryString = atob(base64Image);
 
-    // convert the binary string into an array buffer
-    const arrayBuffer = new ArrayBuffer(binaryString.length);
-    const uint8Array = new Uint8Array(arrayBuffer);
-    for (let i = 0; i < binaryString.length; i++) {
-      uint8Array[i] = binaryString.charCodeAt(i);
-    }
+  //   // convert the binary string into an array buffer
+  //   const arrayBuffer = new ArrayBuffer(binaryString.length);
+  //   const uint8Array = new Uint8Array(arrayBuffer);
+  //   for (let i = 0; i < binaryString.length; i++) {
+  //     uint8Array[i] = binaryString.charCodeAt(i);
+  //   }
 
-    // create an Image object with the array buffer
-    const blobUrl = URL.createObjectURL(
-      new Blob([arrayBuffer], { type: "image/jpeg" })
-    );
+  //   // create an Image object with the array buffer
+  //   const blobUrl = URL.createObjectURL(
+  //     new Blob([arrayBuffer], { type: "image/jpeg" })
+  //   );
 
-    return this.sanitizer.bypassSecurityTrustUrl(blobUrl);
-  }
+  //   return this.sanitizer.bypassSecurityTrustUrl(blobUrl);
+  // }
 
   openDialog() {
     const collectionId = this.route.snapshot.params["collectionId"];

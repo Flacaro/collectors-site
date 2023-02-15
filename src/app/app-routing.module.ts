@@ -20,6 +20,7 @@ import { EditCollectionComponent } from "./components/collection/edit-collection
 import { EditDiskComponent } from "./components/disk/edit-disk/edit-disk.component";
 import { EditCollectorComponent } from "./components/edit-collector/edit-collector.component";
 import { ImportDiskComponent } from "./components/disk/import-disk/import-disk.component";
+import { ImagesDiskListComponent } from "./components/disk/images-disk-list/images-disk-list.component";
 
 const routes: Routes = [
   {
@@ -49,7 +50,7 @@ const routes: Routes = [
       { path: "collections/:collectionId/disks/:diskId", component: DiskDetailsComponent },
       
       
-      { path: "collections/:collectionId/disks/:diskId/images", component: DiskDetailsComponent },
+      { path: "collections/:collectionId/disks/:diskId/images", component:  ImagesDiskListComponent},
       { path: "statistics/disks", component: ProfileComponent },
 
 
@@ -69,6 +70,7 @@ const routes: Routes = [
       { path: "personal/collections/:collectionId/edit", component: EditCollectionComponent, canActivate: [AuthGuard]},
       { path: "personal/collections/:collectionId/disks/:diskId/edit", component: EditDiskComponent, canActivate: [AuthGuard]},
       { path: "personal/collectors/:collectorId/edit", component: EditCollectorComponent, canActivate: [AuthGuard]},
+      { path: "personal/collections/:collectionId/disks/:diskId/images", component:  ImagesDiskListComponent},
 
 
       { path: "personal/disks/favorites", component: DisksFavouritesComponent, canActivate: [AuthGuard]},

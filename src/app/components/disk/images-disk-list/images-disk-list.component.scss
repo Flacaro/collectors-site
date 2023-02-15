@@ -1,0 +1,11 @@
+.image {
+    width: 20em;
+    height: 20em;
+    margin: 1em;
+
+   
+}
+
+.grid-columns {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
