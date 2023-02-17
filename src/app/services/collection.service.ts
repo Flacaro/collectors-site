@@ -24,8 +24,12 @@ export class CollectionService {
   private API_URL_COLLECTIONS = CONSTANTS.API_URL + "/collections";
   private API_URL_PRIVATE_COLLECTIONS = CONSTANTS.API_URL + "/personal/collections";
   private API_URL_COLLECTIONTOFAV= CONSTANTS.API_URL + "/personal/collections/favorites";
-  private API_URL_PRIVATE_COLLECTION_SHARED = CONSTANTS.API_URL + "/personal/collections/sharedWithMe";
+
     
+
+  getCollectorsNotInCollection(collectionId: number): Observable<Collector[]> {
+    return this.http.get<Collector[]>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/collectors-not-in`);
+  }
 
   getPersonalCollections(): Observable<Collection[]> {
     return this.http.get<Collection[]>(`${this.API_URL_PRIVATE_COLLECTIONS}`);
@@ -65,16 +69,17 @@ export class CollectionService {
   }
   
   getCollectionSharedWithMe(): Observable<Collection[]> {
-    return this.http.get<Collection[]>(`${this.API_URL_PRIVATE_COLLECTION_SHARED}`);
+    return this.http.get<Collection[]>(`${this.API_URL_PRIVATE_COLLECTIONS}/collectors-in`);
   }
 
   getFavoriteCollections(): Observable<Collection[]> {
     return this.http.get<Collection[]>(`${this.API_URL_COLLECTIONTOFAV}`);
   }
 
-  unshareCollection(collectorsIds: number[], collectionId: number): void {
-     this.http.post(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/unshareWith`, collectorsIds);
+  unshareCollection(collectorsIds: number[], collectionId: number): Observable<Collection> {
+    return this.http.delete<Collection>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/collectors`, {body: {collectorsIds: collectorsIds}});
   }
+
 
   editCollection(collectionId: number, data: {
     name: string;
@@ -87,6 +92,15 @@ export class CollectionService {
   getAllCollections(): Observable<Collection[]> {
     return this.http.get<Collection[]>(`${this.API_URL_COLLECTIONS}`);
   }
+
+  shareCollection(collectorsIds: number[], collectionId: number): Observable<Collection> {
+    return this.http.post<Collection>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/collectors`, collectorsIds);
+  }
+  
+  deleteCollectionFromSharedList(collectionId: number): Observable<Collection> {
+    return this.http.delete<Collection>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/collectors-in`);
+  }
+
   
 
 

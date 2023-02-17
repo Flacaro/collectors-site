@@ -4,6 +4,7 @@ import { Collection } from "src/app/models/collection";
 import { CONSTANTS } from "src/app/constants";
 import { PersistenceService } from "src/app/services/persistence/persistence-service";
 import { ActivatedRoute } from "@angular/router";
+import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 
 type SideNavConfig = {
   mode: "side" | "over";
@@ -26,6 +27,7 @@ export class BaseComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private persistenceService: PersistenceService,
     private route: ActivatedRoute,
+    private loggedCollectorService: LoggedCollectorService,
   ) {}
 
 
@@ -38,6 +40,7 @@ export class BaseComponent implements OnInit {
 
   isUserLogged: boolean = !!this.persistenceService.get(CONSTANTS.JWT_TOKEN_KEY);
   isMobile: boolean = false;
+  loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
 
 
   //if isUserLogged is true, then the user is logged in and we can show the protected routes
@@ -67,12 +70,14 @@ export class BaseComponent implements OnInit {
       name: "Favourites collections",
     },
     {
-      link: "personal/disks/favorites",
+      //collectorId is a parameter of the route
+
+      link: "personal/collectors/" + this.loggedCollector?.id + "/disks/favorites",
       name: "Favourites disks",
     },
 
     {
-      link: "personal/collections/sharedWithMe",
+      link: "personal/collections/collectors-in",
       name: "Collections shared with me",
     }
   ];

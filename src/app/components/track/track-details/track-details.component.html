@@ -9,6 +9,7 @@
         <div class="ml-10 mt-10" >
             <div class="d-flex">
                 <h1>{{track.title}}</h1>
+                <a mat-button (click)="deleteTrack()"><mat-icon> delete </mat-icon></a>
                 <a mat-button [routerLink]="['edit']"> <mat-icon> edit</mat-icon></a>
             </div>
             <div>

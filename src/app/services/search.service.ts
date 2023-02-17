@@ -69,10 +69,7 @@ export class SearchService {
 
  
 
-  //   return this.http.get<SearchResult>(`${CONSTANTS.API_URL}/search/collections`, {
-  //     params: params
-  //   })
-  // }
+
 
  
 

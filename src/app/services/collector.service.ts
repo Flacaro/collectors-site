@@ -11,6 +11,7 @@ export class CollectorService {
 
   private API_URL_PRIVATE_COLLECTIONS = CONSTANTS.API_URL + '/personal/collections';
   private API_URL_PRIVATE_COLLECTORS = CONSTANTS.API_URL + '/personal';
+  private API_COLLECTORS = CONSTANTS.API_URL + '/collectors';
 
 
 
@@ -24,7 +25,7 @@ export class CollectorService {
 // }
 
   getCollectorsListInShared(collectionId: number): Observable<Collector[]> {
-    return this.http.get<Collector[]>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/shareWith`);
+    return this.http.get<Collector[]>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/collectors`);
 
   }
 
@@ -35,5 +36,14 @@ export class CollectorService {
   getCollectorById(collectorId: number): Observable<Collector> {
     return this.http.get<Collector>(`${this.API_URL_PRIVATE_COLLECTORS}/collectors/${collectorId}`);
   }
+
+  getCollectorsThatShareTheCollection(collectionId: number): Observable<Collector[]> {
+    return this.http.get<Collector[]>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/collectors`);
+  }
+
+  getAllCollectors(): Observable<Collector[]> {
+    return this.http.get<Collector[]>(`${this.API_COLLECTORS}`);
+  }
+
 
 }

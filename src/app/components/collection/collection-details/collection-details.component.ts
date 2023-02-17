@@ -14,9 +14,11 @@ import {
   window,
 } from "rxjs";
 import { Collection } from "src/app/models/collection";
+import { Collector } from "src/app/models/collector";
 import { Disk } from "src/app/models/disk";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 import { CollectionService } from "src/app/services/collection.service";
+import { CollectorService } from "src/app/services/collector.service";
 import { DiskService } from "src/app/services/disk.service";
 import { DialogComponent } from "../../disk/diskAddDialog/dialog.component";
 import { ImportDiskComponent } from "../../disk/import-disk/import-disk.component";
@@ -32,6 +34,9 @@ export class CollectionDetailsComponent implements OnInit {
   owner: any;
   loggedCollector!: any;
   mostSearchedDisks: Disk[] = [];
+  allCollectors$!: Observable<Collector[]>;
+  collectorsIdsToAdd!: number[];
+  collectorsIds!: number[];
 
   collectionId = this.route.snapshot.params["collectionId"];
 
@@ -40,6 +45,7 @@ export class CollectionDetailsComponent implements OnInit {
     private collectionService: CollectionService,
     private diskService: DiskService,
     private loggedCollectorService: LoggedCollectorService,
+    private collectorService: CollectorService,
     private route: ActivatedRoute,
     private snackbar: MatSnackBar,
     private router: Router
@@ -50,6 +56,14 @@ export class CollectionDetailsComponent implements OnInit {
       this.loggedCollectorService.getCurrentCollectorValue();
 
       const ownerIdParam = this.route.snapshot.queryParamMap.get("ownerId");
+
+      this.allCollectors$ = this.collectorService.getAllCollectors();
+
+      //get de ids of collectors and add to collectorsIds
+      this.allCollectors$.subscribe((collectors) => {
+        this.collectorsIds = collectors.map((collector) => collector.id);
+      });
+
 
     if (ownerIdParam == this.loggedCollector.id.toString()) {
       this.collection$ = this.collectionService.getPersonalCollectionById(
@@ -175,6 +189,18 @@ export class CollectionDetailsComponent implements OnInit {
       this.collectionId
     );
     this.snackbar.open("Collection unshared successfully", "Close", {
+      duration: 3000,
+    });
+    this.router.navigate(["../"], { relativeTo: this.route });
+  }
+
+  addCollectorInShareList(collectorId: number) {
+    //push on the array the collectorId to add
+    this.collectorsIdsToAdd = [collectorId];
+    //pass the array to the service
+    this.collectionService.shareCollection(this.collectorsIdsToAdd, this.collectionId).subscribe();
+
+    this.snackbar.open("Collector added successfully", "Close", {
       duration: 3000,
     });
     this.router.navigate(["../"], { relativeTo: this.route });

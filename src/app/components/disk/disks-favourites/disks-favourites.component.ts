@@ -13,6 +13,7 @@ export class DisksFavouritesComponent  implements OnInit{
 
   collectionId!: number;
   disks$!: Observable<Disk[]>;
+  collectorId!: number;
 
   constructor(
     private diskService: DiskService,
@@ -20,8 +21,10 @@ export class DisksFavouritesComponent  implements OnInit{
   ) { }
   ngOnInit(): void {
 
+    this.collectorId = this.route.snapshot.params["collectorId"];
+
   
-    this.disks$ = this.diskService.getDisksFromFavorites();
+    this.disks$ = this.diskService.getDisksFromFavorites(this.collectorId);
     
   }
 

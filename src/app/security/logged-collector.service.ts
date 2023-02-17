@@ -46,4 +46,10 @@ export class LoggedCollectorService {
     return false;
   }
 
+  editCollector(collector: Collector) {
+    this.currentLoggedCollector$.next(collector);
+    this.persistenceService.save(CONSTANTS.LOGGED_COLLECTOR_KEY, JSON.stringify(collector));
+  }
+
+
 }

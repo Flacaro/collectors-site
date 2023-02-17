@@ -6,12 +6,45 @@
     class="d-grid gap-1 grid-template-columns-2"
   >
     <mat-form-field class="form-field">
-      <mat-label>username</mat-label>
+      <mat-label>name</mat-label>
       <input
         type="text"
         matInput
-        formControlName="username"
-        placeholder="Username"
+        formControlName="name"
+        placeholder="Name"
+      />
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>surname</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="surname"
+        placeholder="Surname"
+      />
+    </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Birth date</mat-label>
+        <input
+          formControlName="birthdate"
+          matInput
+          [matDatepicker]="picker"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>email</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="email"
+        placeholder="email"
       />
     </mat-form-field>
   </form>

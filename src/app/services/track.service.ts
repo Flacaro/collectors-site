@@ -58,6 +58,10 @@ export class TrackService {
   }
 
 
+  deleteTrack(collectionId: number, diskId: number, trackId: number): Observable<Track> {
+    return this.http.delete<Track>(`${this.API_PRIVATE_URL_COLLECTIONS}/${collectionId}/disks/${diskId}/tracks/${trackId}`);
+  }
+
 
 
 }

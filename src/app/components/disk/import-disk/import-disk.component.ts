@@ -96,6 +96,8 @@ export class ImportDiskComponent implements OnInit {
       barcode: [null, [Validators.min(1000)]],
     });
 
+
+
     this.selectedSearchResult$.asObservable().subscribe(disk => {
       if(disk !== null) {
         this.addDiskForm.patchValue({...disk});
@@ -122,5 +124,7 @@ export class ImportDiskComponent implements OnInit {
   setSelectedResult(disk: Disk) {
     this.selectedSearchResult$.next(disk);
   }
+
+
 
 }

@@ -18,6 +18,7 @@ export class DiskService {
   private API_URL_COLLECTIONS = CONSTANTS.API_URL + "/collections";
   private API_URL_PRIVATE_COLLECTION = CONSTANTS.API_URL + "/personal/collections";
   private API_URL_PRIVATE = CONSTANTS.API_URL + "/personal";
+  private API_URL_STATISTICS = CONSTANTS.API_URL + "/statistics";
 
 
 
@@ -29,8 +30,8 @@ export class DiskService {
     return this.http.get<Disk []>(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks`);
   }
 
-  getDisksFromFavorites(): Observable<Disk[]> {
-    return this.http.get<Disk[]>(`${this.API_URL_PRIVATE}/disks/favorites`);
+  getDisksFromFavorites(collectorId: number): Observable<Disk[]> {
+    return this.http.get<Disk[]>(`${this.API_URL_PRIVATE}/collectors/${collectorId}/disks/favorites`);
   }
   
   getPersonalDiskById(collectionId: number, diskId: number): Observable<Disk> {
@@ -40,8 +41,8 @@ export class DiskService {
   getDiskById(collectionId: number, diskId: number): Observable<Disk> {
     return this.http.get<Disk>(`${this.API_URL_COLLECTIONS}/${collectionId}/disks/${diskId}`);
   }
-  addDiskToFav(diskId: number): Observable<Disk> {
-    return this.http.post<Disk>(`${this.API_URL_PRIVATE}/disks/favorites`, {diskId: diskId});
+  addDiskToFav(collectorId:number, diskId: number): Observable<Disk> {
+    return this.http.post<Disk>(`${this.API_URL_PRIVATE}/collectors/${collectorId}/disks/favorites`, {diskId: diskId});
   }
 
 
@@ -91,9 +92,13 @@ export class DiskService {
     return this.http.post(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks/${diskId}/images`, formData);
   }
 
+  deleteDiskFromCollection(collectionId: number, diskId: number): Observable<Disk> {
+    return this.http.delete<Disk>(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks/${diskId}`);
+  }
 
-  // getMostSearchedDisks(): Observable<Disk[]> {
-  //   return this.http.get<Disk[]>(`${this.API_URL_PUBLIC_COLLECTIONS}/statistics`);
-  // }
+
+  getMostSearchedDisks(): Observable<Disk[]> {
+    return this.http.get<Disk[]>(`${this.API_URL_STATISTICS}/disks/most-searched`);
+  }
 
 }

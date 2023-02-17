@@ -53,6 +53,8 @@ import { EditDiskComponent } from './components/disk/edit-disk/edit-disk.compone
 import { EditCollectorComponent } from './components/edit-collector/edit-collector.component';
 import { ImagesDiskListComponent } from './components/disk/images-disk-list/images-disk-list.component';
 import { EditTrackComponent } from './components/track/edit-track/edit-track.component';
+import { ListOfCollectorThatShareCollectionComponent } from './components/list-of-collector-that-share-collection/list-of-collector-that-share-collection.component';
+import { AddCollectorToShareComponent } from './components/collection/add-collector-to-share/add-collector-to-share.component';
 
 
 
@@ -76,6 +78,7 @@ const materialModules = [
   MatCheckboxModule,
   MatSnackBarModule,
   MatStepperModule
+
 ];
 
 @NgModule({
@@ -106,7 +109,9 @@ const materialModules = [
     EditDiskComponent,
     EditCollectorComponent,
     ImagesDiskListComponent,
-    EditTrackComponent
+    EditTrackComponent,
+    ListOfCollectorThatShareCollectionComponent,
+    AddCollectorToShareComponent
 
 
   ],

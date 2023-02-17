@@ -7,12 +7,17 @@
   />
   <div>
     <div class="ml-10 mt-10">
-      <a mat-button (click)="addDisktoFav()"><mat-icon> favorite </mat-icon></a>
+      
       <div class="d-flex">
         <h1>{{ disk.title }}</h1>
+       <a mat-button (click)="addDiskToFav()"><mat-icon> favorite </mat-icon></a>
         <a mat-button [routerLink]="['edit']"> <mat-icon>edit</mat-icon></a>
-      </div>
+        <a mat-button (click)="deleteDisk()"> <mat-icon>delete</mat-icon></a>
+        
+    </div>
       <div>
+       
+    
         <p>artist: {{ disk.artist }}</p>
         <p>year: {{ disk.year }}</p>
         <p>author: {{ disk.author }}</p>

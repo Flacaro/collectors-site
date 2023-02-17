@@ -1,0 +1,34 @@
+<h1 mat-dialog-title class="text-center mt-4 mb-6">
+  Add collector to share list
+</h1>
+
+<ng-container *ngIf="collectors$ | async as collectors">
+  <section *ngIf="collectors.length; else noCollectorsAvailable">
+    <div class="search-result">
+      <div class="d-grid grid-template-columns-2 gap-2 grid-columns mb-5">
+        <mat-card class="card" *ngFor="let collector of collectors">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title class="pb-2">{{ collector.name }}</mat-card-title>
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            <img
+              mat-card-md-image
+              class="mb-2"
+              src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+              alt="Image of a collection"
+            />
+            <a mat-button (click)="shareWithCollector(collector.id)">
+              Share</a
+            >
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+</ng-container>
+
+<ng-template #noCollectorsAvailable>
+  <h2>There are no available collectors!</h2>
+</ng-template>

@@ -1,0 +1,49 @@
+<section>
+    <div class="d-flex justify-content-between mt-8">
+      <h2>Collectors that share your collection</h2>
+     <div >
+      <!-- <mat-menu #menu="matMenu">
+          <mat-icon>person</mat-icon>
+          <mat-list>
+          <mat-list-item *ngFor="let oneCollector of allCollectors$ | async">
+            <mat-icon mat-list-icon>person</mat-icon>
+            <h4 mat-line>{{ oneCollector.username }}</h4>
+            <p mat-line> {{ oneCollector.email }} </p>
+            <button mat-button >Add to shared list</button>
+          </mat-list-item>
+    
+       </mat-list>
+      </mat-menu>
+       -->
+
+     </div>
+          
+      
+    </div>
+
+    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
+      <mat-card class="card" *ngFor="let collector of (collectors$ | async)">
+        <div *ngIf=""> There are no collection in shared list</div>
+        
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title class="pb-2"> {{ collector.username }} </mat-card-title>
+          </mat-card-title-group>
+          <a mat-button (click)="deleteCollectorFromMyCollection(collector.id)"><mat-icon>delete</mat-icon></a>
+        </mat-card-header>
+        <mat-card-content>
+          <img
+            mat-card-md-image
+            class="mb-2"
+            src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+            alt="Image of a collection"
+          />
+
+          <a mat-button [routerLink]="['/collectors', collector.id]">
+            Go to collector profile
+          </a>
+        </mat-card-content>  
+       
+      </mat-card>
+    </div> 
+  </section>

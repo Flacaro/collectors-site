@@ -13,6 +13,7 @@ import { Collection } from "src/app/models/collection";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 import { Collector } from "src/app/models/collector";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-disk-details",
@@ -25,12 +26,15 @@ export class DiskDetailsComponent implements OnInit {
   diskId!: number;
   loggedCollector: Collector | null = null;
   collectionId!: number;
+  collectorId!: number;
 
   @ViewChild("targetImage") targetImage!: HTMLImageElement;
 
   diskImages$!: Observable<{ imageId: number; base64Image: string }[]>;
 
   private collectionOwnerId!: number;
+
+
 
   constructor(
     private dialog: MatDialog,
@@ -39,7 +43,8 @@ export class DiskDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private collectionService: CollectionService,
     private loggedCollectorService: LoggedCollectorService,
-    private sanitizer: DomSanitizer
+    private snackbar: MatSnackBar,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +52,9 @@ export class DiskDetailsComponent implements OnInit {
       this.loggedCollectorService.getCurrentCollectorValue();
     if (loggedCollector) {
       this.loggedCollector = loggedCollector;
+      this.collectorId = loggedCollector?.id 
     }
+
 
     this.collectionId = this.route.snapshot.params["collectionId"];
 
@@ -81,37 +88,7 @@ export class DiskDetailsComponent implements OnInit {
     );
   }
 
-  // selectFile(event: any): void {
-  //   const selectedFile = event.target.files;
-    
-  //   if (selectedFile) {
-  //     const file: File | null = selectedFile.item(0);
 
-  //     if(file) {
-  //       this.diskService.addDiskImage(this.collectionId, this.diskId, file).subscribe(() => {
-  //         // Fai quello che devi fare
-  //       })
-  //     }
-  //   }
-  // }
-  
-  // generateBlobUrl(base64Image: string): SafeUrl {
-  //   const binaryString = atob(base64Image);
-
-  //   // convert the binary string into an array buffer
-  //   const arrayBuffer = new ArrayBuffer(binaryString.length);
-  //   const uint8Array = new Uint8Array(arrayBuffer);
-  //   for (let i = 0; i < binaryString.length; i++) {
-  //     uint8Array[i] = binaryString.charCodeAt(i);
-  //   }
-
-  //   // create an Image object with the array buffer
-  //   const blobUrl = URL.createObjectURL(
-  //     new Blob([arrayBuffer], { type: "image/jpeg" })
-  //   );
-
-  //   return this.sanitizer.bypassSecurityTrustUrl(blobUrl);
-  // }
 
   openDialog() {
     const collectionId = this.route.snapshot.params["collectionId"];
@@ -140,7 +117,53 @@ export class DiskDetailsComponent implements OnInit {
       });
   }
 
-  addDisktoFav() {
-    this.diskService.addDiskToFav(this.diskId).subscribe();
+
+  addDiskToFav() {
+
+    this.diskService.addDiskToFav(this.collectionOwnerId, this.diskId).subscribe({
+      next: () => {
+        this.snackbar.open("Collection added to favourites", "Close", {
+          duration: 3000,
+        });
+      },
+      error: (err) => {
+        if (err.status === 400) {
+          this.snackbar.open("Collection already in favourites", "Close", {
+            duration: 3000,
+          });
+        } else {
+          this.snackbar.open(
+            "Ops, something went wrong. Try again later.",
+            "Close",
+            {
+              duration: 3000,
+            }
+          );
+        }
+      },
+    });
   }
+
+
+
+  deleteDisk() {
+    this.diskService.deleteDiskFromCollection(this.collectionId, this.diskId).subscribe({
+      next: () => {
+        this.snackbar.open("Collection deleted successfully", "Close", {
+          duration: 3000,
+        });
+        window.history.back();
+      },
+      error: (err) => {
+        this.snackbar.open(
+          "Ops, something went wrong. Try again later.",
+          "Close",
+          {
+            duration: 3000,
+          }
+        );
+      },
+    });
+  }
+
 }
