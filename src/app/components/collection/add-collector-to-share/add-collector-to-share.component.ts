@@ -1,9 +1,26 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import {
+  MatPaginatorDefaultOptions,
+  PageEvent,
+} from "@angular/material/paginator";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute } from "@angular/router";
-import { BehaviorSubject, Observable, Subscription, switchMap } from "rxjs";
+import {
+  BehaviorSubject,
+  combineLatest,
+  map,
+  Observable,
+  of,
+  startWith,
+  Subject,
+  Subscription,
+  switchMap,
+} from "rxjs";
 import { Collector } from "src/app/models/collector";
+import { PageableResponse } from "src/app/models/pageable-response";
 import { CollectionService } from "src/app/services/collection.service";
+import { SearchService } from "src/app/services/search.service";
 
 @Component({
   selector: "app-add-collector-to-share",
@@ -12,14 +29,20 @@ import { CollectionService } from "src/app/services/collection.service";
 })
 export class AddCollectorToShareComponent implements OnInit, OnDestroy {
   collectionId!: number;
-  collectors$ = new BehaviorSubject<Collector[]>([]);
+  collectors$ = new Subject<PageableResponse<Collector>>();
+
+  private _collectors!: PageableResponse<Collector>;
+  searchControl: FormControl = new FormControl("");
+
+  pageSize = 20;
 
   subscription = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
     private collectionService: CollectionService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {
@@ -32,11 +55,35 @@ export class AddCollectorToShareComponent implements OnInit, OnDestroy {
             throw new Error("Collection id not found");
           }
           return this.collectionService.getCollectorsNotInCollection(
-            this.collectionId
+            this.collectionId,
+            this.pageSize,
+            0
           );
         })
       )
-      .subscribe((collectors) => this.collectors$.next(collectors));
+      .subscribe((collectorPage) => {
+        this._collectors = collectorPage;
+        this.collectors$.next(collectorPage);
+      });
+
+    const search$ = this.searchControl.valueChanges;
+
+    search$
+      .pipe(
+        switchMap((search) => {
+          if (search === "") {
+            return of(this._collectors);
+          } else {
+            return this.searchService.searchCollectorsNotInCollection(
+              search,
+              this.collectionId,
+              this.pageSize,
+              0
+            );
+          }
+        })
+      )
+      .subscribe((collectorPage) => this.collectors$.next(collectorPage));
   }
 
   shareWithCollector(collectorId: number) {
@@ -44,12 +91,16 @@ export class AddCollectorToShareComponent implements OnInit, OnDestroy {
       .shareCollection([collectorId], this.collectionId)
       .pipe(
         switchMap(() =>
-          this.collectionService.getCollectorsNotInCollection(this.collectionId)
+          this.collectionService.getCollectorsNotInCollection(
+            this.collectionId,
+            this.pageSize,
+            0
+          )
         )
       )
       .subscribe({
-        next: (collectors) => {
-          this.collectors$.next(collectors);
+        next: (collectorPage) => {
+          this.collectors$.next(collectorPage);
           this.snackbar.open("Collectors added to share list", "Close", {
             duration: 3000,
           });
@@ -65,6 +116,14 @@ export class AddCollectorToShareComponent implements OnInit, OnDestroy {
             );
           }
         },
+      });
+  }
+
+  handlePageChange(event: PageEvent) {
+    this.collectionService
+      .getCollectorsNotInCollection(this.collectionId, this.pageSize, event.pageIndex)
+      .subscribe((collectorPage) => {
+        this.collectors$.next(collectorPage);
       });
   }
 

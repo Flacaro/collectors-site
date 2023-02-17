@@ -1,6 +1,11 @@
 <div>
   <mat-toolbar>
-    <button (click)="toggleSideNav.emit()" class="mr-3 mr-xm-1" mat-icon-button *ngIf="isMobile">
+    <button
+      (click)="toggleSideNav.emit()"
+      class="mr-3 mr-xm-1"
+      mat-icon-button
+      *ngIf="isMobile"
+    >
       <mat-icon class="color-white">menu</mat-icon>
     </button>
     <a class="logo color-white pl-1" [routerLink]="['']">
@@ -9,21 +14,46 @@
 
     <div class="container logo color-white pl-1">
       <ng-container *ngIf="isCollectorLogged() | async as collector">
+        <ng-container *ngIf="notification$ | async as notifications">
+          
+          <button mat-icon-button cdkOverlayOrigin #trigger="cdkOverlayOrigin" (click)="isNotificationMenuOpen = !isNotificationMenuOpen">
+            <mat-icon [matBadge]="notifications.length" matBadgeColor="warn"
+              >notifications</mat-icon
+            >
+          </button>
+
+          <ng-template
+            cdkConnectedOverlay
+            [cdkConnectedOverlayOrigin]="trigger"
+            [cdkConnectedOverlayOpen]="isNotificationMenuOpen"
+          >
+            <ul class="notifications">
+              <li *ngFor="let notification of notifications">
+                <div>
+                  <p class="notification-title">{{ notification.title }}</p>
+                  <p class="notification-description">{{ notification.description }}</p>
+                </div>
+                <button mat-icon-button matTooltip="Delete notification" (click)="deleteNotification(notification.id)"><mat-icon>close</mat-icon></button>
+              </li>
+            </ul>
+          </ng-template>
+
+        </ng-container>
+
         <ng-container *ngIf="collector.isLogged; else logout">
           <a mat-button [routerLink]="['/auth/login']">login</a>
         </ng-container>
       </ng-container>
-    
-      <ng-container *ngIf="!isCollectorLogged">
-      <a mat-button [routerLink]="['/auth/registration']">
-        <div>sign up</div>
-      </a>
 
-  </ng-container>
+      <ng-container *ngIf="!isCollectorLogged">
+        <a mat-button [routerLink]="['/auth/registration']">
+          <div>sign up</div>
+        </a>
+      </ng-container>
     </div>
   </mat-toolbar>
 </div>
 
 <ng-template #logout>
-  <a mat-button (click)="logoutCollector()">logout</a>    
+  <a mat-button (click)="logoutCollector()">logout</a>
 </ng-template>

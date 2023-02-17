@@ -10,4 +10,8 @@ export interface Collector {
     username: string;
     favouritesCollection?: Collection[];
     favouritesDisk?: Disk[];
+    images?: {
+        id: number;
+        url: string;
+      }[];
 }

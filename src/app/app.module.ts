@@ -55,8 +55,13 @@ import { ImagesDiskListComponent } from './components/disk/images-disk-list/imag
 import { EditTrackComponent } from './components/track/edit-track/edit-track.component';
 import { ListOfCollectorThatShareCollectionComponent } from './components/list-of-collector-that-share-collection/list-of-collector-that-share-collection.component';
 import { AddCollectorToShareComponent } from './components/collection/add-collector-to-share/add-collector-to-share.component';
+import { EmailComponent } from './components/email/email.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatBadgeModule} from '@angular/material/badge';
 
-
+import {OverlayModule} from '@angular/cdk/overlay';
+import { NotificationMenuComponent } from './components/notification-menu/notification-menu.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -77,8 +82,11 @@ const materialModules = [
   NativeDateModule,
   MatCheckboxModule,
   MatSnackBarModule,
-  MatStepperModule
-
+  MatStepperModule,
+  MatTooltipModule,
+  MatPaginatorModule,
+  MatBadgeModule,
+  OverlayModule
 ];
 
 @NgModule({
@@ -111,9 +119,9 @@ const materialModules = [
     ImagesDiskListComponent,
     EditTrackComponent,
     ListOfCollectorThatShareCollectionComponent,
-    AddCollectorToShareComponent
-
-
+    AddCollectorToShareComponent,
+    EmailComponent,
+    NotificationMenuComponent,
   ],
   imports: [
     BrowserModule,

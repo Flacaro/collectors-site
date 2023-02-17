@@ -1,54 +1,71 @@
-  <div class="content d-flex mt-10">
-    <img
-      mat-card-md-image
-      class="image mt-10 ml-4 mb-10"
-      src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
-      alt="Image of a collection"
-    />
-    <div>
-
-
-      <div class="ml-10 mt-10 d-flex">
-        <h1>{{loggedCollector?.username}}</h1>
-        <a mat-button class="ml-5" [routerLink]="['/personal/collectors', loggedCollector?.id, 'edit']">
-          <mat-icon> edit</mat-icon></a
-        >
-      </div>
-      <div class="ml-10 mt-5">
-        <p>name: {{loggedCollector?.name}}</p>
-        <p>surname: {{loggedCollector?.surname}}</p>
-        <p>username: {{loggedCollector?.username}}</p>
-        <p>email: {{loggedCollector?.email}}</p>
-        <p>birthday: {{loggedCollector?.birthdate}}</p>
-        
-      </div>
-    </div>
+<div class="content d-flex mt-10">
+  <div *ngIf="image$ | async as imageUrl">
+    <img [src]="imageUrl" class="image" />
   </div>
 
-  <section class="mt-8">
-    <div class="d-flex justify-content-between">
-      <h2>Your collections</h2>
-      <a mat-button [routerLink]="['/personal/collections']">See all</a>
-    </div>
-  
-    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-      <mat-card class="card" *ngFor="let collection of (privateCollections$ | async)">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title class="pb-2"> {{ collection.name }} </mat-card-title>
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
-          <img
-            mat-card-md-image
-            class="mb-2"
-            src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
-            alt="Image of a collection"
-          />
-        
-          <a mat-button [routerLink]="['/personal/collections', collection.id]">Go to collection details</a>
-      
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </section>
+  <div class="ml-10 mt-10 d-flex">
+    <h1>{{ loggedCollector?.username }}</h1>
+    <a
+      mat-button
+      class="ml-5"
+      [routerLink]="['/personal/collectors', loggedCollector?.id, 'edit']"
+    >
+      <mat-icon> edit</mat-icon></a
+    >
+  </div>
+  <div class="d-grid grid-template-columns-2 gap-2 grid-row">
+    <mat-list>
+      <mat-list-item>name: {{ loggedCollector?.name }}</mat-list-item>
+      <mat-list-item>surname: {{ loggedCollector?.surname }}</mat-list-item>
+      <mat-list-item>username: {{ loggedCollector?.username }}</mat-list-item>
+      <mat-list-item>email: {{ loggedCollector?.email }}</mat-list-item>
+      <mat-list-item>birthday: {{ loggedCollector?.birthdate }}</mat-list-item>
+    </mat-list>
+  </div>
+</div>
+
+<section>
+  <h2>Upload profile image</h2>
+  <input type="file" (change)="selectFile($event)" />
+  <div class="d-flex justify-content-between mt-8">
+    <h2>Your collections</h2>
+    <a mat-button [routerLink]="['/personal/collections']">See all</a>
+  </div>
+
+  <ng-container *ngIf="privateCollections$ | async as privateCollections">
+    <ng-container *ngIf="privateCollections.length; else noAvailableCollection">
+      <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
+        <mat-card
+          class="card"
+          *ngFor="let collection of privateCollections"
+        >
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-icon>library_books</mat-icon>
+              <mat-card-title class="pb-2"> {{ collection.name }} </mat-card-title>
+            </mat-card-title-group>
+          </mat-card-header>
+          <mat-card-content>
+            <img
+              mat-card-md-image
+              class="mb-2"
+              src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
+              alt="Image of a collection"
+            />
+    
+            <a mat-button [routerLink]="['/personal/collections', collection.id]"
+              >Go to collection details</a
+            >
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </ng-container>
+  </ng-container>
+ 
+</section>
+
+<ng-template #noAvailableCollection>
+  <div class="d-flex justify-content-center">
+    <h2>No available collections</h2>
+  </div>
+</ng-template>

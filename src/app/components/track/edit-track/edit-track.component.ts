@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Track } from 'src/app/models/track';
 import { CollectionService } from 'src/app/services/collection.service';
@@ -22,8 +22,8 @@ export class EditTrackComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private trackService: TrackService,
-    private route : ActivatedRoute
-
+    private route : ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -58,9 +58,11 @@ export class EditTrackComponent implements OnInit {
 
 
   onSubmit() {
-    this.trackService.editTrack(this.collectionId, this.diskId, this.trackId,  this.editTrackForm.value).subscribe();
-    //torna alla pagina precedente
-    window.history.back();
+    this.trackService.editTrack(this.collectionId, this.diskId, this.trackId,  this.editTrackForm.value).subscribe(
+      () => {
+        this.router.navigate(["../"], {relativeTo: this.route, queryParamsHandling: 'preserve' })
+      }
+    );
   }
 
 

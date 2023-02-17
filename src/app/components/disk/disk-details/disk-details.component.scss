@@ -1,19 +1,23 @@
-.content {
-    position: relative;
-    top: 0;
-    left: 0;
-    background-color: #d3d9e3;
-
+.disk-cover {
+  max-width: 200px;
+  max-height: 200px;
+  margin: 0 auto;
+  display: block;
+  object-fit: cover;
 }
 
-.image {
-    position: relative;
-  top: 0;
-  left: 0;
-  width: 200px;
-  height: 200px;
+.disk-actions {
+  display: flex;
+  justify-content: center;
 }
 
+
+.disk-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 0.5rem;
+}
 
 .card {
   margin-top: 1em;
@@ -23,7 +27,30 @@
   border-radius: 5px;
 }
 
-.grid-columns {
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+.disk-details__title, .disk-track__title {
+  font-weight: 600;
+  font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  margin-bottom: 2rem;
 }
 
+
+
+.field-label {
+  margin-bottom: 0.4rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 800px) {
+  .details {
+    grid-template-columns: 1fr;
+  }
+}

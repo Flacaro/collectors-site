@@ -3,6 +3,7 @@ import { EmailValidator } from "@angular/forms";
 import { map, Observable } from "rxjs";
 import { AuthService } from "src/app/security/auth.service";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
+import { NotificationService } from "src/app/services/notification.service";
 
 @Component({
   selector: "app-header",
@@ -15,7 +16,15 @@ export class HeaderComponent {
 
   @Output() toggleSideNav = new EventEmitter<void>();
 
-  constructor(private loggedCollectorService: LoggedCollectorService, private authService: AuthService) {}
+  notification$ = this.notificationService.getNotifications();
+
+  isNotificationMenuOpen = false;
+
+  constructor(
+    private loggedCollectorService: LoggedCollectorService, 
+    private authService: AuthService,
+    private notificationService: NotificationService
+    ) {}
 
   isCollectorLogged(): Observable<{isLogged: boolean}> {
     return this.loggedCollectorService.getCurrentCollector().pipe(
@@ -28,6 +37,12 @@ export class HeaderComponent {
   }
 
 
+  deleteNotification(id: number) {
+    this.notificationService.deleteNotification(id).subscribe(() => {
+      this.isNotificationMenuOpen = false;
+      this.notification$ = this.notificationService.getNotifications();
+    });
+  }
 
 
 

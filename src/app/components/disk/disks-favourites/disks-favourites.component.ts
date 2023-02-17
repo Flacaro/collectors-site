@@ -1,38 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Disk } from 'src/app/models/disk';
-import { DiskService } from 'src/app/services/disk.service';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { BehaviorSubject, Observable, switchMap } from "rxjs";
+import { Disk } from "src/app/models/disk";
+import { DiskService } from "src/app/services/disk.service";
 
 @Component({
-  selector: 'app-disks-favourites',
-  templateUrl: './disks-favourites.component.html',
-  styleUrls: ['./disks-favourites.component.scss']
+  selector: "app-disks-favourites",
+  templateUrl: "./disks-favourites.component.html",
+  styleUrls: ["./disks-favourites.component.scss"],
 })
-export class DisksFavouritesComponent  implements OnInit{
-
+export class DisksFavouritesComponent implements OnInit {
   collectionId!: number;
-  disks$!: Observable<Disk[]>;
+  disks$ = new BehaviorSubject<Disk[]>([]);
   collectorId!: number;
 
   constructor(
     private diskService: DiskService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
   ngOnInit(): void {
-
     this.collectorId = this.route.snapshot.params["collectorId"];
 
-  
-    this.disks$ = this.diskService.getDisksFromFavorites(this.collectorId);
-    
+    this.diskService.getDisksFromFavorites(this.collectorId).subscribe(disks => this.disks$.next(disks));
   }
 
-  isFavoriteListEmpty(): boolean {
-     this.disks$ == null;
-     return true;
+  deleteDiskFromFav(collectorId: number, diskId: number) {
+    this.diskService.deleteDiskFromFav(collectorId, diskId).pipe(
+      switchMap(() => this.diskService.getDisksFromFavorites(this.collectorId))
+    ).subscribe((disks) => this.disks$.next(disks));
   }
-
-
- 
 }

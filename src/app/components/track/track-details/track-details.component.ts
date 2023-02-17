@@ -58,7 +58,7 @@ deleteTrack() {
       this.snackbar.open("Collection deleted successfully", "Close", {
         duration: 3000,
       });
-      this.router.navigate(["../"], { relativeTo: this.route });
+      this.router.navigate(["../../"], { relativeTo: this.route, queryParamsHandling: 'preserve' });
     },
     error: (err) => {
       this.snackbar.open(

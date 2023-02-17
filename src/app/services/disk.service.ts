@@ -31,7 +31,7 @@ export class DiskService {
   }
 
   getDisksFromFavorites(collectorId: number): Observable<Disk[]> {
-    return this.http.get<Disk[]>(`${this.API_URL_PRIVATE}/collectors/${collectorId}/disks/favorites`);
+    return this.http.get<Disk[]>(`${this.API_URL_PRIVATE}/disks/favorites`);
   }
   
   getPersonalDiskById(collectionId: number, diskId: number): Observable<Disk> {
@@ -99,6 +99,10 @@ export class DiskService {
 
   getMostSearchedDisks(): Observable<Disk[]> {
     return this.http.get<Disk[]>(`${this.API_URL_STATISTICS}/disks/most-searched`);
+  }
+
+  deleteDiskFromFav(collectorId: number, diskId: number): Observable<Disk> {
+    return this.http.delete<Disk>(`${this.API_URL_PRIVATE}/collectors/${collectorId}/disks/favorites/${diskId}`);
   }
 
 }

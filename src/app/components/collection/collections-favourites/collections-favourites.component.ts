@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Collection } from 'src/app/models/collection';
 import { CollectionService } from 'src/app/services/collection.service';
@@ -16,16 +17,22 @@ export class CollectionsFavouritesComponent {
 
   constructor(
     private collectionService: CollectionService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.collectionsFavourites$ = this.collectionService.getFavoriteCollections();
   }
 
-  isFavoriteListEmpty(): boolean {
-     this.collectionsFavourites$ == null;
-      return true;
-    
+
+  deleteCollectionFromFav(collectionId: number) {
+    this.collectionService.deleteCollectionFromFav(collectionId).subscribe(
+      () => {
+        this.collectionsFavourites$ = this.collectionService.getFavoriteCollections();
+      }
+    );
+
+    this.router.navigate(['/collections/favourites']);
   }
 }
   

@@ -7,10 +7,15 @@
   </div>
 
   <mat-sidenav-container>
-
     <mat-sidenav [mode]="sideNavConfig.mode" [opened]="sideNavConfig.opened">
       <div class="d-flex flex-column">
-        <a class="link p-2" routerLinkActive="active-link" *ngFor="let route of (isUserLogged ? protectedRoutes : publicRoutes )" [routerLink]="route.link">
+        <a
+          class="link p-2"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{exact:true}"
+          *ngFor="let route of isUserLogged ? protectedRoutes : publicRoutes"
+          [routerLink]="route.link"
+        >
           {{ route.name }}
         </a>
       </div>

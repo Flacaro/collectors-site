@@ -4,7 +4,7 @@
   <img
     mat-card-md-image
     class="image mt-10 ml-4 mb-10"
-    src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+    src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
     alt="Image of a collection"
   />
   <div>
@@ -18,8 +18,8 @@
       <mat-icon *ngIf="!collection.visible"> lock </mat-icon>
       <mat-icon *ngIf="collection.visible"> visibility </mat-icon>
       <a mat-button (click)="addCollectiontoFav()"><mat-icon> favorite </mat-icon></a>
-      <a mat-button (click)="deleteCollection()"><mat-icon> delete </mat-icon></a>
-      <a mat-button [routerLink]="['/personal/collections', collectionId, 'edit']"><mat-icon> edit </mat-icon></a>
+      <a mat-button (click)="deleteCollection()" *ngIf="loggedCollector.id == collection.ownerId"><mat-icon> delete </mat-icon></a>
+      <a mat-button [routerLink]="['/personal/collections', collectionId, 'edit']" *ngIf="loggedCollector.id == collection.ownerId"><mat-icon> edit </mat-icon></a>
     </div>
   </div>
 </div>
@@ -48,6 +48,7 @@
     <mat-card class="card" *ngFor="let disk of (disks$ | async)">
       <mat-card-header>
         <mat-card-title-group>
+          <mat-icon>album</mat-icon>
           <mat-card-title class="pb-2">{{disk.title}}</mat-card-title>
         </mat-card-title-group>
       </mat-card-header>

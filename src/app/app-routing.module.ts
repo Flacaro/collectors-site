@@ -24,6 +24,7 @@ import { ImagesDiskListComponent } from "./components/disk/images-disk-list/imag
 import { EditTrackComponent } from "./components/track/edit-track/edit-track.component";
 import { ListOfCollectorThatShareCollectionComponent } from "./components/list-of-collector-that-share-collection/list-of-collector-that-share-collection.component";
 import { AddCollectorToShareComponent } from "./components/collection/add-collector-to-share/add-collector-to-share.component";
+import { EmailComponent } from "./components/email/email.component";
 
 const routes: Routes = [
   {
@@ -41,7 +42,7 @@ const routes: Routes = [
     children: [
       { path: "", component: HomeComponent },
       { path: "collections", component: HomeComponent },
-      { path: "personal/collections/collectors-in", component: CollectionsSharedWithMeComponent, canActivate: [AuthGuard]},
+      { path: "personal/collectors/:collectorId/collections", component: CollectionsSharedWithMeComponent, canActivate: [AuthGuard]},
      
 
       { path: "collections/:collectionId", component: CollectionDetailsComponent },
@@ -62,7 +63,7 @@ const routes: Routes = [
       { path: "personal/profile/images/:imageId", component: ProfileComponent, canActivate: [AuthGuard] },
       { path: "personal/collections/favorites", component: CollectionsFavouritesComponent, canActivate: [AuthGuard]},
       { path: "personal/collectors/:collectorId/disks/favorites", component: DisksFavouritesComponent, canActivate: [AuthGuard]},
-      
+      { path: "personal/emails", component: EmailComponent, canActivate: [AuthGuard]},
 
       { path: "personal/collections", component: CollectionsComponent, canActivate: [AuthGuard]},
      

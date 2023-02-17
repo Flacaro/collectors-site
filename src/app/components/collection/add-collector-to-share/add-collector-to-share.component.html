@@ -2,13 +2,29 @@
   Add collector to share list
 </h1>
 
+<div class="d-flex justify-content-center">
+  <mat-form-field class="searchbar">
+    <mat-label>Search collector</mat-label>
+    <mat-icon matPrefix>search</mat-icon>
+    <input
+      matInput
+      type="text"
+      [formControl]="searchControl"
+    />
+  </mat-form-field>
+</div>
+
 <ng-container *ngIf="collectors$ | async as collectors">
-  <section *ngIf="collectors.length; else noCollectorsAvailable">
+  <section *ngIf="collectors.content.length; else noCollectorsAvailable">
     <div class="search-result">
       <div class="d-grid grid-template-columns-2 gap-2 grid-columns mb-5">
-        <mat-card class="card" *ngFor="let collector of collectors">
+
+
+
+        <mat-card class="card" *ngFor="let collector of collectors.content">
           <mat-card-header>
             <mat-card-title-group>
+              
               <mat-card-title class="pb-2">{{ collector.name }}</mat-card-title>
             </mat-card-title-group>
           </mat-card-header>
@@ -24,8 +40,40 @@
             >
           </mat-card-content>
         </mat-card>
+
+
+        <!-- <div class="search-result">
+          <div class="d-grid grid-template-columns-2 gap-2 grid-columns mb-5">
+            <mat-card class="card" *ngFor="let result of results$ | async">
+              <mat-card-header>
+                <mat-card-title-group>
+                  <mat-card-title class="pb-2">{{
+                    result.username
+                  }}</mat-card-title>
+                </mat-card-title-group>
+              </mat-card-header>
+              <mat-card-content>
+                <img
+                  mat-card-md-image
+                  class="mb-2"
+                  src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
+                  alt="Image of a collection"
+                />
+                <a mat-button (click)="setSelectedResult(result)"> Import</a>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div> -->
       </div>
     </div>
+
+    <mat-paginator 
+      [pageSize]="pageSize" 
+      [hidePageSize]="true" 
+      [length]="collectors.totalElements"
+      (page)="handlePageChange($event)"
+    ></mat-paginator>
+
   </section>
 </ng-container>
 

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Collection } from 'src/app/models/collection';
 import { LoggedCollectorService } from 'src/app/security/logged-collector.service';
 import { CollectionService } from 'src/app/services/collection.service';
+import { CollectorService } from 'src/app/services/collector.service';
 
 @Component({
   selector: 'app-collections-shared-with-me',
@@ -17,9 +18,10 @@ collectorId!: number | null;
 loggedCollector!: any;
 
   constructor(
-    private collectionService: CollectionService,
+
     private route: ActivatedRoute,
     private loggedCollectorService: LoggedCollectorService,
+    private collectorService: CollectorService,
     private router: Router,
 
   ) { }
@@ -27,10 +29,11 @@ loggedCollector!: any;
   ngOnInit(): void {
 
     
-    this.collections$ = this.collectionService.getCollectionSharedWithMe();
+    
 
     this.loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
 
+    this.collections$ = this.collectorService.getCollectionSharedWithMe(this.loggedCollector.id);
 
   
 
@@ -38,8 +41,17 @@ loggedCollector!: any;
   }
 
   deleteCollectionFromSharedList(collectionId: number) {
-    this.collectionService.deleteCollectionFromSharedList(collectionId).subscribe();
+    this.collectorService.deleteCollectionFromSharedList(this.loggedCollector.id, collectionId).subscribe();
     this.router.navigate(['../']);
+  }
+
+  isCollectionSharedListIsEMpty() : boolean {
+    this.collections$ == null;
+      return true;
+   }
+ 
+
+    
   }
 
 
@@ -47,6 +59,6 @@ loggedCollector!: any;
 
   
 
-}
+
 
 

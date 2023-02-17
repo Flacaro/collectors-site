@@ -27,14 +27,14 @@ export class DiskDetailsComponent implements OnInit {
   loggedCollector: Collector | null = null;
   collectionId!: number;
   collectorId!: number;
+  imageUrl!: SafeUrl;
+  ownerIdParam!: string | null;
 
   @ViewChild("targetImage") targetImage!: HTMLImageElement;
 
   diskImages$!: Observable<{ imageId: number; base64Image: string }[]>;
 
   private collectionOwnerId!: number;
-
-
 
   constructor(
     private dialog: MatDialog,
@@ -44,7 +44,7 @@ export class DiskDetailsComponent implements OnInit {
     private collectionService: CollectionService,
     private loggedCollectorService: LoggedCollectorService,
     private snackbar: MatSnackBar,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -52,24 +52,24 @@ export class DiskDetailsComponent implements OnInit {
       this.loggedCollectorService.getCurrentCollectorValue();
     if (loggedCollector) {
       this.loggedCollector = loggedCollector;
-      this.collectorId = loggedCollector?.id 
+      this.collectorId = loggedCollector?.id;
     }
-
 
     this.collectionId = this.route.snapshot.params["collectionId"];
 
     this.diskId = this.route.snapshot.params["diskId"];
 
-    const ownerIdParam = this.route.snapshot.queryParamMap.get("ownerId");
+    this.ownerIdParam = this.route.snapshot.queryParamMap.get("ownerId");
 
-    if (ownerIdParam) {
-      this.collectionOwnerId = parseInt(ownerIdParam);
+    if (this.ownerIdParam) {
+      this.collectionOwnerId = parseInt(this.ownerIdParam);
     }
 
     if (this.loggedCollector?.id === this.collectionOwnerId) {
-      this.disk$ = this.diskService
-        .getPersonalDiskById(this.collectionId, this.diskId)
-        .pipe(tap(console.log));
+      this.disk$ = this.diskService.getPersonalDiskById(
+        this.collectionId,
+        this.diskId
+      );
       this.tracks$ = this.trackService.getPersonalTracksOfDisk(
         this.collectionId,
         this.diskId
@@ -82,13 +82,23 @@ export class DiskDetailsComponent implements OnInit {
       );
     }
 
+    this.imageUrl = this.diskService
+      .getDiskImages(this.collectionId, this.diskId)
+      .subscribe({
+        next: (result) => {
+          if (result.length) {
+            this.imageUrl = result[0].base64Image;
+          } else {
+            this.imageUrl = "assets/img/default_disk.jpg";
+          }
+        },
+      });
+
     this.diskImages$ = this.diskService.getDiskImages(
       this.collectionId,
       this.diskId
     );
   }
-
-
 
   openDialog() {
     const collectionId = this.route.snapshot.params["collectionId"];
@@ -117,10 +127,12 @@ export class DiskDetailsComponent implements OnInit {
       });
   }
 
-
   addDiskToFav() {
+    if (this.loggedCollector) {
+      this.collectorId = this.loggedCollector?.id;
+    }
 
-    this.diskService.addDiskToFav(this.collectionOwnerId, this.diskId).subscribe({
+    this.diskService.addDiskToFav(this.collectorId, this.diskId).subscribe({
       next: () => {
         this.snackbar.open("Collection added to favourites", "Close", {
           duration: 3000,
@@ -144,26 +156,34 @@ export class DiskDetailsComponent implements OnInit {
     });
   }
 
-
-
   deleteDisk() {
-    this.diskService.deleteDiskFromCollection(this.collectionId, this.diskId).subscribe({
-      next: () => {
-        this.snackbar.open("Collection deleted successfully", "Close", {
-          duration: 3000,
-        });
-        window.history.back();
-      },
-      error: (err) => {
-        this.snackbar.open(
-          "Ops, something went wrong. Try again later.",
-          "Close",
-          {
+    this.diskService
+      .deleteDiskFromCollection(this.collectionId, this.diskId)
+      .subscribe({
+        next: () => {
+          this.snackbar.open("Collection deleted successfully", "Close", {
             duration: 3000,
-          }
-        );
-      },
-    });
+          });
+          window.history.back();
+        },
+        error: (err) => {
+          this.snackbar.open(
+            "Ops, something went wrong. Try again later.",
+            "Close",
+            {
+              duration: 3000,
+            }
+          );
+        },
+      });
   }
 
+  isDiskInFavList() {
+    this.disk$ == null;
+    return true;
+  }
+
+  isOwner() {
+    return this.loggedCollector?.id === this.collectionOwnerId;
+  }
 }

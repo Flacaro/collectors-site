@@ -1,34 +1,47 @@
 <section>
-    <div class="d-flex justify-content-between mt-8">
-      <h2 >Your Favourites collections</h2>
-      
-    </div>
-    <div *ngIf="isFavoriteListEmpty() == true ">Your collections fav list is empty</div>
-   
-    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-      <mat-card class="card" *ngFor="let collection of (collectionsFavourites$ | async)">
-    
-       
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title class="pb-2"> {{ collection.name }} </mat-card-title>
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
-          <img
-            mat-card-md-image
-            class="mb-2"
-            src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
-            alt="Image of a collection"
-          />
-        
-          <a mat-button [routerLink]="['/personal/collections', collection.id]"
-            >Go to collection details</a>
-        </mat-card-content>
-      </mat-card>
-    </div>
+  <div class="d-flex justify-content-between mt-8">
+    <h2>Your Favourites collections</h2>
+  </div>
 
-  </section>
-   
+  <ng-container *ngIf="collectionsFavourites$ | async as favCollections">
+    <ng-container *ngIf="favCollections.length; else noFavCollections">
+      <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
+        <mat-card class="card" *ngFor="let collection of favCollections">
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title class="pb-2">
+                {{ collection.name }}
+              </mat-card-title>
+            </mat-card-title-group>
+            <mat-icon>library_books</mat-icon>
+          </mat-card-header>
+          <mat-card-content>
+            <img
+              mat-card-md-image
+              class="mb-2"
+              src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
+              alt="Image of a collection"
+            />
 
- 
+            <a
+              mat-button
+              [routerLink]="['/personal/collections', collection.id]"
+              >Go to collection details</a
+            >
+          </mat-card-content>
+          <a mat-button (click)="deleteCollectionFromFav(collection.id)"
+            ><mat-icon> delete </mat-icon></a
+          >
+        </mat-card>
+      </div>
+    </ng-container>
+  </ng-container>
+</section>
+
+<ng-template #noFavCollections>
+  <div class="d-flex justify-content-center mt-8">
+    <h3 class="text-center">
+      You don't have any collections in favourites list
+    </h3>
+  </div>
+</ng-template>
