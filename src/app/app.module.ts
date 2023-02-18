@@ -62,6 +62,8 @@ import {MatBadgeModule} from '@angular/material/badge';
 
 import {OverlayModule} from '@angular/cdk/overlay';
 import { NotificationMenuComponent } from './components/notification-menu/notification-menu.component';
+import { PublicStatisticsComponent } from './components/public-statistics/public-statistics.component';
+import { NgChartsModule } from 'ng2-charts';
 
 const materialModules = [
   MatFormFieldModule,
@@ -122,6 +124,7 @@ const materialModules = [
     AddCollectorToShareComponent,
     EmailComponent,
     NotificationMenuComponent,
+    PublicStatisticsComponent,
   ],
   imports: [
     BrowserModule,
@@ -132,6 +135,7 @@ const materialModules = [
     HttpClientModule,
     ...materialModules,
     BrowserAnimationsModule,
+    NgChartsModule,
 
   ],
   providers: [

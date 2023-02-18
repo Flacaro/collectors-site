@@ -65,8 +65,8 @@ export class CollectorService {
     return this.http.get<Collection[]>(`${this.API_URL_PRIVATE_COLLECTORS}/collectors/${collectorId}/collections`);
   }
 
-  deleteCollectionFromSharedList(collectorId: number, collectionId: number): Observable<Collection> {
-    return this.http.delete<Collection>(`${this.API_URL_PRIVATE_COLLECTORS}/collectors/${collectorId}/collections/${collectionId}`);
+  deleteCollectionFromSharedList(collectionId: number, collectorId: number): Observable<Collection> {
+    return this.http.delete<Collection>(`${this.API_URL_PRIVATE_COLLECTORS}/collections/${collectionId}/collectors/${collectorId}`);
   }
 
 }

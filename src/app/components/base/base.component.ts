@@ -79,6 +79,10 @@ export class BaseComponent implements OnInit {
     {
       link: "personal/collectors/" + this.loggedCollector?.id + "/collections",
       name: "Collections shared with me",
+    }, 
+    {
+      link: "public/statistics",
+      name: "Statistics"
     }
   ];
 

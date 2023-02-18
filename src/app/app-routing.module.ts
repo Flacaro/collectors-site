@@ -25,6 +25,7 @@ import { EditTrackComponent } from "./components/track/edit-track/edit-track.com
 import { ListOfCollectorThatShareCollectionComponent } from "./components/list-of-collector-that-share-collection/list-of-collector-that-share-collection.component";
 import { AddCollectorToShareComponent } from "./components/collection/add-collector-to-share/add-collector-to-share.component";
 import { EmailComponent } from "./components/email/email.component";
+import { PublicStatisticsComponent } from "./components/public-statistics/public-statistics.component";
 
 const routes: Routes = [
   {
@@ -87,7 +88,7 @@ const routes: Routes = [
       { path: "personal/collections/:collectionId/disks/:diskId/tracks/:trackId/edit", component: EditTrackComponent, canActivate: [AuthGuard]},
 
       { path: "search/disks", component: ImportDiskComponent, canActivate: [AuthGuard] },
-      
+      { path: "public/statistics", component: PublicStatisticsComponent}
   
     ],
   },

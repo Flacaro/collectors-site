@@ -12,11 +12,11 @@
       </picture>
 
       <div class="disk-actions">
-        <button mat-icon-button class="mr-2" color="primary" matTooltip="Add disks to your favorite list">
+        <button (click)="addDiskToFav()" mat-icon-button class="mr-2" color="primary" matTooltip="Add disks to your favorite list">
           <mat-icon> favorite</mat-icon>
         </button>
-        <button mat-icon-button class="mr-2" matTooltip="Edit disk"><mat-icon>edit</mat-icon></button>
-        <button mat-icon-button class="mr-2" color="warn" matTooltip="Delete disk">
+        <button [routerLink]="['edit']" mat-icon-button class="mr-2" matTooltip="Edit disk"><mat-icon>edit</mat-icon></button>
+        <button (click)="deleteDisk()" mat-icon-button class="mr-2" color="warn" matTooltip="Delete disk">
           <mat-icon>delete</mat-icon>
         </button>
 

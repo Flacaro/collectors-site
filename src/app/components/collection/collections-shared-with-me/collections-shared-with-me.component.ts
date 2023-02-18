@@ -13,9 +13,9 @@ import { CollectorService } from 'src/app/services/collector.service';
 })
 export class CollectionsSharedWithMeComponent implements OnInit {
 
-collections$!: Observable<Collection []>;
-collectorId!: number | null;
-loggedCollector!: any;
+  collections$!: Observable<Collection[]>;
+  collectorId!: number | null;
+  loggedCollector!: any;
 
   constructor(
 
@@ -28,36 +28,31 @@ loggedCollector!: any;
 
   ngOnInit(): void {
 
-    
-    
-
     this.loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
 
     this.collections$ = this.collectorService.getCollectionSharedWithMe(this.loggedCollector.id);
 
-  
-
-
   }
 
   deleteCollectionFromSharedList(collectionId: number) {
-    this.collectorService.deleteCollectionFromSharedList(this.loggedCollector.id, collectionId).subscribe();
-    this.router.navigate(['../']);
+    this.collectorService.deleteCollectionFromSharedList(collectionId, this.loggedCollector.id).subscribe(
+      () => this.router.navigate(['../'])
+    );
   }
 
-  isCollectionSharedListIsEMpty() : boolean {
+  isCollectionSharedListIsEMpty(): boolean {
     this.collections$ == null;
-      return true;
-   }
- 
-
-    
+    return true;
   }
 
 
-  
 
-  
+}
+
+
+
+
+
 
 
 

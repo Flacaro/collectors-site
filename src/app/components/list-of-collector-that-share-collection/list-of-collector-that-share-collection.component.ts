@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { Collector } from 'src/app/models/collector';
-import { CollectionService } from 'src/app/services/collection.service';
 
 import { CollectorService } from 'src/app/services/collector.service';
 
@@ -14,61 +12,44 @@ import { CollectorService } from 'src/app/services/collector.service';
   templateUrl: './list-of-collector-that-share-collection.component.html',
   styleUrls: ['./list-of-collector-that-share-collection.component.scss']
 })
-export class ListOfCollectorThatShareCollectionComponent  implements OnInit {
+export class ListOfCollectorThatShareCollectionComponent implements OnInit {
 
-  collectors$!: Observable<Collector []>;
+  collectors$ = new BehaviorSubject<Collector[]>([]);
   collectionId!: number;
-  collection!: any;
-  collectorsIds!: number[];
-  collectorsIdsToDelete!: number[];
-  allCollectors$!: Observable<Collector []>;
-
 
   constructor(
-    private route : ActivatedRoute,
-    private dialog: MatDialog,
+    private route: ActivatedRoute,
     private collectorService: CollectorService,
-    private collectionService: CollectionService,
     private snackBar: MatSnackBar,
-    private router: Router,
   ) { }
 
   ngOnInit(): void {
     this.collectionId = this.route.snapshot.params['collectionId'];
 
-    this.collection = this.collectionService.getPersonalCollectionById(this.collectionId);
-
-    this.collectors$ = this.collectorService.getCollectorsThatShareTheCollection(this.collectionId);
-
-    this.collectors$.subscribe((collectors) => {
-      this.collectorsIds = collectors.map((collector) => collector.id);
-    }
+    this.collectorService.getCollectorsThatShareTheCollection(this.collectionId).subscribe(
+      collectors => this.collectors$.next(collectors)
     );
 
-
-    this.allCollectors$ = this.collectorService.getAllCollectors();
-
-
   }
- 
+
 
   deleteCollectorFromMyCollection(collectorId: number) {
-    //push on the array the collectorId to delete
-    this.collectorsIdsToDelete = [collectorId];
-    //pass the array to the service
-    debugger;
-    this.collectionService.unshareCollection(this.collectorsIdsToDelete, this.collectionId);
-    //reload the page
-    this.router.navigate(['/personal/collections']);
-
-  }
-    
+    this.collectorService.deleteCollectionFromSharedList(this.collectionId, collectorId).pipe(
+      switchMap(() =>
+        this.collectorService.getCollectorsThatShareTheCollection(this.collectionId)
+      )
+    ).subscribe((collectors) => {
+        this.collectors$.next(collectors);
+        this.snackBar.open("Successfully removed collector", "x");
+      });
   }
 
+}
 
 
 
 
 
-  
+
+
 
