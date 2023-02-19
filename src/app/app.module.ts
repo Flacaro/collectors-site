@@ -62,6 +62,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 
 import {OverlayModule} from '@angular/cdk/overlay';
 import { NotificationMenuComponent } from './components/notification-menu/notification-menu.component';
+import { PublicProfileComponent } from './components/public-profile/public-profile.component';
 
 const materialModules = [
   MatFormFieldModule,
@@ -122,6 +123,7 @@ const materialModules = [
     AddCollectorToShareComponent,
     EmailComponent,
     NotificationMenuComponent,
+    PublicProfileComponent,
   ],
   imports: [
     BrowserModule,
