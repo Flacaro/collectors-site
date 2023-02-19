@@ -1,68 +1,134 @@
-<div *ngIf="collection$ | async as collection">
-<div class="content d-flex mt-10" >
- 
-  <img
-    mat-card-md-image
-    class="image mt-10 ml-4 mb-10"
-    src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
-    alt="Image of a collection"
-  />
+
+
+<div class="mt-8" *ngIf="collection$ | async as collection">
+  
+  <app-back-button [url]="backUrl"></app-back-button>
+
+  <h1 class="text-center collection-name">{{ collection.name }}</h1>
+  
   <div>
-    <div class="ml-10 mt-10">
-      <h1>{{ collection.name }}</h1>
-    </div>
-    <div class="ml-10 mt-5">
-      <p>type: {{ collection.type }}</p>
-    </div>
-    <div class="ml-10">
-      <mat-icon *ngIf="!collection.visible"> lock </mat-icon>
-      <mat-icon *ngIf="collection.visible"> visibility </mat-icon>
-      <a mat-button (click)="addCollectiontoFav()"><mat-icon> favorite </mat-icon></a>
-      <a mat-button (click)="deleteCollection()" *ngIf="loggedCollector.id == collection.ownerId"><mat-icon> delete </mat-icon></a>
-      <a mat-button [routerLink]="['/personal/collections', collectionId, 'edit']" *ngIf="loggedCollector.id == collection.ownerId"><mat-icon> edit </mat-icon></a>
-    </div>
-  </div>
-</div>
-<div class="d-flex" *ngIf="loggedCollector.id == collection.ownerId">
-  <a mat-button [routerLink]="['/personal/collections', collectionId, 'collectors']" class="mt-5" > Collectors that share the list</a>
-  <a mat-button [routerLink]="['/personal/collections', collectionId,'collectors-add']" class="mt-5" [queryParams]="{collectionId: collectionId}">Add collector to share list</a>
-</div>
-
-<div class="mt-5 ml-2"> 
-
-  <div class="d-flex" *ngIf="loggedCollector.id == collection.ownerId">
-      <button mat-button [matMenuTriggerFor]="menu">Add Disk</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="openImportDiskDialog()">Import disk</button>
-  <button mat-menu-item (click)="openDialog()">New</button>
-</mat-menu>
-     
-  </div>
-  <h2 class="mt-6">Disks of collection :</h2>
-</div>
-<section >
-  <div>
-
-
- <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-    <mat-card class="card" *ngFor="let disk of (disks$ | async)">
-      <mat-card-header>
-        <mat-card-title-group>
-          <mat-icon>album</mat-icon>
-          <mat-card-title class="pb-2">{{disk.title}}</mat-card-title>
-        </mat-card-title-group>
-      </mat-card-header>
-      <mat-card-content>
+    <section>
+      <picture>
         <img
-          mat-card-md-image
-          class="mb-2"
-          src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+          class="collection-cover py-6"
+          src="assets/img/default_collection.jpg"
           alt="Image of a collection"
         />
-        <a mat-button [routerLink]="['disks', disk.id]" [queryParams]="{ownerId: collection.ownerId}">Go to disk details</a>
-      </mat-card-content>
-    </mat-card>
+      </picture>
+      <div class="collection-actions">
+        <button
+          (click)="addCollectiontoFav()"
+          mat-icon-button
+          class="mr-2"
+          color="primary"
+          matTooltip="Add collection to your favorite list"
+        >
+          <mat-icon> favorite</mat-icon>
+        </button>
+        <button
+          [routerLink]="['edit']"
+          mat-icon-button
+          class="mr-2"
+          matTooltip="Edit collection"
+          queryParamsHandling="merge"
+          *ngIf="loggedCollector.id == collection.ownerId"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          (click)="deleteCollection()"
+          mat-icon-button
+          class="mr-2"
+          color="warn"
+          matTooltip="Delete collection"
+          queryParamsHandling="merge"
+          *ngIf="loggedCollector.id == collection.ownerId"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <button
+          [routerLink]="['/personal/collections', collectionId, 'collectors']"
+          mat-icon-button
+          class="mr-2"
+          color="primary"
+          matTooltip="Collectors that share the list"
+          queryParamsHandling="merge"
+          *ngIf="loggedCollector.id == collection.ownerId"
+        >
+          <mat-icon>person</mat-icon>
+        </button>
+
+        <button
+          [routerLink]="[
+            '/personal/collections',
+            collectionId,
+            'collectors-add'
+          ]"
+          mat-icon-button
+          class="mr-2"
+          color="primary"
+          matTooltip="Add collector to share list"
+          queryParamsHandling="merge"
+          *ngIf="loggedCollector.id == collection.ownerId"
+        >
+          <mat-icon>person_add</mat-icon>
+        </button>
+      </div>
+    </section>
+
+    <section class="collection-details mt-10">
+      <h2 class="collection-details__name">Details</h2>
+
+      <div class="details">
+        <div class="field">
+          <p class="field-label">Artist</p>
+          <p class="field-value">{{ collection.type }}</p>
+        </div>
+
+        <div class="field">
+          <p class="field-label">Visibility</p>
+          <p class="field-value">{{ collection.visible ? 'public' : 'private' }}</p>
+        </div>
+
+        <div class="field">
+          <p class="field-label">Year</p>
+          <p class="field-value">{{ collection.ownerId }}</p>
+        </div>
+      </div>
+    </section>
   </div>
-</div>
-</section>
+
+  <div class="d-flex justify-content-between mt-10">
+    <h2 class="collection-disk__title">Disks</h2>
+    <button
+      mat-raised-button
+      *ngIf="loggedCollector.id == collection.ownerId"
+      [matMenuTriggerFor]="menu"
+      color="primary"
+    >
+      Add Disk
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openImportDiskDialog()" color="primary">
+        Import disk
+      </button>
+      <button mat-menu-item (click)="openDialog()" color="primary">New</button>
+    </mat-menu>
+  </div>
+
+  <section *ngIf="disks$ | async as disks" class="mb-6">
+    <app-card-container>
+      <app-card
+        *ngFor="let disk of disks"
+        [image]="'assets/img/default_disk.jpg'"
+        [title]="disk.title"
+        [routerLink]="['disks', disk.id]"
+        [queryParams]="{ ownerId: collection.ownerId }"
+      >
+        <mat-icon card-icon>album</mat-icon>
+      </app-card>
+    </app-card-container>
+
+  </section>
 </div>

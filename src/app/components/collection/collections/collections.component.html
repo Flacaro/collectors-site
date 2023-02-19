@@ -1,34 +1,33 @@
 <section>
   <div class="d-flex justify-content-between mt-8">
     <h2>Your collections</h2>
-    <button mat-stroked-button [routerLink]="['/personal/collections']">See all</button>
-  </div>
-  <div class="d-flex">
-    <button mat-raised-button (click)="openDialog()">
-      Add Collection <mat-icon>add</mat-icon>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      Add Collection
     </button>
   </div>
-  <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-    <mat-card class="card" *ngFor="let collection of (collections$ | async)">
-      
-      <mat-card-header>
-       
-        <mat-card-title-group> <mat-icon>library_books</mat-icon>
-          <mat-card-title class="pb-2"> {{ collection.name }} </mat-card-title>
-        </mat-card-title-group>
-      </mat-card-header>
-      <mat-card-content>
-        <img
-          mat-card-md-image
-          class="mb-2"
-          src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
-          alt="Image of a collection"
-        />
 
-        <a mat-button [routerLink]="[collection.id]" [queryParams]="{ownerId: collection.ownerId}">
-          Go to collection details
-        </a>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  <ng-container *ngIf="collections$ | async as collections">
+    <ng-container *ngIf="collections.length; else noCollections">
+      <section class="pb-8">
+        <app-card-container>
+          <app-card
+            *ngFor="let collection of collections"
+            image="assets/img/default_collection.jpg"
+            [title]="collection.name"
+            [routerLink]="[collection.id]"
+            [queryParams]="{ownerId: collection.ownerId}"
+          >
+            <mat-icon card-icon>library_books</mat-icon>
+          </app-card>
+        </app-card-container>
+    
+      </section>
+    </ng-container>
+  </ng-container>
 </section>
+
+<ng-template #noCollections>
+  <div class="d-flex justify-content-center">
+    <h2>You don't have any collections</h2>
+  </div>
+</ng-template>

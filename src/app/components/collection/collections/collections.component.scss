@@ -9,3 +9,8 @@
 .grid-columns {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
+
+.card-actions {
+    display: flex;
+    justify-content: center;
+  }

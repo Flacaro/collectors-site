@@ -1,1 +1,74 @@
-<p>public-profile works!</p>
+<div class="mt-8" *ngIf="collector$ | async as collector">
+  <h1 class="text-center collector-username">{{ collector.username }}</h1>
+  <div>
+    <section>
+      <picture *ngIf="image$ | async as imageUrl">
+        <img
+          mat-card-md-image
+          class="collector-cover py-6"
+          [src]="imageUrl"
+          alt="Image of a Disk"
+        />
+      </picture>
+    </section>
+
+    <section class="collector-details mt-9">
+      <h2 class="collector-details__username">Details</h2>
+
+      <div class="details">
+        <div class="field">
+          <p class="field-label">Name</p>
+          <p class="field-value">{{ collector.name }}</p>
+        </div>
+
+        <div class="field">
+          <p class="field-label">Surname</p>
+          <p class="field-value">{{ collector.surname }}</p>
+        </div>
+
+        <div class="field">
+          <p class="field-label">Username</p>
+          <p class="field-value">{{ collector.username }}</p>
+        </div>
+
+        <div class="field">
+          <p class="field-label">Email</p>
+          <p class="field-value">{{ collector.email }}</p>
+        </div>
+
+        <div class="field">
+          <p class="field-label">Birthdate</p>
+          <p class="field-value">{{ collector.birthdate }}</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <h2 class="collector-collection__title pt-8 pb-4">Public collections</h2>
+
+  <ng-container *ngIf="publicCollections$ | async as publicCollections">
+    <ng-container *ngIf="publicCollections.length; else noCollections">
+      <section class="pb-6">
+        <app-card-container>
+          <app-card
+            *ngFor="let collection of publicCollections"
+            [image]="'assets/img/default_collection.jpg'"
+            [title]="collection.name"
+            [routerLink]="['collections', collection.id]"
+            queryParamsHandling="merge"
+          >
+            <mat-icon card-icon>library_books</mat-icon>
+          </app-card>
+        </app-card-container>
+      </section>
+    </ng-container>
+  </ng-container>
+
+</div>
+
+
+<ng-template #noCollections>
+  <div class="d-flex justify-content-center">
+    <p class="text-center">No public collections</p>
+  </div>
+</ng-template>

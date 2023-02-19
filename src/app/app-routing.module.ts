@@ -24,7 +24,8 @@ import { ImagesDiskListComponent } from "./components/disk/images-disk-list/imag
 import { EditTrackComponent } from "./components/track/edit-track/edit-track.component";
 import { ListOfCollectorThatShareCollectionComponent } from "./components/list-of-collector-that-share-collection/list-of-collector-that-share-collection.component";
 import { AddCollectorToShareComponent } from "./components/collection/add-collector-to-share/add-collector-to-share.component";
-import { EmailComponent } from "./components/email/email.component";
+import { PublicStatisticsComponent } from "./components/public-statistics/public-statistics.component";
+import { PublicProfileComponent } from "./components/public-profile/public-profile.component";
 
 const routes: Routes = [
   {
@@ -41,6 +42,7 @@ const routes: Routes = [
     component: BaseComponent,
     children: [
       { path: "", component: HomeComponent },
+      { path: "collectors/:collectorId", component: PublicProfileComponent },
       { path: "collections", component: HomeComponent },
       { path: "personal/collectors/:collectorId/collections", component: CollectionsSharedWithMeComponent, canActivate: [AuthGuard]},
      
@@ -63,7 +65,6 @@ const routes: Routes = [
       { path: "personal/profile/images/:imageId", component: ProfileComponent, canActivate: [AuthGuard] },
       { path: "personal/collections/favorites", component: CollectionsFavouritesComponent, canActivate: [AuthGuard]},
       { path: "personal/collectors/:collectorId/disks/favorites", component: DisksFavouritesComponent, canActivate: [AuthGuard]},
-      { path: "personal/emails", component: EmailComponent, canActivate: [AuthGuard]},
 
       { path: "personal/collections", component: CollectionsComponent, canActivate: [AuthGuard]},
      
@@ -87,7 +88,7 @@ const routes: Routes = [
       { path: "personal/collections/:collectionId/disks/:diskId/tracks/:trackId/edit", component: EditTrackComponent, canActivate: [AuthGuard]},
 
       { path: "search/disks", component: ImportDiskComponent, canActivate: [AuthGuard] },
-      
+      { path: "public/statistics", component: PublicStatisticsComponent}
   
     ],
   },

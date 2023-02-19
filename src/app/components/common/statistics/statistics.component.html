@@ -1,0 +1,100 @@
+<h1 class="font-monserrat bold text-center py-8">{{ pageTitle }}</h1>
+
+<ng-container *ngIf="chartData">
+
+  <ng-container
+    *ngIf="
+      chartData.collections.total === 0 && chartData.disks.total === 0;
+      else statistics
+    "
+  >
+    <div class="d-flex justify-content-center">
+      <h2>No statistics available</h2>
+    </div>
+  </ng-container>
+
+
+  <ng-template #statistics>
+
+    <section class="counters d-flex justify-content-center gap-1 py-4">
+      <ng-container *ngIf="chartData.collections.total">
+        <ng-container
+          *ngTemplateOutlet="
+            countStatistic;
+            context: {
+              $implicit: chartData.collections.total,
+              title: 'Total collections'
+            }
+          "
+        >
+        </ng-container>
+      </ng-container>
+  
+      <ng-container *ngIf="chartData.disks.total">
+        <ng-container
+          *ngTemplateOutlet="
+            countStatistic;
+            context: { $implicit: chartData.disks.total, title: 'Total disks' }
+          "
+        >
+        </ng-container>
+      </ng-container>
+    </section>
+
+
+    <ng-container
+      *ngIf="chartData.collections.total; else noCollectionStatistics"
+    >
+      <section class="pt-6">
+        <h2 class="bold text-center font-monserrat py-6">Collection statistics</h2>
+
+        <ng-container
+          *ngFor="let collectionStatistic of chartData.collections.groupBy"
+        >
+          <canvas
+            baseChart
+            class="chart"
+            [data]="collectionStatistic"
+            [options]="barChartOptions"
+            [type]="barChartType"
+          ></canvas>
+        </ng-container>
+      </section>
+    </ng-container>
+
+    <ng-template #noCollectionStatistics>
+      <div class="d-flex justify-content-center">
+        <h2>No collection statistics</h2>
+      </div>
+    </ng-template>
+
+    <ng-container *ngIf="chartData.disks.total; else noDiskStatistics">
+      <section class="pt-10">
+        <h2 class="bold text-center font-monserrat py-6">Disk statistics</h2>
+
+        <ng-container *ngFor="let diskStatistic of chartData.disks.groupBy">
+          <canvas
+            baseChart
+            class="chart"
+            [data]="diskStatistic"
+            [options]="barChartOptions"
+            [type]="barChartType"
+          ></canvas>
+        </ng-container>
+      </section>
+    </ng-container>
+
+    <ng-template #noDiskStatistics>
+      <div class="d-flex justify-content-center pt-10">
+        <h2>No disk statistics</h2>
+      </div>
+    </ng-template>
+  </ng-template>
+</ng-container>
+
+<ng-template #countStatistic let-count let-title="title">
+  <div class="count-statistic">
+    <p class="text-center">{{ title }}</p>
+    <h1 class="bold text-center font-monserrat">{{ count }}</h1>
+  </div>
+</ng-template>

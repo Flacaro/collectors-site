@@ -20,10 +20,6 @@ export class CollectorService {
     private http: HttpClient
   ) { }
 
-//   getOwnerOfCollection(collectionId: number) {
-//     return this.http.get(`${CONSTANTS.API_URL}/public/collections/${collectionId}/owner`);
-
-// }
 
   getCollectorsListInShared(collectionId: number): Observable<Collector[]> {
     return this.http.get<Collector[]>(`${this.API_URL_PRIVATE_COLLECTIONS}/${collectionId}/collectors`);
@@ -65,8 +61,24 @@ export class CollectorService {
     return this.http.get<Collection[]>(`${this.API_URL_PRIVATE_COLLECTORS}/collectors/${collectorId}/collections`);
   }
 
-  deleteCollectionFromSharedList(collectorId: number, collectionId: number): Observable<Collection> {
-    return this.http.delete<Collection>(`${this.API_URL_PRIVATE_COLLECTORS}/collectors/${collectorId}/collections/${collectionId}`);
+  deleteCollectionFromSharedList(collectionId: number, collectorId: number): Observable<Collection> {
+    return this.http.delete<Collection>(`${this.API_URL_PRIVATE_COLLECTORS}/collections/${collectionId}/collectors/${collectorId}`);
   }
 
+  getPublicCollectorById(collectorId: number): Observable<Collector> {
+    return this.http.get<Collector>(`${this.API_COLLECTORS}/${collectorId}`);
+  }
+
+  getPublicCollectionsOfCollector(collectorId: number): Observable<Collection[]> {
+    return this.http.get<Collection[]>(`${this.API_COLLECTORS}/${collectorId}/collections`);
+  }
+
+  getCollectorProfileImages(collectorId: number): Observable<Blob> {
+    return this.http.get(`${this.API_COLLECTORS}/${collectorId}/images`, {
+      observe: 'body',
+      responseType: 'blob'
+    }).pipe(
+      map(resp => new Blob([resp], { type: 'image/jpeg' }))
+    )
+  }
 }

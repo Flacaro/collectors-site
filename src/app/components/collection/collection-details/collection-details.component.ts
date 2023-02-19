@@ -38,6 +38,8 @@ export class CollectionDetailsComponent implements OnInit {
   collectorsIdsToAdd!: number[];
   collectorsIds!: number[];
 
+  readonly backUrl = "/personal/collections"
+
   collectionId = this.route.snapshot.params["collectionId"];
 
   constructor(

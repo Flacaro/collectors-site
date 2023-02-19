@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { EmailValidator } from "@angular/forms";
+import { Router } from "@angular/router";
 import { map, Observable } from "rxjs";
 import { AuthService } from "src/app/security/auth.service";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
@@ -23,7 +24,8 @@ export class HeaderComponent {
   constructor(
     private loggedCollectorService: LoggedCollectorService, 
     private authService: AuthService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private router: Router
     ) {}
 
   isCollectorLogged(): Observable<{isLogged: boolean}> {
@@ -34,6 +36,7 @@ export class HeaderComponent {
 
   logoutCollector() {
     this.authService.logout();
+    this.router.navigate(["/auth/login"]);
   }
 
 

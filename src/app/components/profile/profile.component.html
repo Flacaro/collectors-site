@@ -1,71 +1,108 @@
-<div class="content d-flex mt-10">
-  <div *ngIf="image$ | async as imageUrl">
-    <img [src]="imageUrl" class="image" />
-  </div>
+<div class="mt-8">
+  <h1 class="text-center collector-username">
+    {{ loggedCollector?.username }}
+  </h1>
+  <div>
+    <section>
+      <picture>
+        <div *ngIf="image$ | async as imageUrl">
+          <img
+            mat-card-md-image
+            class="collector-cover py-6"
+            [src]="imageUrl"
+            alt="Image of a Collector"
+          />
+        </div>
+      </picture>
 
-  <div class="ml-10 mt-10 d-flex">
-    <h1>{{ loggedCollector?.username }}</h1>
-    <a
-      mat-button
-      class="ml-5"
-      [routerLink]="['/personal/collectors', loggedCollector?.id, 'edit']"
+      <div class="collector-actions">
+        <button
+          [routerLink]="['/personal/collectors', loggedCollector?.id, 'edit']"
+          mat-icon-button
+          class="mr-2"
+          color="primary"
+          matTooltip="Edit profile"
+        >
+          <mat-icon> edit</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          color="primary"
+          matTooltip="Upload profile image"
+          (click)="imageUpload.click()"
+        >
+          <mat-icon>upload</mat-icon>
+        </button>
+        <input #imageUpload type="file" hidden (change)="selectFile($event)" />
+      </div>
+    </section>
+
+    <section class="collector-details mt-9">
+      <h2 class="collector-details__username">Details</h2>
+
+      <div class="details">
+        <div class="field">
+          <p class="field-label">Name</p>
+          <p class="field-value">{{ loggedCollector?.name }}</p>
+        </div>
+
+        <div class="field">
+          <p class="field-label">Surname</p>
+          <p class="field-value">{{ loggedCollector?.surname }}</p>
+        </div>
+
+        <div class="field">
+          <p class="field-label">Email</p>
+          <p class="field-value">{{ loggedCollector?.email }}</p>
+        </div>
+
+        <div class="field">
+          <p class="field-label">Birthdate</p>
+          <p class="field-value">{{ loggedCollector?.birthdate }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section
+      *ngIf="privateCollections$ | async as privateCollections"
+      class="my-10"
     >
-      <mat-icon> edit</mat-icon></a
-    >
-  </div>
-  <div class="d-grid grid-template-columns-2 gap-2 grid-row">
-    <mat-list>
-      <mat-list-item>name: {{ loggedCollector?.name }}</mat-list-item>
-      <mat-list-item>surname: {{ loggedCollector?.surname }}</mat-list-item>
-      <mat-list-item>username: {{ loggedCollector?.username }}</mat-list-item>
-      <mat-list-item>email: {{ loggedCollector?.email }}</mat-list-item>
-      <mat-list-item>birthday: {{ loggedCollector?.birthdate }}</mat-list-item>
-    </mat-list>
+    <h2 class="font-monserrat bold">Your Collections</h2>
+
+      <ng-container *ngIf="privateCollections.length; else noCollections">
+
+        <app-card-container>
+          <app-card
+            *ngFor="let collection of privateCollections"
+            [image]="'assets/img/default_collection.jpg'"
+            [title]="collection.name"
+            [routerLink]="['/personal/collections', collection.id]"
+            queryParamsHandling="merge"
+          >
+            <mat-icon card-icon>library_books</mat-icon>
+          </app-card>
+        </app-card-container>
+      </ng-container>
+
+      <ng-template #noCollections>
+        <div class="d-flex justify-content-center">
+          <h2>No collections</h2>
+        </div>
+      </ng-template>
+
+    </section>
+
+
+
+    <ng-container *ngIf="statistics$ | async as statistics">
+      <app-statistics class="pb-8" [statistics]="statistics"></app-statistics>
+    </ng-container>
+
+    <ng-template #noAvailableCollection>
+      <div class="d-flex justify-content-center">
+        <h2>No available collections</h2>
+      </div>
+    </ng-template>
   </div>
 </div>
-
-<section>
-  <h2>Upload profile image</h2>
-  <input type="file" (change)="selectFile($event)" />
-  <div class="d-flex justify-content-between mt-8">
-    <h2>Your collections</h2>
-    <a mat-button [routerLink]="['/personal/collections']">See all</a>
-  </div>
-
-  <ng-container *ngIf="privateCollections$ | async as privateCollections">
-    <ng-container *ngIf="privateCollections.length; else noAvailableCollection">
-      <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-        <mat-card
-          class="card"
-          *ngFor="let collection of privateCollections"
-        >
-          <mat-card-header>
-            <mat-card-title-group>
-              <mat-icon>library_books</mat-icon>
-              <mat-card-title class="pb-2"> {{ collection.name }} </mat-card-title>
-            </mat-card-title-group>
-          </mat-card-header>
-          <mat-card-content>
-            <img
-              mat-card-md-image
-              class="mb-2"
-              src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
-              alt="Image of a collection"
-            />
-    
-            <a mat-button [routerLink]="['/personal/collections', collection.id]"
-              >Go to collection details</a
-            >
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </ng-container>
-  </ng-container>
- 
-</section>
-
-<ng-template #noAvailableCollection>
-  <div class="d-flex justify-content-center">
-    <h2>No available collections</h2>
-  </div>
-</ng-template>

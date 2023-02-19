@@ -137,4 +137,5 @@ export class CollectionService {
       `${this.API_URL_COLLECTIONTOFAV}/${collectionId}`
     );
   }
+
 }

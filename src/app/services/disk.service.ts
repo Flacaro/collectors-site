@@ -105,4 +105,10 @@ export class DiskService {
     return this.http.delete<Disk>(`${this.API_URL_PRIVATE}/collectors/${collectorId}/disks/favorites/${diskId}`);
   }
 
+
+  deleteDiskImage(collectionId: number, diskId: number, imageId: number): Observable<any> {
+    return this.http.delete<any>(`${this.API_URL_PRIVATE_COLLECTION}/${collectionId}/disks/${diskId}/images/${imageId}`);
+  }
+
+
 }

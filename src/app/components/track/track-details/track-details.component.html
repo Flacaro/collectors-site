@@ -1,24 +1,60 @@
-<div class="content d-flex mt-10" *ngIf="track$ | async as track">
-    <img
-            mat-card-md-image
-            class="image mt-10 ml-4 mb-10"
-            src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
-            alt="Image of a Disk"
-    />
+
+<div class="mt-8" *ngIf="track$ | async as track">
+    <app-back-button url="../../" [preserveQueryParams]="true"></app-back-button>
+    <h1 class="text-center track-title">{{ track.title }}</h1>
     <div>
-        <div class="ml-10 mt-10" >
-            <div class="d-flex">
-                <h1>{{track.title}}</h1>
-                <a mat-button (click)="deleteTrack()"><mat-icon> delete </mat-icon></a>
-                <a mat-button [routerLink]="['edit']" queryParamsHandling="merge"> <mat-icon> edit</mat-icon></a>
-            </div>
-            <div>
-                <p> artist: {{track.artist}}</p>
-                <p>album: {{track.album}}</p>
-                <p>band: {{track.band}}</p>
-                <p>author: {{track.author}}</p>
-                <p>time:{{track.time}}</p>
-            </div>
+      <section>
+        <picture>
+          <img
+            mat-card-md-image
+            class="track-cover py-6"
+            src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
+            alt="Image of a Track"
+          />
+        </picture>
+  
+        <div class="track-actions">
+          <button [routerLink]="['edit']" mat-icon-button class="mr-2" matTooltip="Edit track" queryParamsHandling="merge"><mat-icon>edit</mat-icon></button>
+          <button (click)="deleteTrack()" mat-icon-button class="mr-2" color="warn" matTooltip="Delete track" >
+            <mat-icon>delete</mat-icon>
+          </button>
+
         </div>
+      </section>
+
+      <section class="track-details">
+        <h2 class="track-details__title">Details</h2>
+  
+        <div class="details">
+  
+          <div class="field">
+            <p class="field-label">Album</p>
+            <p class="field-value">{{ track.album }}</p>
+          </div>
+  
+          <div class="field">
+            <p class="field-label">Artist</p>
+            <p class="field-value">{{ track.artist}}</p>
+          </div>
+  
+          <div class="field">
+            <p class="field-label">Author</p>
+            <p class="field-value">{{ track.author }}</p>
+          </div>
+  
+  
+          <div class="field">
+            <p class="field-label">Band</p>
+            <p class="field-value">{{ track.band }}</p>
+          </div>
+  
+  
+          <div class="field">
+            <p class="field-label">Duration</p>
+            <p class="field-value">{{ track.time }}</p>
+          </div>
+  
+        </div>
+  
+      </section>
     </div>
-</div>

@@ -1,18 +1,49 @@
+<app-back-button [preserveQueryParams]="true" url="../" class="mt-6"></app-back-button>
+
 <div class="mt-4">
+  <section>
+    <div class="mt-6">
+      <div class="d-flex justify-content-between">
+        <h1 class="bold font-monserrat">Images</h1>
+        <button
+          mat-icon-button
+          color="primary"
+          matTooltip="Upload image"
+          (click)="uploadDiskImage.click()"
+        >
+          <mat-icon>upload</mat-icon>
+        </button>
+        <input
+          hidden
+          #uploadDiskImage
+          type="file"
+          (change)="selectFile($event)"
+        />
+      </div>
+      <ng-container *ngIf="diskImages$ | async as diskImages">
+        <ng-container *ngIf="diskImages.length; else noImages">
+          <div class="d-grid grid-template-columns-3 gap-1 grid-columns">
+            <div *ngFor="let diskImage of diskImages" class="disk-image-container">
+              <div class="image-container">
+                <img
+                  [src]="generateBlobUrl(diskImage.base64Image)"
+                />
+              </div>
+              <div class="d-flex justify-content-center">
+                <button mat-icon-button color="warn" matTooltip="Delete image" (click)="deleteDiskImage(diskImage.imageId)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </section>
+</div>
 
-
-<section>
-    <h2>Carica immagine</h2>
-<input type="file" (change)="selectFile($event)">
-<div class="mt-6">
-    <h1>Images Of Disk</h1>
-<h2>Images of disk</h2>
-<div class="d-grid grid-template-columns-3 gap-1 grid-columns">
-<div *ngFor="let diskImage of diskImages$ | async">
-  <!-- <p>Image id: {{ diskImage.imageId }}</p> -->
-  <img [src]="generateBlobUrl(diskImage.base64Image) " class="image"/> 
-</div>
-</div>
-</div>
-</section>
-</div>
+<ng-template #noImages>
+  <div class="d-flex justify-content-center">
+    <h3 class="text-center">No images for this disk</h3>
+  </div>
+</ng-template>

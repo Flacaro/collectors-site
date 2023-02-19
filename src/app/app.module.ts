@@ -26,7 +26,6 @@ import { MatInputModule } from "@angular/material/input";
 import { AuthComponent } from "./components/auth/auth.component";
 import { BaseComponent } from "./components/base/base.component";
 import { MatListModule } from "@angular/material/list";
-import { AvatarPhotoComponent } from "./components/avatar-photo/avatar-photo.component";
 import { LayoutModule } from "@angular/cdk/layout";
 import { CollectionDetailsComponent } from "./components/collection/collection-details/collection-details.component";
 import { DiskDetailsComponent } from "./components/disk/disk-details/disk-details.component";
@@ -55,14 +54,21 @@ import { ImagesDiskListComponent } from './components/disk/images-disk-list/imag
 import { EditTrackComponent } from './components/track/edit-track/edit-track.component';
 import { ListOfCollectorThatShareCollectionComponent } from './components/list-of-collector-that-share-collection/list-of-collector-that-share-collection.component';
 import { AddCollectorToShareComponent } from './components/collection/add-collector-to-share/add-collector-to-share.component';
-import { EmailComponent } from './components/email/email.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatBadgeModule} from '@angular/material/badge';
 
 import {OverlayModule} from '@angular/cdk/overlay';
 import { NotificationMenuComponent } from './components/notification-menu/notification-menu.component';
+
 import { PublicProfileComponent } from './components/public-profile/public-profile.component';
+import { PublicStatisticsComponent } from './components/public-statistics/public-statistics.component';
+import { NgChartsModule } from 'ng2-charts';
+import { CardComponent } from './components/common/card/card.component';
+import { BackButtonComponent } from './components/common/back-button/back-button.component';
+import { CardContainerComponent } from './components/common/card-container/card-container.component';
+import { StatisticsComponent } from './components/common/statistics/statistics.component';
+
 
 const materialModules = [
   MatFormFieldModule,
@@ -87,7 +93,7 @@ const materialModules = [
   MatTooltipModule,
   MatPaginatorModule,
   MatBadgeModule,
-  OverlayModule
+  OverlayModule,
 ];
 
 @NgModule({
@@ -100,7 +106,6 @@ const materialModules = [
     HomeComponent,
     AuthComponent,
     BaseComponent,
-    AvatarPhotoComponent,
     CollectionDetailsComponent,
     DiskDetailsComponent,
     DialogComponent,
@@ -121,9 +126,14 @@ const materialModules = [
     EditTrackComponent,
     ListOfCollectorThatShareCollectionComponent,
     AddCollectorToShareComponent,
-    EmailComponent,
     NotificationMenuComponent,
     PublicProfileComponent,
+    PublicStatisticsComponent,
+    CardComponent,
+    BackButtonComponent,
+    CardContainerComponent,
+    StatisticsComponent
+
   ],
   imports: [
     BrowserModule,
@@ -134,6 +144,7 @@ const materialModules = [
     HttpClientModule,
     ...materialModules,
     BrowserAnimationsModule,
+    NgChartsModule,
 
   ],
   providers: [

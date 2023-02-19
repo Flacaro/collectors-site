@@ -1,4 +1,9 @@
 <div class="mt-8" *ngIf="disk$ | async as disk">
+  <app-back-button
+    [url]="backUrl"
+    [preserveQueryParams]="true"
+  ></app-back-button>
+
   <h1 class="text-center disk-title">{{ disk.title }}</h1>
   <div>
     <section>
@@ -12,23 +17,43 @@
       </picture>
 
       <div class="disk-actions">
-        <button mat-icon-button class="mr-2" color="primary" matTooltip="Add disks to your favorite list">
+        <button
+          (click)="addDiskToFav()"
+          mat-icon-button
+          class="mr-2"
+          color="primary"
+          matTooltip="Add disks to your favorite list"
+        >
           <mat-icon> favorite</mat-icon>
         </button>
-        <button mat-icon-button class="mr-2" matTooltip="Edit disk"><mat-icon>edit</mat-icon></button>
-        <button mat-icon-button class="mr-2" color="warn" matTooltip="Delete disk">
+        <button
+          [routerLink]="['edit']"
+          queryParamsHandling="preserve"
+          mat-icon-button
+          class="mr-2"
+          matTooltip="Edit disk"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          (click)="deleteDisk()"
+          mat-icon-button
+          class="mr-2"
+          color="warn"
+          matTooltip="Delete disk"
+        >
           <mat-icon>delete</mat-icon>
         </button>
 
-        <button 
+        <button
           matTooltip="Upload or see all images"
-          mat-icon-button 
-          [routerLink]="['images']" 
+          mat-icon-button
+          [routerLink]="['images']"
+          queryParamsHandling="preserve"
           *ngIf="isOwner()"
         >
           <mat-icon>image</mat-icon>
         </button>
-
       </div>
     </section>
 
@@ -40,7 +65,6 @@
       <h2 class="disk-details__title">Details</h2>
 
       <div class="details">
-
         <div class="field">
           <p class="field-label">Artist</p>
           <p class="field-value">{{ disk.artist }}</p>
@@ -56,24 +80,20 @@
           <p class="field-value">{{ disk.year }}</p>
         </div>
 
-
         <div class="field">
           <p class="field-label">Author</p>
           <p class="field-value">{{ disk.author }}</p>
         </div>
-
 
         <div class="field">
           <p class="field-label">Format</p>
           <p class="field-value">{{ disk.format }}</p>
         </div>
 
-
         <div class="field">
           <p class="field-label">Genre</p>
           <p class="field-value">{{ disk.genre }}</p>
         </div>
-
 
         <div class="field">
           <p class="field-label">Publishing house</p>
@@ -94,9 +114,7 @@
           <p class="field-label">Barcode</p>
           <p class="field-value">{{ disk.barcode }}</p>
         </div>
-
       </div>
-
     </section>
   </div>
 
@@ -112,27 +130,46 @@
     </button>
   </div>
 
-  <section>
-    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-      <mat-card class="card" *ngFor="let track of tracks$ | async">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-icon>art_track</mat-icon>
-            <mat-card-title class="pb-2">{{ track.title }}</mat-card-title>
+  <section *ngIf="tracks$ | async as tracks" class="mb-8">
+    <app-card-container>
+      <app-card
+        *ngFor="let track of tracks"
+        image="assets/img/default_disk.jpg"
+        [title]="track.title"
+        [routerLink]="['tracks', track.id]"
+        queryParamsHandling="merge"
+      >
+        <mat-icon card-icon>music_note</mat-icon>
+      </app-card>
+
+      <!-- <mat-card class="card" *ngFor="let track of tracks$ | async">
+        <mat-card-header class="ml-10">
+          <mat-card-title-group class="ml-6">
+            <mat-card-title class="pb-2"> {{ track.title }} </mat-card-title>
           </mat-card-title-group>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content class="ml-8">
           <img
             mat-card-md-image
-            class="mb-2"
-            src="https://i.pinimg.com/736x/72/16/89/721689d187bfa32e18df03a312f6f053--musical-ly-tips-musicly-logo.jpg"
-            alt="Image of a collection"
+            class="mb-2 ml-6 mt-4"
+            src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
+            alt="Image of a track"
           />
-          <a mat-button [routerLink]="['tracks', track.id]" queryParamsHandling="merge">
-            Go to track details</a
-          >
+
+          <div class="card-actions">
+            <button
+              [routerLink]="['tracks', track.id]"
+              queryParamsHandling="merge"
+              mat-icon-button
+              class="mr-8"
+              color="primary"
+              matTooltip="go to track details"
+            >
+              <mat-icon>arrow_forward</mat-icon>
+            </button>
+          </div>
         </mat-card-content>
-      </mat-card>
-    </div>
+      </mat-card> -->
+    </app-card-container>
   </section>
 </div>

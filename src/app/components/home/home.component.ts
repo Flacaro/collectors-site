@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import {
   BehaviorSubject,
   combineLatest,
@@ -31,49 +32,37 @@ export class HomeComponent implements OnInit {
   private publicCollections$!: Observable<Collection[]>;
   private search$ = new Subject<Search>();
 
-  isCollectorLogged$: Observable<boolean> = this.loggedCollectorService.getCurrentCollector().pipe(
-    map(collector => collector !== null)
-  );
+  isCollectorLogged$: Observable<boolean> = this.loggedCollectorService
+    .getCurrentCollector()
+    .pipe(map((collector) => collector !== null));
 
   results$!: Observable<ShuffledSearchResult | Collection[]>;
 
   constructor(
     private collectionService: CollectionService,
     private loggedCollectorService: LoggedCollectorService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private sanitizer: DomSanitizer
   ) {}
 
-
-     
   ngOnInit(): void {
-
     this.publicCollections$ = this.collectionService.getPublicCollections();
 
-    this.results$ = combineLatest([
-      this.publicCollections$,
-      this.search$,
-
-    ]).pipe(
+    this.results$ = combineLatest([this.publicCollections$, this.search$]).pipe(
       switchMap(([publicCollections, search]) => {
         if (search.value === "") {
           return of(publicCollections);
-        } 
-        else {
+        } else {
           return this.searchService
             .search(search)
             .pipe(map((results) => this.shuffleSearchResults(results)));
         }
       })
     );
-
-
-
   }
 
   onValueChanges(searchValue: Search) {
     this.search$.next(searchValue);
-  
-
   }
 
   shuffleSearchResults(result: SearchResult): ShuffledSearchResult {
@@ -104,23 +93,29 @@ export class HomeComponent implements OnInit {
   // type guard -> https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types
 
   isCollection(item: ShuffledSearchResult[number]): item is Collection {
-    if(item) {
+    if (item) {
       return "type" in item;
     }
     return false;
   }
 
   isCollector(item: ShuffledSearchResult[number]): item is Collector {
-    if(item) {
+    if (item) {
       return "email" in item;
     }
     return false;
   }
 
   isDisk(item: ShuffledSearchResult[number]): item is Disk {
-    if(item) {
+    if (item) {
       return "title" in item;
     }
     return false;
+  }
+
+  getCollectorImageOrDefault(collector: Collector): string {
+    if (collector.images) {
+    }
+    return "assets/img/default_avatar.jpg";
   }
 }

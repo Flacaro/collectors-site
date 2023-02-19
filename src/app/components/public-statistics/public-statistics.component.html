@@ -1,0 +1,39 @@
+<ng-container *ngIf="test$ | async as statistics">
+
+    
+
+    <app-statistics [statistics]="statistics"></app-statistics>
+
+    <!-- <section>
+        <h2>Collection statistics</h2>
+
+        <p>Total number of collections</p> <strong>{{ statistics.collections.total  }}</strong>
+
+        <ng-container *ngFor="let collectionStatistic of statistics.collections.groupBy">
+            <canvas baseChart 
+                class="chart"
+                [data]="collectionStatistic"
+                [options]="barChartOptions"
+                [type]="barChartType"
+            ></canvas>
+        </ng-container>
+    </section> -->
+
+
+
+
+    <!-- Disk statistics -->
+    <!-- <section>
+        <h2>Disk statistics</h2>
+        <p>Total number of collections</p> <strong>{{ statistics.disks.total  }}</strong>
+        <ng-container *ngFor="let diskStatistic of statistics.disks.groupBy">
+            <canvas baseChart class="chart"
+                [data]="diskStatistic"
+                [options]="barChartOptions"
+                [type]="barChartType"
+            ></canvas>
+        </ng-container> 
+    </section> 
+    -->
+
+</ng-container>

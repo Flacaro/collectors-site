@@ -1,39 +1,31 @@
 <section>
-  <div class="d-flex justify-content-between mt-8">
-    <h2>Your Favourites collections</h2>
-  </div>
+  <h2 class="text-center py-8 bold font-monserrat">
+    Your Favourites collections
+  </h2>
 
   <ng-container *ngIf="collectionsFavourites$ | async as favCollections">
     <ng-container *ngIf="favCollections.length; else noFavCollections">
-      <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-        <mat-card class="card" *ngFor="let collection of favCollections">
-          <mat-card-header>
-            <mat-card-title-group>
-              <mat-card-title class="pb-2">
-                {{ collection.name }}
-              </mat-card-title>
-            </mat-card-title-group>
-            <mat-icon>library_books</mat-icon>
-          </mat-card-header>
-          <mat-card-content>
-            <img
-              mat-card-md-image
-              class="mb-2"
-              src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
-              alt="Image of a collection"
-            />
-
-            <a
-              mat-button
-              [routerLink]="['/personal/collections', collection.id]"
-              >Go to collection details</a
-            >
-          </mat-card-content>
-          <a mat-button (click)="deleteCollectionFromFav(collection.id)"
-            ><mat-icon> delete </mat-icon></a
+      <section class="pb-6">
+        <app-card-container>
+          <app-card
+            *ngFor="let collection of favCollections"
+            [image]="'assets/img/default_collection.jpg'"
+            [title]="collection.name"
+            [routerLink]="['/personal/collections', collection.id]"
           >
-        </mat-card>
-      </div>
+            <mat-icon card-icon>library_books</mat-icon>
+            <div actions>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteCollectionFromFav(collection.id, $event)"
+              >
+                <mat-icon> delete </mat-icon>
+              </button>
+            </div>
+          </app-card>
+        </app-card-container>
+      </section>
     </ng-container>
   </ng-container>
 </section>

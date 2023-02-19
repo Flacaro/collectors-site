@@ -46,7 +46,7 @@ export class AddCollectorToShareComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.route.queryParamMap
+    this.subscription = this.route.paramMap
       .pipe(
         switchMap((params) => {
           this.collectionId = Number(params.get("collectionId"));
@@ -86,7 +86,8 @@ export class AddCollectorToShareComponent implements OnInit, OnDestroy {
       .subscribe((collectorPage) => this.collectors$.next(collectorPage));
   }
 
-  shareWithCollector(collectorId: number) {
+  shareWithCollector(collectorId: number, event: any) {
+    event.stopPropagation();
     this.collectionService
       .shareCollection([collectorId], this.collectionId)
       .pipe(

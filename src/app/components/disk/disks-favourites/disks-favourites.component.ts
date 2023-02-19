@@ -24,7 +24,8 @@ export class DisksFavouritesComponent implements OnInit {
     this.diskService.getDisksFromFavorites(this.collectorId).subscribe(disks => this.disks$.next(disks));
   }
 
-  deleteDiskFromFav(collectorId: number, diskId: number) {
+  deleteDiskFromFav(collectorId: number, diskId: number, event: any) {
+    event.stopPropagation();
     this.diskService.deleteDiskFromFav(collectorId, diskId).pipe(
       switchMap(() => this.diskService.getDisksFromFavorites(this.collectorId))
     ).subscribe((disks) => this.disks$.next(disks));

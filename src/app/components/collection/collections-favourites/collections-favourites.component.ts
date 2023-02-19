@@ -25,14 +25,13 @@ export class CollectionsFavouritesComponent {
   }
 
 
-  deleteCollectionFromFav(collectionId: number) {
+  deleteCollectionFromFav(collectionId: number, event: any) {
+    event.stopPropagation();
     this.collectionService.deleteCollectionFromFav(collectionId).subscribe(
       () => {
         this.collectionsFavourites$ = this.collectionService.getFavoriteCollections();
       }
     );
-
-    this.router.navigate(['/collections/favourites']);
   }
 }
   

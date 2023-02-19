@@ -30,6 +30,8 @@ export class DiskDetailsComponent implements OnInit {
   imageUrl!: SafeUrl;
   ownerIdParam!: string | null;
 
+  readonly backUrl = "../../"
+
   @ViewChild("targetImage") targetImage!: HTMLImageElement;
 
   diskImages$!: Observable<{ imageId: number; base64Image: string }[]>;
@@ -41,10 +43,9 @@ export class DiskDetailsComponent implements OnInit {
     private diskService: DiskService,
     private trackService: TrackService,
     private route: ActivatedRoute,
-    private collectionService: CollectionService,
     private loggedCollectorService: LoggedCollectorService,
     private snackbar: MatSnackBar,
-    private router: Router
+    private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit(): void {
@@ -87,7 +88,7 @@ export class DiskDetailsComponent implements OnInit {
       .subscribe({
         next: (result) => {
           if (result.length) {
-            this.imageUrl = result[0].base64Image;
+            this.imageUrl = this.generateBlobUrl(result[0].base64Image);
           } else {
             this.imageUrl = "assets/img/default_disk.jpg";
           }
@@ -98,6 +99,23 @@ export class DiskDetailsComponent implements OnInit {
       this.collectionId,
       this.diskId
     );
+  }
+
+  generateBlobUrl(base64Image: string): SafeUrl {
+    const binaryString = atob(base64Image);
+
+    // convert the binary string into an array buffer
+    const arrayBuffer = new ArrayBuffer(binaryString.length);
+    const uint8Array = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < binaryString.length; i++) {
+      uint8Array[i] = binaryString.charCodeAt(i);
+    }
+
+    // create an Image object with the array buffer
+    const blob = new Blob([arrayBuffer], { type: "image/jpeg" })
+    const blobUrl = URL.createObjectURL(blob);
+
+    return this.sanitizer.bypassSecurityTrustUrl(blobUrl);
   }
 
   openDialog() {

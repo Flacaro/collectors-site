@@ -1,38 +1,37 @@
 <section>
-    <div class="d-flex justify-content-between mt-8">
-      <h2>Collection shared with me</h2>
+  <h2 class="text-center py-8 bold font-monserrat">
+    Collection shared with me
+  </h2>
 
-    </div>
-    <div class="d-flex" *ngIf="isCollectionSharedListIsEMpty() " > You don't have any collection shared with you
-      
-    
-    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-      <mat-card class="card" *ngFor="let collection of (collections$ | async)">
-          
-        <mat-card-header >
-          
-          
-          <mat-card-title-group><mat-icon>library_books</mat-icon>
-            <mat-card-title class="pb-2"> {{ collection.name }} </mat-card-title>
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content>
-          <img
-            mat-card-md-image
-            class="mb-2"
-            src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
-            alt="Image of a collection"
-          />
-  
+  <ng-container *ngIf="collections$ | async as collections">
+    <ng-container *ngIf="collections.length; else noCollections">
+      <section class="pb-6">
+        <app-card-container>
+          <app-card
+            *ngFor="let collection of collections"
+            [image]="'assets/img/default_collection.jpg'"
+            [title]="collection.name"
+            [routerLink]="['/personal/collections', collection.id]"
+          >
+            <mat-icon card-icon>library_books</mat-icon>
+            <div actions>
+              <button
+                color="warn"
+                mat-icon-button
+                (click)="deleteCollectionFromSharedList(collection.id, $event)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </app-card>
+        </app-card-container>
+      </section>
+    </ng-container>
+  </ng-container>
+</section>
 
-          <a mat-button [routerLink]="['/personal/collections', collection.id ]">
-            Go to collections details
-          </a>
-        </mat-card-content>
-        <button mat-raised-button (click)="deleteCollectionFromSharedList(collection.id)">
-           <mat-icon>delete</mat-icon>
-        </button>
-      </mat-card>
-    </div>
+<ng-template #noCollections>
+  <div class="d-flex justify-content-center mt-8">
+    <h3 class="text-center">You don't have any collections shared with you</h3>
   </div>
-  </section>
+</ng-template>
