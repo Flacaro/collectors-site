@@ -11,4 +11,7 @@ export class CardComponent {
 
   @Input() image: string | null = null;
 
+  @Input() maxImageHeight = 250;
+  @Input() maxImageWidth = 250;
+
 }

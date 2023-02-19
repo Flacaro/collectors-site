@@ -20,6 +20,34 @@ export class SearchService {
 
   constructor(private http: HttpClient) {}
 
+
+  searchForLoggedCollector(search: Search): Observable<SearchResult> {
+    let params: any = {
+      query: search.value,
+    };
+
+    if (search.options) {
+      params.includePrivateCollections =
+        search.options.includePrivateCollections;
+      params.includeSharedCollections = search.options.includeSharedCollections;
+    }
+
+    return combineLatest([
+      this.searchCollectionsForLoggedCollector(params),
+      this.searchCollectors(search.value, params),
+      this.searchDiskForLoggedCollector(params),
+    ]).pipe(
+      map(([collections, collectors, disks]) => {
+        return {
+          collections,
+          collectors,
+          disks,
+        };
+      })
+    );
+  }
+
+
   search(search: Search): Observable<SearchResult> {
     let params: any = {
       query: search.value,
@@ -33,8 +61,8 @@ export class SearchService {
 
     return combineLatest([
       this.searchCollections(search.value),
-      this.searchCollectors(search.value),
-      this.searchDisk(search.value),
+      this.searchCollectors(search.value, params),
+      this.searchDisk(search.value, params),
     ]).pipe(
       map(([collections, collectors, disks]) => {
         return {
@@ -46,33 +74,51 @@ export class SearchService {
     );
   }
 
-  searchCollections(search: string): Observable<Collection[]> {
+  searchCollections(search: string, params: Search['options'] = {includePrivateCollections: false, includeSharedCollections: false}): Observable<Collection[]> {
     return this.http.get<Collection[]>(
       `${CONSTANTS.API_URL}/search/collections`,
       {
         params: {
           query: search,
+          ...params
         },
       }
     );
   }
 
-  searchCollectors(search: string): Observable<Collector[]> {
+  searchCollectionsForLoggedCollector(searchParams: any): Observable<Collection[]> {
+    return this.http.get<Collection[]>(
+      `${CONSTANTS.API_URL}/personal/collections/search`,
+      {
+        params: searchParams,
+      }
+    );
+  }
+
+  searchCollectors(search: string, params: Search['options'] = {includePrivateCollections: false, includeSharedCollections: false}): Observable<Collector[]> {
     return this.http.get<Collector[]>(
       `${CONSTANTS.API_URL}/search/collectors`,
       {
         params: {
           query: search,
+          ...params
         },
       }
     );
   }
 
-  searchDisk(search: string): Observable<Disk[]> {
+  searchDisk(search: string, params: Search['options'] = {includePrivateCollections: false, includeSharedCollections: false}): Observable<Disk[]> {
     return this.http.get<Disk[]>(`${CONSTANTS.API_URL}/search/disks`, {
       params: {
         query: search,
+        ...params
       },
+    });
+  }
+
+  searchDiskForLoggedCollector(searchParams: any): Observable<Disk[]> {
+    return this.http.get<Disk[]>(`${CONSTANTS.API_URL}/personal/disks/search`, {
+      params: searchParams,
     });
   }
 

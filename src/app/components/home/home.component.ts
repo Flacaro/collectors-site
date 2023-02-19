@@ -36,6 +36,8 @@ export class HomeComponent implements OnInit {
     .getCurrentCollector()
     .pipe(map((collector) => collector !== null));
 
+  
+
   results$!: Observable<ShuffledSearchResult | Collection[]>;
 
   constructor(
@@ -48,14 +50,20 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.publicCollections$ = this.collectionService.getPublicCollections();
 
-    this.results$ = combineLatest([this.publicCollections$, this.search$]).pipe(
-      switchMap(([publicCollections, search]) => {
+    this.results$ = combineLatest([this.publicCollections$, this.search$, this.isCollectorLogged$]).pipe(
+      switchMap(([publicCollections, search, isCollectorLogged]) => {
         if (search.value === "") {
           return of(publicCollections);
         } else {
-          return this.searchService
-            .search(search)
-            .pipe(map((results) => this.shuffleSearchResults(results)));
+          if(isCollectorLogged) {
+            return this.searchService
+              .searchForLoggedCollector(search)
+              .pipe(map((results) => this.shuffleSearchResults(results)));
+          } else {
+            return this.searchService
+              .search(search)
+              .pipe(map((results) => this.shuffleSearchResults(results)));
+          }
         }
       })
     );
