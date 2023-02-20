@@ -118,6 +118,7 @@
     </section>
   </div>
 
+
   <div class="mt-10 d-flex justify-content-between">
     <h2 class="disk-track__title">Tracks</h2>
     <button
@@ -125,6 +126,7 @@
       (click)="openDialog()"
       *ngIf="isOwner()"
       color="primary"
+
     >
       Add Track <mat-icon>add</mat-icon>
     </button>
@@ -142,34 +144,6 @@
         <mat-icon card-icon>music_note</mat-icon>
       </app-card>
 
-      <!-- <mat-card class="card" *ngFor="let track of tracks$ | async">
-        <mat-card-header class="ml-10">
-          <mat-card-title-group class="ml-6">
-            <mat-card-title class="pb-2"> {{ track.title }} </mat-card-title>
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content class="ml-8">
-          <img
-            mat-card-md-image
-            class="mb-2 ml-6 mt-4"
-            src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
-            alt="Image of a track"
-          />
-
-          <div class="card-actions">
-            <button
-              [routerLink]="['tracks', track.id]"
-              queryParamsHandling="merge"
-              mat-icon-button
-              class="mr-8"
-              color="primary"
-              matTooltip="go to track details"
-            >
-              <mat-icon>arrow_forward</mat-icon>
-            </button>
-          </div>
-        </mat-card-content>
-      </mat-card> -->
     </app-card-container>
   </section>
 </div>

@@ -94,7 +94,7 @@ export class HomeComponent implements OnInit {
       disks[m] = disks[i];
       disks[i] = t;
     }
-
+    
     return [...collections, ...collectors, ...disks];
   }
 

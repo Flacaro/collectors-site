@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { EmailValidator } from "@angular/forms";
 import { Router } from "@angular/router";
-import { map, Observable } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 import { AuthService } from "src/app/security/auth.service";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 import { NotificationService } from "src/app/services/notification.service";
@@ -30,7 +30,7 @@ export class HeaderComponent {
 
   isCollectorLogged(): Observable<{isLogged: boolean}> {
     return this.loggedCollectorService.getCurrentCollector().pipe(
-      map(collector => ({isLogged: collector === null}))
+      map(collector => ({isLogged: collector !== null}))
     )
   }
 

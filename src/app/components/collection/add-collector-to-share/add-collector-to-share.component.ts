@@ -1,18 +1,12 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import {
-  MatPaginatorDefaultOptions,
   PageEvent,
 } from "@angular/material/paginator";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute } from "@angular/router";
 import {
-  BehaviorSubject,
-  combineLatest,
-  map,
-  Observable,
   of,
-  startWith,
   Subject,
   Subscription,
   switchMap,
@@ -34,7 +28,7 @@ export class AddCollectorToShareComponent implements OnInit, OnDestroy {
   private _collectors!: PageableResponse<Collector>;
   searchControl: FormControl = new FormControl("");
 
-  pageSize = 20;
+  pageSize = 50;
 
   subscription = new Subscription();
 

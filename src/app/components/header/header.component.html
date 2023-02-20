@@ -40,7 +40,7 @@
 
         </ng-container>
 
-        <ng-container *ngIf="collector.isLogged; else logout">
+        <ng-container *ngIf="!collector.isLogged; else logout">
           <a mat-button [routerLink]="['/auth/login']">login</a>
         </ng-container>
       </ng-container>

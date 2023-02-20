@@ -34,8 +34,8 @@ export class SearchService {
 
     return combineLatest([
       this.searchCollectionsForLoggedCollector(params),
-      this.searchCollectors(search.value, params),
-      this.searchDiskForLoggedCollector(params),
+      this.searchCollectorsWhenYouAreLogged(search.value, params),
+      this.searchDisk(search.value,params),
     ]).pipe(
       map(([collections, collectors, disks]) => {
         return {
@@ -107,6 +107,20 @@ export class SearchService {
     );
   }
 
+  
+  searchCollectorsWhenYouAreLogged(search: string, params: Search['options'] = {includePrivateCollections: false, includeSharedCollections: false}): Observable<Collector[]> {
+    return this.http.get<Collector[]>(`${CONSTANTS.API_URL}/personal/collectors/search`,
+      {
+        params: {
+          query: search,
+          ...params
+        },
+      }
+    );
+  }
+
+
+  
   searchDisk(search: string, params: Search['options'] = {includePrivateCollections: false, includeSharedCollections: false}): Observable<Disk[]> {
     return this.http.get<Disk[]>(`${CONSTANTS.API_URL}/search/disks`, {
       params: {
@@ -116,11 +130,6 @@ export class SearchService {
     });
   }
 
-  searchDiskForLoggedCollector(searchParams: any): Observable<Disk[]> {
-    return this.http.get<Disk[]>(`${CONSTANTS.API_URL}/personal/disks/search`, {
-      params: searchParams,
-    });
-  }
 
   searchCollectorsNotInCollection(
     search: string,
