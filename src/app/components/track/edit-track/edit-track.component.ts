@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Track } from 'src/app/models/track';
-import { CollectionService } from 'src/app/services/collection.service';
 import { TrackService } from 'src/app/services/track.service';
 
 @Component({

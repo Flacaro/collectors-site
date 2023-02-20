@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnInit, ViewChild } from "@angular/core";
+import {Component, Inject, OnInit, ViewChild } from "@angular/core";
 import {
   FormBuilder,
   FormControl,
@@ -7,7 +7,7 @@ import {
 } from "@angular/forms";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MatStepper } from "@angular/material/stepper";
-import { BehaviorSubject, combineLatest, filter, map, Observable, of, startWith, Subject, switchMap } from "rxjs";
+import { BehaviorSubject, combineLatest,Observable, of, startWith,switchMap } from "rxjs";
 import { Disk } from "src/app/models/disk";
 import { Select } from "src/app/models/select";
 import { SearchService } from "src/app/services/search.service";

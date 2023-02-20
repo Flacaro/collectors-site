@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
-import { combineLatest, forkJoin, map, Observable, switchMap } from "rxjs";
+import { combineLatest, map, Observable } from "rxjs";
 import { Search } from "../components/search-bar/search-bar.component";
 import { CONSTANTS } from "../constants";
 import { Collection } from "../models/collection";
@@ -15,7 +14,6 @@ import { SearchResult } from "../models/search-result";
 })
 export class SearchService {
 
-  private API_COLLECTORS = CONSTANTS.API_URL + '/collectors';
 
 
   constructor(private http: HttpClient) {}

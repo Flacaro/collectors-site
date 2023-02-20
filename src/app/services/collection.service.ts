@@ -1,13 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { BehaviorSubject, Observable, tap } from "rxjs";
+import {Observable} from "rxjs";
 import { CONSTANTS } from "../constants";
 import { Collection } from "../models/collection";
 import { CollectionPayload } from "../models/collection-payload";
-import { CollectorPayload } from "../models/collector-payload";
 import { Collector } from "../models/collector";
-import { Disk } from "../models/disk";
 import { PageableResponse } from "../models/pageable-response";
 
 @Injectable({
@@ -67,11 +65,11 @@ export class CollectionService {
     );
   }
 
-  getOwnerOfACollection(collectionId: number): Observable<Collector> {
-    return this.http.get<Collector>(
-      `${this.API_URL_COLLECTIONS}/${collectionId}/owner`
-    );
-  }
+  // getOwnerOfACollection(collectionId: number): Observable<Collector> {
+  //   return this.http.get<Collector>(
+  //     `${this.API_URL_COLLECTIONS}/${collectionId}/owner`
+  //   );
+  // }
 
   addCollection(data: {
     name: string;

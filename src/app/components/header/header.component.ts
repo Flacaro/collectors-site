@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { EmailValidator } from "@angular/forms";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
-import { map, Observable, tap } from "rxjs";
+import { BehaviorSubject, map, Observable, switchMap, tap } from "rxjs";
+import { CollectorNotification } from "src/app/models/collector-notification";
 import { AuthService } from "src/app/security/auth.service";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 import { NotificationService } from "src/app/services/notification.service";
@@ -11,13 +11,13 @@ import { NotificationService } from "src/app/services/notification.service";
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
   @Input() isMobile: boolean = false;
 
   @Output() toggleSideNav = new EventEmitter<void>();
 
-  notification$ = this.notificationService.getNotifications();
+  notification$ = new BehaviorSubject<CollectorNotification[]>([]); 
 
   isNotificationMenuOpen = false;
 
@@ -27,6 +27,12 @@ export class HeaderComponent {
     private notificationService: NotificationService,
     private router: Router
     ) {}
+
+    ngOnInit(): void {
+      this.notificationService.getNotifications().subscribe((notifications) => {
+          this.notification$.next(notifications);
+      })
+    }
 
   isCollectorLogged(): Observable<{isLogged: boolean}> {
     return this.loggedCollectorService.getCurrentCollector().pipe(
@@ -41,9 +47,11 @@ export class HeaderComponent {
 
 
   deleteNotification(id: number) {
-    this.notificationService.deleteNotification(id).subscribe(() => {
+    this.notificationService.deleteNotification(id).pipe(
+      switchMap(() => this.notificationService.getNotifications())
+    ).subscribe((notifications) => {
       this.isNotificationMenuOpen = false;
-      this.notification$ = this.notificationService.getNotifications();
+      this.notification$.next(notifications);
     });
   }
 

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CONSTANTS } from '../constants';
 import { Track } from '../models/track';
-import {Disk} from "../models/disk";
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +43,7 @@ export class TrackService {
     compositor: string;
     time : number;
   }): Observable<Track>{
+  
     return this.http.post<Track>(`${this.API_PRIVATE_URL_COLLECTIONS}/${collectionId}/disks/${diskId}/tracks`,data);
   }
 

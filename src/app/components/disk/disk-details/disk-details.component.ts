@@ -1,15 +1,12 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute} from "@angular/router";
 import { filter, Observable, of, switchMap, tap } from "rxjs";
 import { Disk } from "src/app/models/disk";
 import { Track } from "src/app/models/track";
 import { DiskService } from "src/app/services/disk.service";
-import { PersistenceService } from "src/app/services/persistence/persistence-service";
 import { TrackService } from "src/app/services/track.service";
-import { CollectionService } from "src/app/services/collection.service";
 import { MatDialog } from "@angular/material/dialog";
 import { TrackDialogComponent } from "../../track/track-dialog/track-dialog.component";
-import { Collection } from "src/app/models/collection";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 import { Collector } from "src/app/models/collector";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
@@ -123,7 +120,6 @@ export class DiskDetailsComponent implements OnInit {
 
     this.dialog
       .open(TrackDialogComponent, {
-        //componente,optionalConfiguration
         width: "500px",
       })
       .afterClosed()
@@ -152,13 +148,13 @@ export class DiskDetailsComponent implements OnInit {
 
     this.diskService.addDiskToFav(this.collectorId, this.diskId).subscribe({
       next: () => {
-        this.snackbar.open("Collection added to favourites", "Close", {
+        this.snackbar.open("Disk added to favourites", "Close", {
           duration: 3000,
         });
       },
       error: (err) => {
         if (err.status === 400) {
-          this.snackbar.open("Collection already in favourites", "Close", {
+          this.snackbar.open("Disk already in favourites", "Close", {
             duration: 3000,
           });
         } else {
@@ -179,7 +175,7 @@ export class DiskDetailsComponent implements OnInit {
       .deleteDiskFromCollection(this.collectionId, this.diskId)
       .subscribe({
         next: () => {
-          this.snackbar.open("Collection deleted successfully", "Close", {
+          this.snackbar.open("Disk deleted successfully", "Close", {
             duration: 3000,
           });
           window.history.back();

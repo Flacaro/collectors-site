@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { MatMenuTrigger } from "@angular/material/menu";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
@@ -61,7 +60,7 @@ export class CollectionDetailsComponent implements OnInit {
 
       this.allCollectors$ = this.collectorService.getAllCollectors();
 
-      //get de ids of collectors and add to collectorsIds
+
       this.allCollectors$.subscribe((collectors) => {
         this.collectorsIds = collectors.map((collector) => collector.id);
       });
@@ -197,9 +196,8 @@ export class CollectionDetailsComponent implements OnInit {
   }
 
   addCollectorInShareList(collectorId: number) {
-    //push on the array the collectorId to add
+
     this.collectorsIdsToAdd = [collectorId];
-    //pass the array to the service
     this.collectionService.shareCollection(this.collectorsIdsToAdd, this.collectionId).subscribe();
 
     this.snackbar.open("Collector added successfully", "Close", {

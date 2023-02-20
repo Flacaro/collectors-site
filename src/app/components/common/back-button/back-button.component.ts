@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UrlTree } from '@angular/router';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-back-button',

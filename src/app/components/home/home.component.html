@@ -18,6 +18,7 @@
   </div>
 
   <section *ngIf="results$ | async as results" class="my-10">
+
     <app-card-container>
       <ng-container *ngFor="let item of results">
         <ng-container
@@ -44,30 +45,6 @@
     </app-card-container>
   </section>
 
-  <!-- <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-    <ng-container *ngFor="let item of results$ | async">
-      <ng-container
-        [ngTemplateOutlet]="collectionCard"
-        [ngTemplateOutletContext]="{ $implicit: item }"
-        *ngIf="isCollection(item)"
-      >
-      </ng-container>
-
-      <ng-container
-        [ngTemplateOutlet]="collectorCard"
-        [ngTemplateOutletContext]="{ $implicit: item }"
-        *ngIf="isCollector(item)"
-      >
-      </ng-container>
-
-      <ng-container
-        [ngTemplateOutlet]="diskCard"
-        [ngTemplateOutletContext]="{ $implicit: item }"
-        *ngIf="isDisk(item)"
-      >
-      </ng-container>
-    </ng-container>
-  </div> -->
 </section>
 
 <ng-template #collectionCard let-collection>
@@ -80,30 +57,6 @@
     <mat-icon card-icon>library_books</mat-icon>
   </app-card>
 
-  <!-- <section>
-    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-      <mat-card class="card">
-        <mat-card-header class="ml-10">
-          <mat-card-title-group class="ml-9">
-            <mat-card-title class="pb-2">{{ collection.name }}</mat-card-title>
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content class="ml-10">
-          <img
-            mat-card-md-image
-            class="mb-2 ml-5 mt-4"
-            src="https://img4.goodfon.com/wallpaper/nbig/9/f2/plastinki-vinil-retro.jpg"
-            alt="Image of a collection"
-          />
-          <div class="card-actions">
-            <button [routerLink]="['/collections', collection.id]" [queryParams]="{ownerId: collection.ownerId}" mat-icon-button class="ml-7" color="primary" matTooltip="go to collection details">
-              <mat-icon>arrow_forward</mat-icon>
-            </button>
-            </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </section> -->
 </ng-template>
 
 <ng-template #diskCard let-disk>
@@ -115,30 +68,6 @@
     <mat-icon card-icon>album</mat-icon>
   </app-card>
 
-  <!-- <section>
-    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-      <mat-card class="card">
-        <mat-card-header class="ml-10">
-          <mat-card-title-group class="ml-6">
-            <mat-card-title class="pb-2">{{ disk.title }}</mat-card-title>
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content class="ml-6">
-          <img
-            mat-card-md-image
-            class="mb-2 mr-6 mt-4"
-            src="assets/img/default_disk.jpg"
-            alt="Image of a disk"
-          />
-          <div class="card-actions">
-            <button [routerLink]="['/collections', disk.collectionId, 'disks', disk.id]"  mat-icon-button class="ml-5" color="primary" matTooltip="go to disk details">
-              <mat-icon>arrow_forward</mat-icon>
-            </button>
-            </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </section> -->
 </ng-template>
 
 <ng-template #collectorCard let-collector>
@@ -150,30 +79,4 @@
     <mat-icon card-icon>person</mat-icon>
   </app-card>
 
-  <!-- 
-  <section>
-    <div class="d-grid grid-template-columns-5 gap-2 grid-columns">
-      <mat-card class="card"><mat-icon class="">person</mat-icon>
-        <mat-card-header class="mr-6">
-          <mat-card-title-group class="ml-6">
-            <mat-card-title class="pb-2">{{ collector.email }}</mat-card-title>
-            
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-card-content class="ml-6">
-          <img
-            mat-card-md-image
-            class="mb-2 ml-6 mt-4"
-            src="assets/img/default_avatar.jpg"
-            alt="Image of a collector"
-          />
-          <div class="card-actions">
-            <button [routerLink]="['/collectors', collector.id]"  mat-icon-button class="ml-7" color="primary" matTooltip="go to collector details">
-              <mat-icon>arrow_forward</mat-icon>
-            </button>
-            </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </section> -->
 </ng-template>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, combineLatest, map, Observable, startWith, switchMap } from 'rxjs';
+import { FormBuilder, FormGroup} from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import {Observable } from 'rxjs';
 import { Collection } from 'src/app/models/collection';
 import { CollectionService } from 'src/app/services/collection.service';
 
@@ -22,7 +22,8 @@ export class EditCollectionComponent implements OnInit{
   constructor(
     private formBuilder: FormBuilder,
     private collectionService: CollectionService,
-    private route : ActivatedRoute
+    private route : ActivatedRoute,
+    private router: Router
   ) { }
 
 
@@ -40,8 +41,6 @@ export class EditCollectionComponent implements OnInit{
       visible: [""],
     });
 
-
-    //metto i valori di default nel form
     this.collection$.subscribe((collection) => {
       this.editCollectionForm.patchValue({
         name: collection.name,
@@ -59,8 +58,9 @@ export class EditCollectionComponent implements OnInit{
   onSubmit() {
   
     this.collectionService.editCollection(this.collectionId, this.editCollectionForm.value).subscribe();
-    //torna alla pagina precedente
-    window.history.back();
+
+    this.router.navigate(['../'], {relativeTo: this.route});
+
   }
 
 }

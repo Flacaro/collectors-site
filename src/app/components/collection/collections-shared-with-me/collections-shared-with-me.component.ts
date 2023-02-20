@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { Collection } from 'src/app/models/collection';
 import { LoggedCollectorService } from 'src/app/security/logged-collector.service';
-import { CollectionService } from 'src/app/services/collection.service';
 import { CollectorService } from 'src/app/services/collector.service';
 
 @Component({

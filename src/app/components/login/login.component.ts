@@ -2,7 +2,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { catchError, EMPTY, map, Subscriber, switchMap, tap } from "rxjs";
+import { catchError, EMPTY, switchMap, tap } from "rxjs";
 import { CONSTANTS } from "src/app/constants";
 import { AuthService } from "src/app/security/auth.service";
 import { LoggedCollectorService } from "src/app/security/logged-collector.service";

@@ -1,7 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
+import { Component, OnInit} from "@angular/core";
+import { DomSanitizer} from "@angular/platform-browser";
 import {
-  BehaviorSubject,
   combineLatest,
   map,
   Observable,
@@ -43,8 +42,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private collectionService: CollectionService,
     private loggedCollectorService: LoggedCollectorService,
-    private searchService: SearchService,
-    private sanitizer: DomSanitizer
+    private searchService: SearchService
   ) {}
 
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import * as moment from "moment";
 import { Observable, switchMap } from "rxjs";
 import { Collector } from "src/app/models/collector";

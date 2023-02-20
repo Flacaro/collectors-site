@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { DomSanitizer, SafeUrl } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
-import { BehaviorSubject, Observable, switchMap } from "rxjs";
+import { BehaviorSubject, switchMap } from "rxjs";
+import { LoggedCollectorService } from "src/app/security/logged-collector.service";
 import { DiskService } from "src/app/services/disk.service";
 
 @Component({
@@ -15,17 +16,27 @@ export class ImagesDiskListComponent implements OnInit {
   );
   collectionId!: number;
   diskId!: number;
+  loggedCollector!: any;
+  ownerIdParam!: string | null;
 
   constructor(
     private diskService: DiskService,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private loggedCollectorService: LoggedCollectorService
   ) {}
 
   ngOnInit(): void {
     this.collectionId = this.route.snapshot.params["collectionId"];
 
     this.diskId = this.route.snapshot.params["diskId"];
+
+    this.ownerIdParam = this.route.snapshot.queryParamMap.get("ownerId");
+
+
+    this.loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
+
+
 
     this.diskService
       .getDiskImages(this.collectionId, this.diskId)
@@ -77,5 +88,9 @@ export class ImagesDiskListComponent implements OnInit {
         )
       )
       .subscribe((images) => this.diskImages$.next(images));
+  }
+
+  isOwner() {
+    return this.loggedCollector?.id === this.ownerIdParam;
   }
 }

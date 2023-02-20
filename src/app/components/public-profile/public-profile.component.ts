@@ -4,7 +4,6 @@ import { ActivatedRoute } from "@angular/router";
 import { BehaviorSubject, catchError, EMPTY, Observable } from "rxjs";
 import { Collection } from "src/app/models/collection";
 import { Collector } from "src/app/models/collector";
-import { CollectionService } from "src/app/services/collection.service";
 import { CollectorService } from "src/app/services/collector.service";
 
 @Component({

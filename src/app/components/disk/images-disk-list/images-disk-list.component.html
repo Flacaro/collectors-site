@@ -3,12 +3,13 @@
 <div class="mt-4">
   <section>
     <div class="mt-6">
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between" *ngIf="isOwner()">
         <h1 class="bold font-monserrat">Images</h1>
         <button
           mat-icon-button
           color="primary"
           matTooltip="Upload image"
+       
           (click)="uploadDiskImage.click()"
         >
           <mat-icon>upload</mat-icon>
@@ -16,6 +17,7 @@
         <input
           hidden
           #uploadDiskImage
+          
           type="file"
           (change)="selectFile($event)"
         />

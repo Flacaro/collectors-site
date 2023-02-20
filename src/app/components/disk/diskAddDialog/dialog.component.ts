@@ -85,8 +85,6 @@ export class DialogComponent implements OnInit {
       this.collectionId = params["collectioId"];
     });
 
-    // const year = this.convertDate(this.addDiskForm.value.year);
-   
 
   }
 

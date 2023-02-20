@@ -1,5 +1,4 @@
 
-
 <div class="mt-8" *ngIf="collection$ | async as collection">
   
   <app-back-button [url]="backUrl"></app-back-button>
@@ -82,7 +81,7 @@
 
       <div class="details">
         <div class="field">
-          <p class="field-label">Artist</p>
+          <p class="field-label">Type</p>
           <p class="field-value">{{ collection.type }}</p>
         </div>
 
@@ -101,6 +100,7 @@
 
   <div class="d-flex justify-content-between mt-10">
     <h2 class="collection-disk__title">Disks</h2>
+
     <button
       mat-raised-button
       *ngIf="loggedCollector.id == collection.ownerId"

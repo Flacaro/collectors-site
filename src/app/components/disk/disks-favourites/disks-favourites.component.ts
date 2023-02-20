@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { BehaviorSubject, Observable, switchMap } from "rxjs";
+import { ActivatedRoute} from "@angular/router";
+import { BehaviorSubject, switchMap } from "rxjs";
 import { Disk } from "src/app/models/disk";
 import { CollectionService } from "src/app/services/collection.service";
 import { DiskService } from "src/app/services/disk.service";
@@ -25,8 +25,6 @@ export class DisksFavouritesComponent implements OnInit {
 
   
     this.diskService.getDisksFromFavorites(this.collectorId).subscribe(disks => this.disks$.next(disks));
-    
-  
 
 
   }

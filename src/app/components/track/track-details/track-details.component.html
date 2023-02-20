@@ -13,8 +13,8 @@
           />
         </picture>
   
-        <div class="track-actions">
-          <button [routerLink]="['edit']" mat-icon-button class="mr-2" matTooltip="Edit track" queryParamsHandling="merge"><mat-icon>edit</mat-icon></button>
+        <div class="track-actions" *ngIf="isOwner()">
+          <button [routerLink]="['edit']" mat-icon-button class="mr-2" matTooltip="Edit track" queryParamsHandling="merge" ><mat-icon>edit</mat-icon></button>
           <button (click)="deleteTrack()" mat-icon-button class="mr-2" color="warn" matTooltip="Delete track" >
             <mat-icon>delete</mat-icon>
           </button>

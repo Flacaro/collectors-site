@@ -70,7 +70,7 @@ export class BaseComponent implements OnInit {
       name: "Favourites collections",
     },
     {
-      //collectorId is a parameter of the route
+    
 
 
       link: "personal/collectors/" + this.loggedCollector?.id + "/disks/favorites",

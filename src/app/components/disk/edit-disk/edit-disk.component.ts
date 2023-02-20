@@ -111,7 +111,6 @@ export class EditDiskComponent implements OnInit {
     this.diskService
       .editPersonalDisk(this.collectionId, this.diskId, this.editDiskForm.value)
       .subscribe();
-    //torna alla pagina dei dettagli del disco
-    window.history.back();
+    this.router.navigate(["../"], { relativeTo: this.route, queryParamsHandling: 'preserve' });
   }
 }

@@ -1,13 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {filter, Observable} from "rxjs";
+import {Observable} from "rxjs";
 
-import {MatDialog} from "@angular/material/dialog";
 import {ActivatedRoute, Router} from "@angular/router";
 import { TrackService } from 'src/app/services/track.service';
-import { DiskService } from 'src/app/services/disk.service';
 import { CollectionService } from 'src/app/services/collection.service';
 import { Track } from 'src/app/models/track';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoggedCollectorService } from 'src/app/security/logged-collector.service';
 
 @Component({
   selector: 'app-track-details',
@@ -19,30 +18,32 @@ export class TrackDetailsComponent implements OnInit {
 
   track$!: Observable<Track>;
   tracks$!: Observable<Track[]>;
-  owner: any;
+  ownerId: any;
   privateOrPublic!: string;
   collectionId = this.route.snapshot.params["collectionId"];
   diskId = this.route.snapshot.params["diskId"];
   trackId = this.route.snapshot.params["trackId"];
+  loggedCollector: any;
 
 
   constructor (
-      private dialog: MatDialog,
       private trackService: TrackService,
-      private diskService: DiskService,
       private collectionService: CollectionService,
       private route: ActivatedRoute,
       private snackbar: MatSnackBar,
-      private router: Router
+      private router: Router,
+      private loggedCollectorService: LoggedCollectorService,
 
   ) {}
 
   ngOnInit(): void {
 
-  this.owner = this.collectionService.getOwnerOfACollection(this.collectionId);
+  this.ownerId = this.route.snapshot.queryParamMap.get("ownerId");
+
+  this.loggedCollector = this.loggedCollectorService.getCurrentCollectorValue();
 
 
-    if (this.owner != null) {
+    if (this.loggedCollector.id == this.ownerId) {
       this.track$ = this.trackService.getPersonalTrackById(this.collectionId, this.diskId, this.trackId);
     } else {
       this.track$ = this.trackService.getTrackById(this.collectionId, this.diskId, this.trackId);
@@ -71,5 +72,14 @@ deleteTrack() {
     },
   });
 }
+
+isOwner() {
+  if (this.loggedCollector.id == this.ownerId) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 }
 

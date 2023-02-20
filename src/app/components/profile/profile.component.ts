@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
       );
   }
 
-  //prendo il valore del collezionista loggato
+
   get loggedCollector() {
     return this.loggedCollectorService.getCurrentCollectorValue();
   }
