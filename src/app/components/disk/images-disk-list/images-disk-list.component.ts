@@ -91,6 +91,6 @@ export class ImagesDiskListComponent implements OnInit {
   }
 
   isOwner() {
-    return this.loggedCollector?.id === this.ownerIdParam;
+    return this.loggedCollector?.id == this.ownerIdParam;
   }
 }
