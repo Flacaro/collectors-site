@@ -57,7 +57,6 @@ export class CollectionDialogComponent {
   }
 
   onSubmit() {
-    console.log(this.collectionFormData.value);
     this.dialogRef.close(this.collectionFormData.value);
     this.collectionFormData.reset();
   }
