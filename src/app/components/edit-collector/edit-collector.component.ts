@@ -53,7 +53,6 @@ export class EditCollectorComponent implements OnInit {
 
   onSubmit() {
     const collectorData = this.editCollectorForm.value;
-    debugger;
     if(collectorData.birthdate) {
       collectorData.birthdate = moment(collectorData.birthdate).format("YYYY-MM-DD");
     }

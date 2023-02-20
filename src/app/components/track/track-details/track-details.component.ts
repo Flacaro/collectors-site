@@ -56,7 +56,7 @@ export class TrackDetailsComponent implements OnInit {
 deleteTrack() {
   this.trackService.deleteTrack(this.collectionId, this.diskId, this.trackId).subscribe({
     next: () => {
-      this.snackbar.open("Collection deleted successfully", "Close", {
+      this.snackbar.open("Track deleted successfully", "Close", {
         duration: 3000,
       });
       this.router.navigate(["../../"], { relativeTo: this.route, queryParamsHandling: 'preserve' });
